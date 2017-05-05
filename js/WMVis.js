@@ -11,6 +11,17 @@ WMVis = (function() {
     controller = new WMVis.Controller();
     dataModel = new WMVis.DataModel();
     view = new WMVis.View();
+
+    controller.init();
+    dataModel.init();
+    view.init();
+
+    controller.addEventListener("stageSliderChanged", onStageSliderChanged);
+  }
+
+  function onStageSliderChanged(event) {
+    var newStage = event.data;
+    console.log("newStage: " + newStage);
   }
 
   that.init = init;

@@ -20,7 +20,12 @@
 
   <main>
     <!-- Unsere Visualisierung -->
+    <div class="container">
+      <label id="stageLabel" for="stageSlider"></label>
+      <input id="stageSlider" type="range" min="0" max="8" value="0" step="1">
+    </div>
   </main>
+
 
   <footer class="page-footer grey centered">
     <div class="footer-copyright">
@@ -42,7 +47,7 @@
   <script src="js/WMVis.js"></script>
   <script src="js/controller/Controller.js"></script>
   <script src="js/view/View.js"></script>
-  <script src="js/dataModel/DataModel.js"></script>
+  <script src="js/data/DataModel.js"></script>
   <script>
     WMVis.init();
   </script>
