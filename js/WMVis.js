@@ -21,7 +21,7 @@ WMVis = (function() {
 
   function onStageSliderChanged(event) {
     var newStage = event.data;
-    console.log("newStage: " + newStage);
+    view.changeStageLabel(newStage);
   }
 
   that.init = init;
