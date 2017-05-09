@@ -1,1 +1,14 @@
+#stageMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+#stageSlider {
+  width: 50%;
+}
+
+#stageLabel {
+  font-size: 20px;
+}
