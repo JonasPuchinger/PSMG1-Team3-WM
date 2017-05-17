@@ -12,3 +12,14 @@
 #stageLabel {
   font-size: 20px;
 }
+
+.thumb {
+  display: none;
+}
+
+.nationcard .card-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

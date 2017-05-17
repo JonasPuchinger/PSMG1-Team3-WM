@@ -20,13 +20,67 @@
 
   <main>
     <!-- Unsere Visualisierung -->
-    <div class="container">
-      <div class="section" id="stageMenu">
-        <label id="stageLabel" for="stageSlider">Before Tournament</label>
-        <input id="stageSlider" type="range" min="0" max="7" value="0" step="1">
+    <div class="row stage-menu-fixed">
+      <div class="col s12">
+        <div class="section" id="stageMenu">
+          <label id="stageLabel" for="stageSlider">Before Tournament</label>
+          <input id="stageSlider" type="range" min="0" max="8" value="0" step="1">
+        </div>
       </div>
-
     </div>
+
+    <div class="row">
+      <div class="col s12">
+
+        <h3>Group A</h3>
+
+        <div class="row">
+          <div class="col s2">
+            <div class="card nationcard">
+              <div class="card-content">
+                <img src="https://lipis.github.io/flag-icon-css/flags/4x3/br.svg" alt="Brazil" width="64" height="48">
+                <span>Brazil</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div class="row">
+           <div class="col s2">
+             <div class="card nationcard">
+               <div class="card-content">
+                 <img src="https://lipis.github.io/flag-icon-css/flags/4x3/br.svg" alt="Brazil" width="64" height="48">
+                 <span>Brazil</span>
+               </div>
+             </div>
+           </div>
+         </div>
+
+        <div class="row">
+          <div class="col s2">
+            <div class="card nationcard">
+              <div class="card-content">
+                <img src="https://lipis.github.io/flag-icon-css/flags/4x3/br.svg" alt="Brazil" width="64" height="48">
+                <span>Brazil</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       <div class="row">
+         <div class="col s2">
+           <div class="card nationcard">
+             <div class="card-content">
+               <img src="https://lipis.github.io/flag-icon-css/flags/4x3/br.svg" alt="Brazil" width="64" height="48">
+               <span>Brazil</span>
+             </div>
+           </div>
+         </div>
+       </div>
+
+      </div>
+    </div>
+
   </main>
 
   <footer class="page-footer grey centered">
@@ -46,6 +100,7 @@
   <script src="js/materialize/init.js"></script>
   <script src="vendors/event-publisher/EventPublisher.js"></script>
   <script src="vendors/request/request.js"></script>
+  <script src="vendors/sticky.js"></script>
   <script src="js/WMVis.js"></script>
   <script src="js/controller/Controller.js"></script>
   <script src="js/view/View.js"></script>

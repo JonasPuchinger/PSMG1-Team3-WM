@@ -6,7 +6,7 @@ WMVis.DataModel = function () {
 
     var that = new EventPublisher(),
         compareG = propComp('win_group'),
-        /* 
+        /*
         compareRo16 = propComp('quarter'),
         compareQ = propComp('semi'),
         compareS = propComp('cup'),
@@ -19,23 +19,24 @@ WMVis.DataModel = function () {
         ro16 = null,
         quarter = null,
         semi = null,
-        final = null;
+        final = null,
+        winner = null;
 
     function init() {
 
     }
 
     //Einlesen u. Ausgeben der Datensätze
-    function getMatchday1() { 
-        
+    function getMatchday1() {
+
         //Datensatz bereits eingelesen?
         if (matchday1 === null) {
             d3.csv("../../data/matchday1_abcd.csv", function (data1) {
                 d3.csv("../../data/matchday1_efgh.csv", function (data2) {
-                    
+
                     //Zusammenschneiden der Datensätze
                     matchday1 = computeGroupData(data1, data2);
-                    
+
                     //Return-Event anstoßen
                     that.notifyAll("recieveMd1", matchday1);
                 });
@@ -47,7 +48,7 @@ WMVis.DataModel = function () {
             }
     }
 
-    function getMatchday2() { 
+    function getMatchday2() {
         if (matchday2 === null) {
             d3.csv("../../data/matchday2_abcd.csv", function (data1) {
                 d3.csv("../../data/matchday2_efgh.csv", function (data2) {
@@ -62,7 +63,7 @@ WMVis.DataModel = function () {
             }
     }
 
-    function getMatchday3() { 
+    function getMatchday3() {
         if  (matchday3 === null) {
             d3.csv("../../data/matchday3_abcd.csv", function (data1) {
                 d3.csv("../../data/matchday3_efgh.csv", function (data2) {
@@ -84,14 +85,14 @@ WMVis.DataModel = function () {
                     data2.sort(compareG);
                     var data = (data1.slice(0, 16)).concat(data2.slice(16)),
                         cutData = [];
-                    
+
                     //Filtern nach Achtelfinal-Kandidaten
                     for (let entry of data) {
                         if(entry.sixteen == 1) {
                             cutData.push(entry);
                         }
                     }
-                    ro16 = cutData;                
+                    ro16 = cutData;
                     that.notifyAll("recieveRo16", ro16);
 
                 });
@@ -161,11 +162,11 @@ WMVis.DataModel = function () {
                 that.notifyAll("recieveFinal", final);
             }
     }
-    
+
     function getPreTournament() {
         if (preTournament === null) {
             d3.csv("../../data/pre_tournament.csv",function (data) {
-                
+
                 //Sortierung nach Gruppen + Chance WM-Sieg
                 data.sort(compareF);
 
@@ -178,18 +179,22 @@ WMVis.DataModel = function () {
             }
     }
 
+    function getWinner() {
+      
+    }
+
 
     //Sortiert zwei Datensätze und schneidet sie zusammen
     function computeGroupData(d1, d2) {
         //Sortierung nach Gruppe + Chance auf Gruppensieg
-        d1.sort(compareG); 
+        d1.sort(compareG);
         d2.sort(compareG);
         return (d1.slice(0, 16)).concat(d2.slice(16));
     }
 
 
     //Sortierfunktion nach Gruppe
-    function propComp(prop) { 
+    function propComp(prop) {
         return function(a,b) {
             if (a.group.charCodeAt(0) < b.group.charCodeAt(0)) {
                 return -1;
