@@ -7,29 +7,27 @@ WMVis = (function() {
     dataModel,
     view;
 
+    function loadDataModel() {
+        dataModel = new WMVis.DataModel();
+        dataModel.addEventListener("finishedLoading", init);
+        dataModel.init();
+    }
+    
     function init() {
         controller = new WMVis.Controller();
-        dataModel = new WMVis.DataModel();
         view = new WMVis.View();
 
         controller.init();
-        dataModel.init();
         view.init();
 
-        dataModel.getPreTournament(); //Slider Startet hier
-
+        initCanvas();
+    }
+    
+    function initCanvas() {
+        preTournament();
+        let sliderEl = document.querySelector('#stageSlider');
+        sliderEl.value = 0;
         controller.addEventListener("stageSliderChanged", onStageSliderChanged);
-        
-        dataModel.addEventListener("recieveMd1", recieveMd1);
-        dataModel.addEventListener("recieveMd2", recieveMd2);
-        dataModel.addEventListener("recieveMd3", recieveMd3);
-        dataModel.addEventListener("recieveRo16", recieveRo16);
-        dataModel.addEventListener("recieveQuarter", recieveQuarter);
-        dataModel.addEventListener("recieveSemi", recieveSemi);
-        dataModel.addEventListener("recieveFinal", recieveFinal);
-        dataModel.addEventListener("recievePreTournament", recievePreTournament);
-
-
     }
 
     function onStageSliderChanged(event) {
@@ -38,65 +36,73 @@ WMVis = (function() {
         
         switch (parseInt(newStage)) {
             case 0: //Before Tournament
-                dataModel.getPreTournament();
+                preTournament();
                 break;
             case 1: //After Md1
-                dataModel.getMatchday1();
+                md1();
                 break;
             case 2: //After Md2
-                dataModel.getMatchday2();
+                md2();
                 break;
             case 3: //After Md3
-                dataModel.getMatchday3();
+                md3();
                 break;
             case 4: //Before Ro16
-                dataModel.getRo16();
+                ro16();
                 break;
             case 5: //Before Quarter
-                dataModel.getQuarter();
+                quarter();
                 break;
             case 6: //Before Semi
-                dataModel.getSemi();
+                semi();
                 break;
             case 7: //Before Finals
-                dataModel.getFinal();
+                final();
                 break;
                         }
 
     }
                 
-    function recievePreTournament(event) {
-        console.log(event.data);
+    function preTournament() {
+        console.log(dataModel.getPreTournament());
     }
 
-    function recieveMd1(event) {
-        console.log(event.data);
+    function md1() {
+        let md1 = dataModel.getMatchday1();
+        console.log(md1);
     }   
 
-    function recieveMd2(event) {
-        console.log(event.data);
+    function md2() {
+        let md2 = dataModel.getMatchday2();
+        console.log(md2);
     } 
 
-    function recieveMd3(event) {
-        console.log(event.data);
+    function md3() {
+        let md3 = dataModel.getMatchday3();
+        console.log(md3);
     } 
 
-    function recieveRo16(event) {
-        console.log(event.data);
+    function ro16() {
+        let ro16 = dataModel.getRo16();
+        console.log(ro16);
     } 
 
-    function recieveQuarter(event) {
-        console.log(event.data);
+    function quarter() {
+        let quarter = dataModel.getQuarter();
+        console.log(quarter);
     } 
 
-    function recieveSemi(event) {
-        console.log(event.data);
+    function semi() {
+        let semi = dataModel.getSemi();
+        console.log(semi);
     } 
 
-    function recieveFinal(event) {
-        console.log(event.data);
+    function final() {
+        let final = dataModel.getFinal();
+        console.log(final);
     } 
 
-    that.init = init;
+    that.loadDataModel = loadDataModel;
+//    that.init = init;
     return that;
 }());
