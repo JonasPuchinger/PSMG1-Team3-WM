@@ -1,0 +1,32 @@
+<script type="text/x-underscore" id="groupsList">
+  <% _.each(groupNames, function(group, key1, list1) {
+
+  %>
+    <div class="row">
+      <div class="col s12">
+        <h3>Group <%= group %></h3>
+        <% _.each(nations[key1], function(nation, key2, list2) {
+
+        %>
+          <div class="row nation-row">
+            <div class="col s2">
+              <div class="card nationcard">
+                <div class="card-content">
+                  <img src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48">
+                  <span><%= nation %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <%
+          });
+        %>
+
+      </div>
+    </div>
+  <%
+    });
+  %>
+</script>
+
+<div id="groupsListEl"></div>
