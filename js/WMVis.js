@@ -4,6 +4,7 @@ WMVis = (function() {
 
     var that = {},
     controller,
+    probabilityController,
     dataModel,
     view;
 
@@ -70,6 +71,8 @@ WMVis = (function() {
     function md1() {
         let md1 = dataModel.getMatchday1();
         console.log(md1);
+        /*probabilityController = new WMVis.ProbabilityController();
+        probabilityController.calculateProbabilities(["BRA","CRO",],md1);*/
     }   
 
     function md2() {
