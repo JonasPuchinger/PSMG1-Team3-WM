@@ -5,14 +5,14 @@ WMVis.View = function () {
     const stages = ["Before Tournament", "Before Matchday 1", "Matchday 1", "Matchday 2", "Matchday 3", "Before Knockout-Stage", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
 
     var that = new EventPublisher(),
-      preTournamentLayout,
+      preTournamentView,
       stageLabel;
 
     function init() {
-      preTournamentLayout = new View.PreTournamentLayout();
-      stageLabel = document.querySelector("#stageLabel");
+      preTournamentView = new View.PreTournamentView();
+      stageLabel = document.querySelector("#stage-label");
 
-      preTournamentLayout.init();
+      preTournamentView.init();
       $(".stage-menu-fixed").stick_in_parent();
     }
 
@@ -20,8 +20,18 @@ WMVis.View = function () {
         stageLabel.innerHTML = stages[stage];
     }
 
+    function setPredictionData(predData) {
+      preTournamentView.setPredictionData(predData);
+    }
+
+    function togglePredictionRow(nationData) {
+      preTournamentView.togglePredictionRow(nationData);
+    }
+
     that.init = init;
     that.stages = stages;
     that.changeStageLabel = changeStageLabel;
+    that.setPredictionData = setPredictionData;
+    that.togglePredictionRow = togglePredictionRow;
     return that;
     };

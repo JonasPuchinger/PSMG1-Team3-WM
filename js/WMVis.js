@@ -13,20 +13,22 @@ WMVis = (function() {
         dataModel.addEventListener("finishedLoading", init);
         dataModel.init();
     }
-    
+
     function init() {
         controller = new WMVis.Controller();
         view = new WMVis.View();
 
         controller.init();
+        controller.addEventListener("nationCardHovered", togglePredictionRow);
+        controller.addEventListener("nationCardLeft", togglePredictionRow);
         view.init();
 
         initCanvas();
     }
-    
+
     function initCanvas() {
         preTournament();
-        let sliderEl = document.querySelector('#stageSlider');
+        let sliderEl = document.querySelector('#stage-slider');
         sliderEl.value = 0;
         controller.addEventListener("stageSliderChanged", onStageSliderChanged);
     }
@@ -34,7 +36,7 @@ WMVis = (function() {
     function onStageSliderChanged(event) {
         var newStage = event.data;
         view.changeStageLabel(newStage);
-        
+
         switch (parseInt(newStage)) {
             case 0: //Before Tournament
                 preTournament();
@@ -63,47 +65,53 @@ WMVis = (function() {
                         }
 
     }
-                
+
     function preTournament() {
-        console.log(dataModel.getPreTournament());
+        let preTournament = dataModel.getPreTournament();
+        view.setPredictionData(preTournament);
+        console.log(preTournament);
     }
 
     function md1() {
         let md1 = dataModel.getMatchday1();
         console.log(md1);
-        /*probabilityController = new WMVis.ProbabilityController();
-        probabilityController.calculateProbabilities(["BRA","CRO",],md1);*/
-    }   
+        // probabilityController = new WMVis.ProbabilityController();
+        // probabilityController.calculateProbabilities(["BRA","CRO",],md1);
+    }
 
     function md2() {
         let md2 = dataModel.getMatchday2();
         console.log(md2);
-    } 
+    }
 
     function md3() {
         let md3 = dataModel.getMatchday3();
         console.log(md3);
-    } 
+    }
 
     function ro16() {
         let ro16 = dataModel.getRo16();
         console.log(ro16);
-    } 
+    }
 
     function quarter() {
         let quarter = dataModel.getQuarter();
         console.log(quarter);
-    } 
+    }
 
     function semi() {
         let semi = dataModel.getSemi();
         console.log(semi);
-    } 
+    }
 
     function final() {
         let final = dataModel.getFinal();
         console.log(final);
-    } 
+    }
+
+    function togglePredictionRow(event) {
+      view.togglePredictionRow(event.data);
+    }
 
     that.loadDataModel = loadDataModel;
 //    that.init = init;
