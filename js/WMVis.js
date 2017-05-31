@@ -25,7 +25,7 @@ WMVis = (function() {
     }
     
     function initCanvas() {
-        preTournament();
+        md3();
         let sliderEl = document.querySelector('#stageSlider');
         sliderEl.value = 0;
         controller.addEventListener("stageSliderChanged", onStageSliderChanged);

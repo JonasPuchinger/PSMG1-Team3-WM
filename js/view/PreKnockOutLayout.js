@@ -19,7 +19,6 @@ View.PreKnockOutLayout = function (data) {
     function init() {
         var ro16Template = _.template($('#knockoutMatchTemplate').html());
         var vars = {
-            obj: data[0],
             matches: matches,
             flagsUrlBase: flagsUrlBase
         };

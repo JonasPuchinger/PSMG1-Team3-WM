@@ -5,18 +5,18 @@
     <% _.each(matches, function(match,id) {%>
         <div class="match" id="<%=id%>">
             <div class="team1">
-                <img src="<%=flagsUrlBase%><%=match[0]%>.svg" alt="nation" width="40" height="30">
+                <img src="<%=flagsUrlBase%><%=match[0]%>.svg"  width="40" height="30">
                 <span class="country"><%=match[0]%></span>
-                <span class="goals"></span>
+                <span class="goals">8</span>
             </div>
             <div class="team2">
-                <img src="<%=flagsUrlBase%><%=match[1]%>.svg" alt="nation" width="40" height="30">
+                <img src="<%=flagsUrlBase%><%=match[1]%>.svg"  width="40" height="30">
                 <span class="country"><%=match[1]%></span>
-                <span class="goals"></span>
+                <span class="goals">4</span>
             </div>
         </div>
         
-    <%})%>
+    <%});%>
     </div>
 </script>
 
