@@ -82,12 +82,14 @@ WMVis = (function() {
 
     function md3() {
         let md3 = dataModel.getMatchday3();
+        view.setLayout(md3);
         console.log(md3);
     } 
 
     function ro16() {
         let ro16 = dataModel.getRo16();
-        console.log(ro16);
+        let preKnockOutLayout = new View.PreKnockOutLayout(ro16);
+
     } 
 
     function quarter() {

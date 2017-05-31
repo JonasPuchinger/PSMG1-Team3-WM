@@ -23,3 +23,25 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.team1, .team2 {
+    padding: 0px;
+    text-align: center;
+    font-family: fantasy;
+}
+
+.match {
+    margin: 20px;
+    border-style: solid;
+    border-width: 3px;
+    padding: 4px;
+}
+
+.ro16 {
+    max-width: 300px;
+    min-width: 200px;
+}
+
+.country {
+    position: absolute;
+}
