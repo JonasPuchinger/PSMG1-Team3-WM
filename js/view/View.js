@@ -6,13 +6,16 @@ WMVis.View = function () {
 
     var that = new EventPublisher(),
       preTournamentLayout,
+      groupLayout,
       stageLabel;
 
     function init() {
-      preTournamentLayout = new View.PreTournamentLayout();
+      //preTournamentLayout = new View.PreTournamentLayout();
+      groupLayout = new View.GroupLayout();
       stageLabel = document.querySelector("#stageLabel");
 
-      preTournamentLayout.init();
+      //preTournamentLayout.init();
+      groupLayout.init();
       $(".stage-menu-fixed").stick_in_parent();
     }
 

@@ -23,3 +23,45 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.group-container{
+    width: 25%;
+}
+
+.result{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 60%;
+  font-size: 30pt;
+}
+
+.x{
+    margin-top: 100%;
+    width: 10%;
+    background: red;
+    text-align: center;
+    color: white;
+    size: 30pt;
+}
+
+.one{
+    margin-top: 30%;
+    margin-left: 50%;
+    width: 10%;
+    background: green;
+    text-align: center;
+    color: white;
+    size: 30pt;
+}
+
+.two{
+    margin-top: 60%;
+    margin-left: 40%;
+    width: 10%;
+    background: orange;
+    text-align: center;
+    color: white;
+    size: 30pt;
+}
