@@ -1,0 +1,50 @@
+<script type="text/x-underscore" id="resultList">
+    <% _.each(groupNames, function(group, key1){
+    %>
+        <div class="row">
+          <div class="col s2">
+            <% if(games!==null){ %><h4>Last Results</h4>
+            <div class="row result-row">
+                <div class="col s12">
+                    <% _.each(games[key1], function(groupGames, key2){
+                    %>
+                    <div class="result">
+                        <result><%= groupGames.result %></result>
+                    </div>
+                    <%
+                    });
+                    %>
+                </div>
+            </div>
+            <% } %>
+          </div>
+          <div class="col s2 push-s3">
+                <h3>Group <%= group %></h3>
+                <% _.each(nations[key1], function(nation, key2, list2) {
+                %>
+                <div class="row nation-row">
+                    <div class="col s12">
+                        <div class="card nationcard">
+                            <div class="card-content">
+                                <img src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48">
+                                <span><%= nation %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%
+                  });
+                %>
+            </div>
+            <div class="col s3 push-s4">
+                <div class="circle one">1</div>
+                <div class="circle two">2</div>
+                <div class="circle x">X</div>
+            </div>
+        </div>
+    <%
+      });
+    %>
+</script>
+
+<div id="resultEl"></div>

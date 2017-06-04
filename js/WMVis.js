@@ -6,7 +6,8 @@ WMVis = (function() {
     controller,
     probabilityController,
     dataModel,
-    view;
+    view,
+    gamesData;
 
     function loadDataModel() {
         dataModel = new WMVis.DataModel();
@@ -17,6 +18,7 @@ WMVis = (function() {
     function init() {
         controller = new WMVis.Controller();
         view = new WMVis.View();
+        gamesData = new WMVis.GamesData();
 
         controller.init();
         view.init();
@@ -39,38 +41,53 @@ WMVis = (function() {
             case 0: //Before Tournament
                 preTournament();
                 break;
-            case 1: //After Md1
+            case 1: //Before Md1
+                md0();
+                break;
+            case 2: //After Md1
                 md1();
                 break;
-            case 2: //After Md2
+            case 3: //After Md2
                 md2();
                 break;
-            case 3: //After Md3
+            case 4: //After Md3
                 md3();
                 break;
-            case 4: //Before Ro16
+            case 5: //Before K.O.
+                ko();
+                break;
+            case 6: //After Ro16
                 ro16();
                 break;
-            case 5: //Before Quarter
+            case 7: //After Quarter
                 quarter();
                 break;
-            case 6: //Before Semi
-                semi();
+            case 8: //After Semi
+                semi()
                 break;
-            case 7: //Before Finals
+            case 9: //After Finals
                 final();
                 break;
-                        }
+                       
+          }
 
     }
                 
     function preTournament() {
-        console.log(dataModel.getPreTournament());
+        let pt = dataModel.getPreTournament();
+        console.log(pt);
+        view.changeLayout(0, pt, null);
+    }
+    
+    function md0() { //+wahrscheinlichkeiten und zukünftige spiele
+        let md0 = dataModel.getPreTournament();
+        view.changeLayout(1, md0, null);
     }
 
     function md1() {
         let md1 = dataModel.getMatchday1();
         console.log(md1);
+        view.changeLayout(1, md1, gamesData.getGames(0));
         /*probabilityController = new WMVis.ProbabilityController();
         probabilityController.calculateProbabilities(["BRA","CRO",],md1);*/
     }   
@@ -78,12 +95,18 @@ WMVis = (function() {
     function md2() {
         let md2 = dataModel.getMatchday2();
         console.log(md2);
+        view.changeLayout(1, md2, gamesData.getGames(1));
     } 
 
     function md3() {
         let md3 = dataModel.getMatchday3();
         console.log(md3);
-    } 
+        view.changeLayout(1, md3, gamesData.getGames(2));
+    }
+    
+    function ko() {
+        let ro16 = dataModel.getRo16();
+    }
 
     function ro16() {
         let ro16 = dataModel.getRo16();
