@@ -17,8 +17,8 @@ View.PreKnockOutLayout = function (data) {
         flagsUrlBase = "/data/flags/";
 
     function init() {
-        var ro16Template = _.template($('#knockoutMatchTemplate').html());
-        var vars = {
+        var ro16Template = _.template($('#knockoutMatchTemplate').html()),
+            vars = {
             matches: matches,
             flagsUrlBase: flagsUrlBase
         };
@@ -28,4 +28,4 @@ View.PreKnockOutLayout = function (data) {
     
     that.init = init;
     return that;
-}
+};
