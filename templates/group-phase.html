@@ -3,19 +3,20 @@
     %>
         <div class="row">
           <div class="col s2">
-            <% if(results!==null){ %><h3>Last Results</h3><% } %>
+            <% if(games!==null){ %><h4>Last Results</h4>
             <div class="row result-row">
                 <div class="col s12">
-                    <% _.each(results[key1], function(result, key2){
+                    <% _.each(games[key1], function(groupGames, key2){
                     %>
                     <div class="result">
-                        <result><%= result %></result>
+                        <result><%= groupGames.result %></result>
                     </div>
                     <%
                     });
                     %>
                 </div>
             </div>
+            <% } %>
           </div>
           <div class="col s2 push-s3">
                 <h3>Group <%= group %></h3>
@@ -35,7 +36,7 @@
                   });
                 %>
             </div>
-            <div class="col s2 push-s5">
+            <div class="col s3 push-s4">
                 <div class="circle one">1</div>
                 <div class="circle two">2</div>
                 <div class="circle x">X</div>

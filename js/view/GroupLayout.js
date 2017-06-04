@@ -25,42 +25,15 @@ View.GroupLayout = function () {
      ["de", "pt", "us", "gh"],
      ["be", "ru", "kr", "dz"]
      ],
-    flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/",
-    
-    games = [
-        ["BRA-CRO", "CAM-MEX"],
-        ["BRA-CRO", "CAM-MEX"],
-        ["BRA-CRO", "CAM-MEX"],
-        ["BRA-CRO", "CAM-MEX"],
-        ["BRA-CRO", "CAM-MEX"],
-        ["BRA-CRO", "CAM-MEX"],
-        ["BRA-CRO", "CAM-MEX"]
-    ],
-          
-    results = [
-        ["5:1", "3:0"],
-        ["2:1", "3:0"],
-        ["1:1", "3:0"],
-        ["2:1", "3:0"],
-        ["4:1", "3:0"],
-        ["2:1", "3:2"],
-        ["2:1", "3:3"],
-        ["0:1", "1:0"]
-    ],
-    
-    json = "data/results.json";
+    flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
 
     var that = new EventPublisher();
 
-    function init() {
-      var template1 = _.template($("#resultList").html());
-      var vars1 = {groupNames: groupNames, games: games, results: results, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase}; //aus results.json
-      var compiled1 = template1(vars1);
-      $("#resultEl").append(compiled1);
-     /* var template = _.template($("#gamesList").html());
-      var vars = {groupNames: groupNames, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
+    function init(data, games) {
+      var template = _.template($("#resultList").html());
+      var vars = {groupNames: groupNames, games: games, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
       var compiled = template(vars);
-      $("#groupsListEl").append(compiled);*/
+      $("#resultEl").append(compiled);
     }
 
     that.init = init;

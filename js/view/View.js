@@ -10,21 +10,38 @@ WMVis.View = function () {
       stageLabel;
 
     function init() {
-      //preTournamentLayout = new View.PreTournamentLayout();
-      groupLayout = new View.GroupLayout();
       stageLabel = document.querySelector("#stageLabel");
-
-      //preTournamentLayout.init();
-      groupLayout.init();
       $(".stage-menu-fixed").stick_in_parent();
     }
 
     function changeStageLabel(stage) {
         stageLabel.innerHTML = stages[stage];
     }
+    
+    function changeLayout(layout, data, games){
+        switch(layout){
+            case 0:
+                preTournamentLayout = new View.PreTournamentLayout();
+                document.querySelector("#resultEl").innerHTML = "";
+                preTournamentLayout.init();
+                console.log(games);
+                break;
+            case 1:
+                groupLayout = new View.GroupLayout();
+                document.querySelector("#groupsListEl").innerHTML = "";
+                document.querySelector("#resultEl").innerHTML = "";
+                console.log(games);
+                groupLayout.init(data, games);
+                break;
+            case 2:
+                break;
+                
+        }
+    }
 
     that.init = init;
     that.stages = stages;
     that.changeStageLabel = changeStageLabel;
+    that.changeLayout = changeLayout;
     return that;
     };
