@@ -3,11 +3,11 @@ WMVis = (function() {
     "use strict";
 
     var that = {},
-    controller,
-    probabilityController,
-    dataModel,
-    view,
-    gamesData;
+        controller,
+        probabilityController,
+        dataModel,
+        view,
+        gamesData;
 
     function loadDataModel() {
         dataModel = new WMVis.DataModel();
