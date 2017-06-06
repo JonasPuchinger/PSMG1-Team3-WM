@@ -1,4 +1,4 @@
-<script type="text/x-underscore" id="knockoutMatchTemplate">
+<script type="text/x-underscore" id="ro16Template">
 
     <div class="ro16">
 
@@ -7,7 +7,9 @@
                 <table>
                     <tr class="team1">
                         <td class="img">
-                            <img src="<%=flagsUrlBase%><%=match[0]%>.svg" width="40" height="30">
+                            <% if(match[0] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match[0]%>.svg" width="40" height="30">
+                                <%};%>
                         </td>
                         <td class="country">
                             <span><%=match[0]%></span>
@@ -18,7 +20,9 @@
                     </tr>
                     <tr class="team2">
                         <td class="img">
-                            <img src="<%=flagsUrlBase%><%=match[1]%>.svg" width="40" height="30">
+                            <% if(match[1] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match[1]%>.svg" width="40" height="30">
+                                <%};%>
                         </td>
                         <td class="country">
                             <span><%=match[1]%></span>
@@ -30,6 +34,49 @@
                 </table>
             </div>
 
+            <%});%>
+    </div>
+</script>
+
+<script type="text/x-underscore" id="quarterTemplate">
+
+    <div class="quarter">
+
+        <% _.each(matches, function(match,id) {%>
+            <div class="match" id="<%=id%>">
+                <table>
+                    <tr class="team1">
+                        <td class="img">
+                        
+                            <% console.log(id);if(match[0] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match[0]%>.svg" width="40" height="30">
+                                <%};%>
+                                
+                        </td>
+                        <td class="country">
+                            <span><%=match[0]%></span>
+                        </td>
+                        <td class="goals">
+                            <span>8</span>
+                        </td>
+                    </tr>
+                    <tr class="team2">
+                        <td class="img">
+                        
+                            <% if(match[1] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match[1]%>.svg" width="40" height="30">
+                                <%};%>
+                                
+                        </td>
+                        <td class="country">
+                            <span><%=match[1]%></span>
+                        </td>
+                        <td class="goals">
+                            <span>4</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <%});%>
     </div>
 </script>

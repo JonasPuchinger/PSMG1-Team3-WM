@@ -14,16 +14,36 @@ View.PreKnockOutLayout = function (data) {
             ["ARG", "SUI"],
             ["BEL", "USA"]
         ],
+        quarterTBD = [
+            ["TBD","TBD"],
+            ["TBD","TBD"],
+            ["TBD","TBD"],
+            ["TBD","TBD"],
+        ],
+        semiTBD = [
+            ["TBD","TBD"],
+            ["TBD","TBD"],
+        ],
+        finalTBD = [
+            ["TBD","TBD"]
+        ],
         flagsUrlBase = "/data/flags/";
 
     function init() {
-        var ro16Template = _.template($('#knockoutMatchTemplate').html()),
-            vars = {
-            matches: matches,
-            flagsUrlBase: flagsUrlBase
-        };
-        var compiled = ro16Template(vars);
-        $("#tournamentBracketsEl").append(compiled);
+        var ro16Template = _.template($('#ro16Template').html()),
+            quarterTemplate = _.template($('#quarterTemplate').html()),
+            ro16Vars = {
+                matches: matches,
+                flagsUrlBase: flagsUrlBase
+            },
+            quarterVars = {
+                matches: quarterTBD,
+                flagsUrlBase: flagsUrlBase
+            },
+            ro16Compiled = ro16Template(ro16Vars),
+            quarterCompiled = quarterTemplate(quarterVars);
+        $("#tournamentBracketsEl").append(ro16Compiled);
+        $("#tournamentBracketsEl").append(quarterCompiled);        
     }
     
     that.init = init;

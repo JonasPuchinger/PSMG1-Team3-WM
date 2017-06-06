@@ -1,47 +1,62 @@
 #stageMenu {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #stageSlider {
-  width: 50%;
+    width: 50%;
 }
 
 #stageLabel {
-  font-size: 20px;
-}
-
-#tournamentBracketsEl {
-    height: 1300px;
-    
+    font-size: 20px;
 }
 
 .thumb {
-  display: none;
+    display: none;
 }
 
-.nationcard .card-content{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+#tournamentBracketsEl {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
-.ro16 {
+.nationcard .card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ro16,
+.quarter {
+    position: relative;
     max-width: 300px;
     min-width: 200px;
     height: 1300px;
+    float: left;
+/*    display: block;*/
+}
+
+.ro16 {
+    left: 500px;
+}
+
+.quarter {
+    left: 100px;
 }
 
 .match {
+    width: 300px;
+    height: 127px;
     border-style: solid;
     margin: 20px 0px 20px 20px;
 }
 
-.team1, .team2 {
-    height: px;
+.team1,
+.team2 {
     background-color: #f6f6f6;
 }
 
@@ -58,23 +73,18 @@
 .img {
     width: 40px;
     height: 30px;
+    padding: 5px 10px 0px 10px;
 }
 
-.country {
-    
-}
+.country {}
 
 .goals {
     font-size: 20px;
     text-align: center;
-    border-style:dashed;
+    border-style: dashed;
     border-width: 0px 0px 0px 2px;
 }
 
-.team1 > .goals {
-    
-}
+.team1>.goals {}
 
-.team2 > .goals {
-    
-}
+.team2>.goals {}
