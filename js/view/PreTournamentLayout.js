@@ -5,8 +5,8 @@ View.PreTournamentLayout = function () {
     "use strict";
 
     const groupNames = ["A", "B", "C", "D", "E", "F", "G", "H"],
-    nations = [
-     ["Brazil", "Mexico", "Croation", "Cameroon"],
+        nations = [
+     ["Brazil", "Mexico", "Croatia", "Cameroon"],
      ["Spain", "Chile", "Netherlands", "Australia"],
      ["Colombia", "Ivory Coast", "Greece", "Japan"],
      ["Uruguay", "England", "Italy", "Costa Rica"],
@@ -15,7 +15,7 @@ View.PreTournamentLayout = function () {
      ["Germany", "Portugal", "USA", "Ghana"],
      ["Belgium", "Russia", "South Korea", "Algeria"]
      ],
-    abbrs = [
+        abbrs = [
      ["br", "mx", "hr", "cm"],
      ["es", "cl", "nl", "au"],
      ["co", "ci", "gr", "jp"],
@@ -25,17 +25,22 @@ View.PreTournamentLayout = function () {
      ["de", "pt", "us", "gh"],
      ["be", "ru", "kr", "dz"]
      ],
-    flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
+        flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
 
     var that = new EventPublisher();
 
     function init() {
-      var template = _.template($("#groupsList").html());
-      var vars = {groupNames: groupNames, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
-      var compiled = template(vars);
-      $("#groupsListEl").append(compiled);
+        var template = _.template($("#groupsList").html());
+        var vars = {
+            groupNames: groupNames,
+            nations: nations,
+            abbrs: abbrs,
+            flagsUrlBase: flagsUrlBase
+        };
+        var compiled = template(vars);
+        $("#groupsListEl").append(compiled);
     }
 
     that.init = init;
     return that;
-    };
+};

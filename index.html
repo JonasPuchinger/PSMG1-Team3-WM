@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>WM 2014 Visualization</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>WM 2014 Visualization</title>
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize/materialize.css" rel="stylesheet"/>
-  <link href="css/materialize/style-materialize.css" rel="stylesheet"/>
-  <link href="css/style.css" rel="stylesheet"/>
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script src="vendors/underscore/underscore-min.js"></script>
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize/materialize.css" rel="stylesheet" />
+    <link href="css/materialize/style-materialize.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="lib/underscore/underscore-min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
+
 <body>
-  <header>
-    <nav class="grey">
-      <div class="nav-wrapper container"><span id="logo-container" class="brand-logo">WM 2014 Visualization</span>
-      </div>
-    </nav>
-  </header>
+    <header>
+        <nav class="grey">
+            <div class="nav-wrapper container"><span id="logo-container" class="brand-logo">WM 2014 Visualization</span>
+            </div>
+        </nav>
+    </header>
 
-  <main>
-    <!-- Unsere Visualisierung -->
-    <div class="row stage-menu-fixed">
-      <div class="col s12">
-        <div class="section" id="stageMenu">
-          <label id="stageLabel" for="stageSlider">Before Tournament</label>
-          <input id="stageSlider" type="range" min="0" max="9" value="0" step="1">
+    <main>
+        <!-- Unsere Visualisierung -->
+        <div class="row stage-menu-fixed">
+            <div class="col s12">
+                <div class="section" id="stageMenu">
+                    <label id="stageLabel" for="stageSlider">Before Tournament</label>
+                    <input id="stageSlider" type="range" min="0" max="9" value="0" step="1">
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div w3-include-html="templates/pre-tournament.html"></div>
+        <div w3-include-html="templates/pre-tournament.html"></div>
 
-    <div w3-include-html="templates/group-phase.html"></div>
+        <div w3-include-html="templates/group-phase.html"></div>
 
-    <div w3-include-html="templates/ko-phase.html"></div>
+        <div w3-include-html="templates/ko-phase.html"></div>
 
-  </main>
 
-  <footer class="page-footer grey centered">
-    <div class="footer-copyright">
-      <div class="container">
-        <div>
-          Made by <a target="_blank" class="white-text" href="https://github.com/JonasPuchinger">Jonas Puchinger</a>, <a target="_blank" class="white-text" href="https://github.com/VanessaHahn">Vanessa Hahn</a>, <a target="_blank" class="white-text" href="https://github.com/Nynx4life">Jakob Fehle</a>
+    </main>
+
+    <footer class="page-footer grey centered">
+        <div class="footer-copyright">
+            <div class="container">
+                <div>
+                    Made by <a target="_blank" class="white-text" href="https://github.com/JonasPuchinger">Jonas Puchinger</a>, <a target="_blank" class="white-text" href="https://github.com/VanessaHahn">Vanessa Hahn</a>, <a target="_blank" class="white-text" href="https://github.com/JakobFehle">Jakob Fehle</a>
+                </div>
+                <a class="white-text" href="pages/about.html">About</a>
+            </div>
         </div>
-        <a class="white-text" href="pages/about.html">About</a>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
   <script src="./lib/d3/d3.js"></script>
   <script src="lib/d3/d3.min.js"></script>
@@ -61,6 +64,10 @@
   <script src="js/WMVis.js"></script>
   <script src="js/controller/Controller.js"></script>
   <script src="js/controller/ProbabilityController.js"></script>
+  <script src="js/view/Ro16Layout.js"></script>
+  <script src="js/view/QuarterLayout.js"></script>
+  <script src="js/view/SemiLayout.js"></script>
+  <script src="js/view/FinalLayout.js"></script>
   <script src="js/view/View.js"></script>
   <script src="js/view/PreTournamentLayout.js"></script>
   <script src="js/view/GroupLayout.js"></script>
@@ -74,4 +81,5 @@
   </script>
 
   </body>
+
 </html>

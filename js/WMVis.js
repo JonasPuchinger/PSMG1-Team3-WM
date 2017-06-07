@@ -27,7 +27,7 @@ WMVis = (function() {
     }
     
     function initCanvas() {
-        preTournament();
+        md3();
         let sliderEl = document.querySelector('#stageSlider');
         sliderEl.value = 0;
         controller.addEventListener("stageSliderChanged", onStageSliderChanged);
@@ -100,6 +100,7 @@ WMVis = (function() {
 
     function md3() {
         let md3 = dataModel.getMatchday3();
+        view.setLayout(md3);
         console.log(md3);
         view.changeLayout(1, md3, gamesData.getGames(2));
     }
@@ -110,7 +111,8 @@ WMVis = (function() {
 
     function ro16() {
         let ro16 = dataModel.getRo16();
-        console.log(ro16);
+        let preKnockOutLayout = new View.PreKnockOutLayout(ro16);
+
     } 
 
     function quarter() {
