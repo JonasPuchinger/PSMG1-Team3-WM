@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+    background: WHITE;
 }
 
 #stageSlider {
@@ -18,9 +20,9 @@
 }
 
 #tournamentBracketsEl {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+/*    display: table;*/
+    width: 1550px;
+    height: 1106px;
 }
 
 .nationcard .card-content {
@@ -31,28 +33,56 @@
 }
 
 .ro16,
-.quarter {
-    position: relative;
-    max-width: 300px;
-    min-width: 200px;
-    height: 1300px;
+.quarter,
+.semi,
+.final {
+/*    display: table-cell;*/
+    width: 300px;
     float: left;
-/*    display: block;*/
 }
 
 .ro16 {
-    left: 500px;
+    margin-left: 50px;
+}
+
+.quarter,
+.semi,
+.final {
+    position: relative;
+    margin-left: 100px;
+    height: 100%;
+    top: 78px;
 }
 
 .quarter {
-    left: 100px;
+    top: 78px;
+}
+
+.semi {
+    top: 215px;
+}
+
+.final {
+    top: 479px;
+}
+
+.quarter .match {
+    margin: 0px 0px 147px 0px;    
+}
+
+.semi .match {
+    margin: 0px 0px 421px 0px;
+}
+
+.final .matach {
+    margin: 0px;
 }
 
 .match {
     width: 300px;
     height: 127px;
     border-style: solid;
-    margin: 20px 0px 20px 20px;
+    margin: 10px 0px 10px 0px;
 }
 
 .team1,
@@ -76,7 +106,9 @@
     padding: 5px 10px 0px 10px;
 }
 
-.country {}
+.country {
+    
+}
 
 .goals {
     font-size: 20px;

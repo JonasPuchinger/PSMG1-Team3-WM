@@ -32,6 +32,8 @@ View.PreKnockOutLayout = function (data) {
     function init() {
         var ro16Template = _.template($('#ro16Template').html()),
             quarterTemplate = _.template($('#quarterTemplate').html()),
+            semiTemplate = _.template($('#semiTemplate').html()),
+            finalTemplate = _.template($('#finalTemplate').html()),
             ro16Vars = {
                 matches: matches,
                 flagsUrlBase: flagsUrlBase
@@ -40,10 +42,22 @@ View.PreKnockOutLayout = function (data) {
                 matches: quarterTBD,
                 flagsUrlBase: flagsUrlBase
             },
+            semiVars = {
+                matches: semiTBD,
+                flagsUrlBase: flagsUrlBase
+            },
+            finalVars = {
+                matches: finalTBD,
+                flagsUrlBase: flagsUrlBase
+            },
             ro16Compiled = ro16Template(ro16Vars),
-            quarterCompiled = quarterTemplate(quarterVars);
+            quarterCompiled = quarterTemplate(quarterVars),
+            semiCompiled = semiTemplate(semiVars),
+            finalCompiled = finalTemplate(finalVars);
         $("#tournamentBracketsEl").append(ro16Compiled);
-        $("#tournamentBracketsEl").append(quarterCompiled);        
+        $("#tournamentBracketsEl").append(quarterCompiled);  
+        $("#tournamentBracketsEl").append(semiCompiled);
+        $("#tournamentBracketsEl").append(finalCompiled);
     }
     
     that.init = init;
