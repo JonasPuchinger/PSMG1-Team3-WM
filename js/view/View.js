@@ -6,7 +6,10 @@ WMVis.View = function () {
 
     var that = new EventPublisher(),
         preTournamentLayout,
-        preKnockOutLayout,
+        ro16Layout,
+        quarterLayout,
+        semiLayout,
+        finalLayout,
         stageLabel;
 
     function init() {
@@ -20,8 +23,19 @@ WMVis.View = function () {
     }
 
     function setLayout(data) {
-            preKnockOutLayout = new View.PreKnockOutLayout(data);
-            preKnockOutLayout.init();
+            ro16Layout = new View.Ro16Layout(data);
+            ro16Layout.init();
+            quarterLayout = new View.QuarterLayout(data);
+            quarterLayout.init();
+            semiLayout = new View.SemiLayout(data);
+            semiLayout.init();
+            finalLayout = new View.FinalLayout(data);
+            finalLayout.init();
+
+        ro16Layout.appendMatches();
+        quarterLayout.appendTBD();
+        semiLayout.appendTBD();
+        finalLayout.appendTBD();
     }
     
     function changeStageLabel(stage) {
