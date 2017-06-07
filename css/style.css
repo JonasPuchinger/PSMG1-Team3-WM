@@ -50,20 +50,21 @@
 .final {
     position: relative;
     margin-left: 100px;
-    height: 100%;
-    top: 78px;
 }
 
 .quarter {
     top: 78px;
+    height: 1028px;
 }
 
 .semi {
     top: 215px;
+    height: 891px;
 }
 
 .final {
     top: 479px;
+    height: 627px;
 }
 
 .quarter .match {
@@ -74,7 +75,7 @@
     margin: 0px 0px 421px 0px;
 }
 
-.final .matach {
+.final .match {
     margin: 0px;
 }
 
