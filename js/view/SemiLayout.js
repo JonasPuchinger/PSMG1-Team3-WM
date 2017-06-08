@@ -4,10 +4,14 @@ var View = View || {};
 View.SemiLayout = function (data) {
     "use strict";
     var that = new EventPublisher(),
-        TBD = [
-            ["TBD","TBD"],
-            ["TBD","TBD"],
-        ],
+        TBD = [{
+                game: ["TBD","TBD"],
+                result: []
+            },
+            {
+                game: ["TBD","TBD"],
+                result: []
+            }],
         flagsUrlBase = "/data/flags/",
         compiledMatches,
         compiledTBD;
@@ -19,11 +23,13 @@ View.SemiLayout = function (data) {
                 flagsUrlBase: flagsUrlBase
             },
             varsMatches = {
-                matches: TBD,
+                matches: data,
                 flagsUrlBase: flagsUrlBase
             };
             compiledMatches = semiTemplate(varsMatches);
             compiledTBD = semiTemplate(varsTBD);
+        console.log(data);
+
     }
 
     function appendMatches() {

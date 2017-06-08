@@ -4,9 +4,10 @@ var View = View || {};
 View.FinalLayout = function (data) {
     "use strict";
     var that = new EventPublisher(),
-        TBD = [
-            ["TBD","TBD"],
-        ],
+        TBD = [{
+            game: ["TBD","TBD"],
+            result: []
+            }],
         flagsUrlBase = "/data/flags/",
         compiledMatches,
         compiledTBD;
@@ -18,11 +19,11 @@ View.FinalLayout = function (data) {
                 flagsUrlBase: flagsUrlBase
             },
             varsMatches = {
-                matches: TBD,
+                matches: data,
                 flagsUrlBase: flagsUrlBase
             };
-            compiledMatches = finalTemplate(varsMatches);
-            compiledTBD = finalTemplate(varsTBD);
+        compiledMatches = finalTemplate(varsMatches);
+        compiledTBD = finalTemplate(varsTBD);
     }
 
     function appendMatches() {

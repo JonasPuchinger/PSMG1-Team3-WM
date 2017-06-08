@@ -4,12 +4,22 @@ var View = View || {};
 View.QuarterLayout = function (data) {
     "use strict";
     var that = new EventPublisher(),
-        TBD = [
-            ["TBD","TBD"],
-            ["TBD","TBD"],
-            ["TBD","TBD"],
-            ["TBD","TBD"],
-        ],
+        TBD = [{
+                game: ["TBD","TBD"],
+                result: []
+            },
+            {
+                game: ["TBD","TBD"],
+                result: []
+            },
+            {
+                game: ["TBD","TBD"],
+                result: []
+            },
+            {
+                game: ["TBD","TBD"],
+                result: []
+            }],
         flagsUrlBase = "/data/flags/",
         compiledMatches,
         compiledTBD;
@@ -21,11 +31,11 @@ View.QuarterLayout = function (data) {
                 flagsUrlBase: flagsUrlBase
             },
             varsMatches = {
-                matches: TBD,
+                matches: data,
                 flagsUrlBase: flagsUrlBase
             };
-            compiledMatches = quarterTemplate(varsMatches);
-            compiledTBD = quarterTemplate(varsTBD);
+        compiledMatches = quarterTemplate(varsMatches);
+        compiledTBD = quarterTemplate(varsTBD);
     }
 
     function appendMatches() {

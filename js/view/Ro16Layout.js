@@ -4,26 +4,16 @@ var View = View || {};
 View.Ro16Layout = function (data) {
     "use strict";
     var that = new EventPublisher(),
-        matches = [
-            ["BRA", "CHI"],
-            ["COL", "URU"],
-            ["FRA", "NGA"],
-            ["GER", "ALG"],
-            ["NED", "MEX"],
-            ["CRC", "GRE"],
-            ["ARG", "SUI"],
-            ["BEL", "USA"]
-        ],
         flagsUrlBase = "/data/flags/",
         compiledMatches;
 
     function init() {
         var ro16Template = _.template($('#ro16Template').html()),
             varsMatches = {
-                matches: matches,
+                matches: data,
                 flagsUrlBase: flagsUrlBase
             };
-            compiledMatches = ro16Template(varsMatches);
+        compiledMatches = ro16Template(varsMatches);
     }
 
     function appendMatches() {
