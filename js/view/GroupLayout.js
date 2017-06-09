@@ -4,7 +4,7 @@ var View = View || {};
 View.GroupLayout = function () {
     "use strict";
 
-    const abbrs = [                                                       //aus einer csv-Datei
+    const abbrs = [                                                       
      ["br", "mx", "hr", "cm"],
      ["es", "cl", "nl", "au"],
      ["co", "ci", "gr", "jp"],
@@ -42,7 +42,7 @@ View.GroupLayout = function () {
         connect(games);
       }
     }
-    
+
     function connect(games){
         var nations = [],
             results,
@@ -50,14 +50,14 @@ View.GroupLayout = function () {
         for(let i=0; i<games.length; i++){
             for(let j=0; j<games[i].length; j++){
                 nations.push(games[i][j].game.split('-'));
-            } 
+            }
         }
         results = d3.selectAll(".result")._groups["0"];
         var row = document.querySelector("#group");
         var rowHeight = row.offsetHeight+20;
         var col = document.querySelector(".push-s3");
         var colLeft = col.offsetLeft;
-        
+
         for(let i=0; i<results.length/2; i++){
             var data = [];
             for(let j=2*i; j<2*(i+1); j++){
@@ -79,7 +79,7 @@ View.GroupLayout = function () {
         });
         }
     }
-    
+
    /* <% _.each(paths[key1], function(path, key2){ console.log(document.querySelectorAll(".result"));
             console.log(document.querySelector("#"+ids[key1][key2]));
             %>

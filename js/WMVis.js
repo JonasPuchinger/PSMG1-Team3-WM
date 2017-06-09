@@ -21,19 +21,19 @@ WMVis = (function () {
         gamesData = new WMVis.GamesData();
 
         controller.init();
+        controller.addEventListener("stageSliderChanged", onStageSliderChanged);
         controller.addEventListener("nationCardHovered", togglePredictionRow);
         controller.addEventListener("nationCardLeft", togglePredictionRow);
         controller.addEventListener("nationCardClicked", onNationCardClicked);
-        view.init();
+        // view.init();
 
         initCanvas();
     }
 
     function initCanvas() {
-        preTournament();
         let sliderEl = document.querySelector('#stage-slider');
         initView();
-        initCanvas();
+        preTournament();
     }
 
     function initView() {
@@ -45,7 +45,6 @@ WMVis = (function () {
         };
 
         view.init(options);
-
     }
 
     function onStageSliderChanged(event) {
@@ -91,6 +90,7 @@ WMVis = (function () {
     function preTournament() {
         let pt = dataModel.getPreTournament();
         console.log(pt);
+        view.setPredictionData(pt);
         view.changeLayout(0, pt, null);
     }
 

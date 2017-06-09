@@ -14,7 +14,7 @@ WMVis.View = function () {
         stageLabel;
 
     function init(data) {
-        stageLabel = document.querySelector("#stageLabel");
+        stageLabel = document.querySelector("#stage-label");
         $(".stage-menu-fixed").stick_in_parent();
 
         preTournamentLayout = new View.PreTournamentLayout();
@@ -31,7 +31,7 @@ WMVis.View = function () {
     }
 
     function setLayout() {
-        document.querySelector("#groupsListEl").innerHTML = "";
+        document.querySelector("#groups-list-el").innerHTML = "";
         document.querySelector("#resultEl").innerHTML = "";
         ro16Layout.appendMatches();
         quarterLayout.appendTBD();
@@ -52,9 +52,9 @@ WMVis.View = function () {
     }
 
     function showNationModal(nationData) {
-      preTournamentLayout.showNationModal(nationData);    
+      preTournamentLayout.showNationModal(nationData);
     }
-  
+
     function changeLayout(layout, data, games) {
         switch (layout) {
             case 0:
@@ -65,7 +65,7 @@ WMVis.View = function () {
                 break;
             case 1:
                 groupLayout = new View.GroupLayout();
-                document.querySelector("#groupsListEl").innerHTML = "";
+                document.querySelector("#groups-list-el").innerHTML = "";
                 document.querySelector("#resultEl").innerHTML = "";
                 console.log(games);
                 groupLayout.init(data, games);
