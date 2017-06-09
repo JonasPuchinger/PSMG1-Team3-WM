@@ -1,18 +1,30 @@
-#stageMenu {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    background: WHITE;
+html, body {
+  height: 100%;
 }
 
-#stageSlider {
-    width: 50%;
+.hidden {
+  display: none !important;
 }
 
-#stageLabel {
-    font-size: 20px;
+.stage-menu-fixed {
+  background-color: #fff;
+  z-index: 100;
+}
+
+#stage-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#stage-slider {
+  width: 50%;
+}
+
+#stage-label {
+  font-size: 20px;
 }
 
 .thumb {
@@ -85,6 +97,76 @@
     height: 127px;
     border-style: solid;
     margin: 10px 0px 10px 0px;
+}
+
+.group-row {
+  position: relative;
+}
+
+.svg-container {
+  z-index: 50;
+  position: absolute;
+}
+
+.group-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.group-heading {
+  text-align: center;
+}
+
+/*.stagesrow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}*/
+
+.stagesrow div {
+  text-align: center;
+}
+
+.nationrow {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nationcard .card-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 15px;
+}
+
+.predictionrow {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.round-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.matchcol {
+  height: 81%;
+  z-index: 99;
+  position: absolute;
+  top: 19%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.resultcard {
+  text-align: center;
 }
 
 .team1,

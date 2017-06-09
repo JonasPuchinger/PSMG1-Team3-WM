@@ -21,6 +21,17 @@ WMVis = (function () {
         gamesData = new WMVis.GamesData();
 
         controller.init();
+        controller.addEventListener("nationCardHovered", togglePredictionRow);
+        controller.addEventListener("nationCardLeft", togglePredictionRow);
+        controller.addEventListener("nationCardClicked", onNationCardClicked);
+        view.init();
+
+        initCanvas();
+    }
+
+    function initCanvas() {
+        preTournament();
+        let sliderEl = document.querySelector('#stage-slider');
         initView();
         initCanvas();
     }
@@ -35,12 +46,6 @@ WMVis = (function () {
 
         view.init(options);
 
-    }
-    
-    function initCanvas() {
-        let sliderEl = document.querySelector('#stageSlider');
-        sliderEl.value = 0;
-        controller.addEventListener("stageSliderChanged", onStageSliderChanged);
     }
 
     function onStageSliderChanged(event) {
@@ -97,9 +102,9 @@ WMVis = (function () {
     function md1() {
         let md1 = dataModel.getMatchday1();
         console.log(md1);
+        // probabilityController = new WMVis.ProbabilityController();
+        // probabilityController.calculateProbabilities(["BRA","CRO",],md1);
         view.changeLayout(1, md1, gamesData.getGames(0));
-        /*probabilityController = new WMVis.ProbabilityController();
-        probabilityController.calculateProbabilities(["BRA","CRO",],md1);*/
     }
 
     function md2() {
@@ -121,8 +126,8 @@ WMVis = (function () {
 
     function ro16() {
         let ro16 = dataModel.getRo16();
+        console.log(ro16);
         let preKnockOutLayout = new View.PreKnockOutLayout(ro16);
-
     }
 
     function quarter() {
@@ -138,6 +143,14 @@ WMVis = (function () {
     function final() {
         let final = dataModel.getFinal();
         console.log(final);
+    }
+
+    function togglePredictionRow(event) {
+      view.togglePredictionRow(event.data);
+    }
+
+    function onNationCardClicked(event) {
+      view.showNationModal(event.data);
     }
 
     that.loadDataModel = loadDataModel;

@@ -5,7 +5,6 @@ WMVis.View = function () {
     const stages = ["Before Tournament", "Before Matchday 1", "Matchday 1", "Matchday 2", "Matchday 3", "Before Knockout-Stage", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
 
     var that = new EventPublisher(),
-
         preTournamentLayout,
         ro16Layout,
         quarterLayout,
@@ -18,6 +17,8 @@ WMVis.View = function () {
         stageLabel = document.querySelector("#stageLabel");
         $(".stage-menu-fixed").stick_in_parent();
 
+        preTournamentLayout = new View.PreTournamentLayout();
+        preTournamentLayout.init();
         ro16Layout = new View.Ro16Layout(data.ro16);
         ro16Layout.init();
         quarterLayout = new View.QuarterLayout(data.quarter);
@@ -42,6 +43,18 @@ WMVis.View = function () {
         stageLabel.innerHTML = stages[stage];
     }
 
+    function setPredictionData(predData) {
+      preTournamentLayout.setPredictionData(predData);
+    }
+
+    function togglePredictionRow(nationData) {
+      preTournamentLayout.togglePredictionRow(nationData);
+    }
+
+    function showNationModal(nationData) {
+      preTournamentLayout.showNationModal(nationData);    
+    }
+  
     function changeLayout(layout, data, games) {
         switch (layout) {
             case 0:
@@ -67,6 +80,9 @@ WMVis.View = function () {
     that.setLayout = setLayout;
     that.stages = stages;
     that.changeStageLabel = changeStageLabel;
+    that.setPredictionData = setPredictionData;
+    that.togglePredictionRow = togglePredictionRow;
+    that.showNationModal = showNationModal;
     that.changeLayout = changeLayout;
     return that;
 };

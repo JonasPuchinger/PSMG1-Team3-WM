@@ -23,18 +23,20 @@
         </nav>
     </header>
 
-    <main>
-        <!-- Unsere Visualisierung -->
-        <div class="row stage-menu-fixed">
-            <div class="col s12">
-                <div class="section" id="stageMenu">
-                    <label id="stageLabel" for="stageSlider">Before Tournament</label>
-                    <input id="stageSlider" type="range" min="0" max="9" value="0" step="1">
-                </div>
-            </div>
+  <main>
+    <!-- Unsere Visualisierung -->
+    <!-- vllt in header verschieben -->
+    <div class="row stage-menu-fixed">
+      <div class="col s12">
+        <div class="section" id="stage-menu">
+          <label id="stage-label" for="stage-slider">Before Tournament</label>
+          <input id="stage-slider" type="range" min="0" max="9" value="0" step="1">
         </div>
+        <div class="divider"></div>
+      </div>
+    </div>
 
-        <div w3-include-html="templates/pre-tournament.html"></div>
+    <div w3-include-html="templates/pre-tournament.html" id="pre-tournament-layout"></div>
 
         <div w3-include-html="templates/group-phase.html"></div>
 
@@ -61,6 +63,7 @@
   <script src="vendors/event-publisher/EventPublisher.js"></script>
   <script src="vendors/request/request.js"></script>
   <script src="vendors/sticky.js"></script>
+  <script src="vendors/jqSimpleConnect/source/jqSimpleConnect.js"></script>
   <script src="js/WMVis.js"></script>
   <script src="js/controller/Controller.js"></script>
   <script src="js/controller/ProbabilityController.js"></script>
