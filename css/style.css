@@ -8,7 +8,7 @@ html, body {
 
 .stage-menu-fixed {
   background-color: #fff;
-  z-index: 99;
+  z-index: 100;
 }
 
 #stage-menu {
@@ -29,6 +29,15 @@ html, body {
 
 .thumb {
   display: none;
+}
+
+.group-row {
+  position: relative;
+}
+
+.svg-container {
+  z-index: 50;
+  position: absolute;
 }
 
 .group-header {
@@ -62,6 +71,7 @@ html, body {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  font-size: 15px;
 }
 
 .predictionrow {
@@ -72,8 +82,21 @@ html, body {
 }
 
 .round-div {
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.matchcol {
+  height: 81%;
+  z-index: 99;
+  position: absolute;
+  top: 19%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.resultcard {
+  text-align: center;
 }

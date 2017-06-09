@@ -21,6 +21,7 @@ WMVis = (function() {
         controller.init();
         controller.addEventListener("nationCardHovered", togglePredictionRow);
         controller.addEventListener("nationCardLeft", togglePredictionRow);
+        controller.addEventListener("nationCardClicked", onNationCardClicked);
         view.init();
 
         initCanvas();
@@ -111,6 +112,10 @@ WMVis = (function() {
 
     function togglePredictionRow(event) {
       view.togglePredictionRow(event.data);
+    }
+
+    function onNationCardClicked(event) {
+      view.showNationModal(event.data);
     }
 
     that.loadDataModel = loadDataModel;

@@ -28,10 +28,15 @@ WMVis.View = function () {
       preTournamentView.togglePredictionRow(nationData);
     }
 
+    function showNationModal(nationData) {
+      preTournamentView.showNationModal(nationData);
+    }
+
     that.init = init;
     that.stages = stages;
     that.changeStageLabel = changeStageLabel;
     that.setPredictionData = setPredictionData;
     that.togglePredictionRow = togglePredictionRow;
+    that.showNationModal = showNationModal;
     return that;
     };

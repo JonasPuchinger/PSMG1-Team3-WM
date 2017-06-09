@@ -11,6 +11,7 @@ WMVis.Controller = function() {
     preTournamentController.init();
     preTournamentController.addEventListener("nationCardHovered", onNationCardHovered);
     preTournamentController.addEventListener("nationCardLeft", onNationCardLeft);
+    preTournamentController.addEventListener("nationCardClicked", onNationCardClicked);
 
     stageSlider = document.querySelector("#stage-slider");
     stageSlider.addEventListener("input", onSliderChange);
@@ -27,6 +28,10 @@ WMVis.Controller = function() {
 
   function onNationCardLeft(event) {
     that.notifyAll("nationCardLeft", event.data);
+  }
+
+  function onNationCardClicked(event) {
+    that.notifyAll("nationCardClicked", event.data);
   }
 
   that.init = init;

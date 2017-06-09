@@ -11,19 +11,24 @@ Controller.PreTournamentController = function() {
       setTimeout(function() {
         nationCards = document.querySelectorAll(".nationflag");
         for(let i = 0; i < nationCards.length; i++) {
-          nationCards[i].addEventListener("mouseover", onNationCardHover);
+          nationCards[i].addEventListener("mouseenter", onNationCardHovered);
           nationCards[i].addEventListener("mouseout", onNationCardLeft);
+          nationCards[i].addEventListener("click", onNationCardClicked);
         }
       }, 1);
     });
   }
 
-  function onNationCardHover(event) {
-    that.notifyAll("nationCardHovered", event.target);
+  function onNationCardHovered(event) {
+    that.notifyAll("nationCardHovered", {target: event.target, event: "enter"});
   }
 
   function onNationCardLeft(event) {
-    that.notifyAll("nationCardLeft", event.target);
+    that.notifyAll("nationCardLeft", {target: event.target, event: "leave"});
+  }
+
+  function onNationCardClicked(event) {
+    that.notifyAll("nationCardClicked", event.target);
   }
 
   that.init = init;

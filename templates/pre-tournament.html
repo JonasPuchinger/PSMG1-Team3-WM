@@ -2,7 +2,8 @@
   <% _.each(groupNames, function(group, key1, list1) {
 
   %>
-    <div class="row group-row" id="<%= group %>-row">
+    <div class="hidden svg-container" id="svg-container-<%= group %>"></div>
+    <div class="row group-row container" id="<%= group %>-row">
       <div class="col s12">
       <div class="row group-header">
         <div class="col s2 group-heading"><h3>Group <%= group %></h3></div>
@@ -22,26 +23,49 @@
         %>
           <div class="row nationrow" id="<%= nations[key1][key2] %>">
             <div class="col s2 nationcard-col">
-              <div class="card nationcard">
+              <div class="card nationcard" id="<%= nations[key1][key2] %>-nationscard">
                 <div class="card-content">
-                  <img class="nationflag" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48" group="<%= group %>">
+                  <img class="nationflag" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="56" height="40" group="<%= group %>">
                   <span><%= nation %></span>
                 </div>
               </div>
             </div>
             <div class="col s10 predictionrow"></div>
-            <div class="col s10 matchrow hidden"></div>
+            <div class="col s10 fillrow hidden"></div>
           </div>
         <%
           });
         %>
 
       </div>
+      <div class="col s10 offset-s2 matchcol hidden" id="<%= group %>-matchcol">
+      <% for(var i = 0; i < 3; i++) {
+
+      %>
+        <div class="col s2 offset-s5">
+          <div class="card resultcard" id="resultcard-<%= i %>">
+            <div class="card-content">
+              <span><%= i %>:0</span>
+            </div>
+          </div>
+        </div>
+      <%
+        }
+      %>
+      </div>
     </div>
     <div class="divider"></div>
   <%
     });
   %>
+  <div id="nation-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img class="modal-nationflag" width="56" height="40" group="">
+        <span id="modal-nation-header"></span>
+      </div>
+    </div>
+  </div>
 </script>
 
 <div id="groups-list-el"></div>

@@ -39,19 +39,16 @@ View.PreTournamentView = function () {
       vars = {groupNames: groupNames, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
       compiled = template(vars);
       $("#groups-list-el").append(compiled);
-
-      // wählt nur erste aus, soll aber alle vier von der ausgewählten gruppe auswählen
-
     }
 
     function setPredictionData(predData) {
       if(predictionData.length === 0) {
         predictionData = _.toArray(predData);
-        createD3View();
+        createPredictionRowView();
       }
     }
 
-    function createD3View() {
+    function createPredictionRowView() {
       var selection,
         nationRow,
         nation,
@@ -96,16 +93,56 @@ View.PreTournamentView = function () {
     }
 
     function togglePredictionRow(nationData) {
-      var predictionRowEls = document.querySelectorAll("#" + nationData.getAttribute("group") + "-row .predictionrow");
-      var matchRowEls = document.querySelectorAll("#" + nationData.getAttribute("group") + "-row .matchrow");
+      var predictionRowEls = document.querySelectorAll("#" + nationData.target.getAttribute("group") + "-row .predictionrow");
+      var matchRowEls = document.querySelectorAll("#" + nationData.target.getAttribute("group") + "-row .fillrow");
+      var matchRowEl = document.querySelector("#" + nationData.target.getAttribute("group") + "-matchcol");
+      var connectRowsEl = document.querySelector("#svg-container-" + nationData.target.getAttribute("group"));
       for(let i = 0; i < predictionRowEls.length; i++) {
         predictionRowEls[i].classList.toggle("hidden");
         matchRowEls[i].classList.toggle("hidden");
+      }
+      matchRowEl.classList.toggle("hidden");
+      connectRowsEl.classList.toggle("hidden");
+      switch (nationData.event) {
+          case "enter":
+              connectRowsForNation(nationData, connectRowsEl);
+              break;
+          case "leave":
+              deleteConnectRows();
+              break;
+        }
+    }
+
+    function connectRowsForNation(nationData, connectRowsEl) {
+      jqSimpleConnect.connect("#Brazil-nationscard", "#resultcard-0", {/*OPTIONS*/});
+      jqSimpleConnect.connect("#Mexico-nationscard", "#resultcard-0", {/*OPTIONS*/});
+    }
+
+    function deleteConnectRows() {
+      jqSimpleConnect.removeAll();
+    }
+
+    function showNationModal(nationData) {
+      $(document).ready(function() {
+        $(".modal").modal();
+        $("#nation-modal").modal("open");
+        var abbrIndexes = get2DArrayIndex(nations, nationData.alt);
+        $(".modal-nationflag").attr("src", flagsUrlBase + abbrs[abbrIndexes[0]][abbrIndexes[1]] +".svg");
+        $("#modal-nation-header").html(nationData.alt);
+      });
+    }
+
+    function get2DArrayIndex(array, entry) {
+      for(let i = 0; i < array.length; i++) {
+        if(_.contains(array[i], entry)) {
+          return [i, _.indexOf(array[i], entry)];
+        }
       }
     }
 
     that.init = init;
     that.setPredictionData = setPredictionData;
     that.togglePredictionRow = togglePredictionRow;
+    that.showNationModal = showNationModal;
     return that;
     };
