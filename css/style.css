@@ -28,7 +28,75 @@ html, body {
 }
 
 .thumb {
-  display: none;
+    display: none;
+}
+
+#tournamentBracketsEl {
+/*    display: table;*/
+    width: 1550px;
+    height: 1106px;
+}
+
+
+.nationcard .card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ro16,
+.quarter,
+.semi,
+.final {
+/*    display: table-cell;*/
+    width: 300px;
+    float: left;
+}
+
+.ro16 {
+    margin-left: 50px;
+}
+
+.quarter,
+.semi,
+.final {
+    position: relative;
+    margin-left: 100px;
+}
+
+.quarter {
+    top: 78px;
+    height: 1028px;
+}
+
+.semi {
+    top: 215px;
+    height: 891px;
+}
+
+.final {
+    top: 479px;
+    height: 627px;
+}
+
+.quarter .match {
+    margin: 0px 0px 147px 0px;    
+}
+
+.semi .match {
+    margin: 0px 0px 421px 0px;
+}
+
+.final .match {
+    margin: 0px;
+}
+
+.match {
+    width: 300px;
+    height: 127px;
+    border-style: solid;
+    margin: 10px 0px 10px 0px;
 }
 
 .group-row {
@@ -99,4 +167,107 @@ html, body {
 
 .resultcard {
   text-align: center;
+}
+
+.team1,
+.team2 {
+    background-color: #f6f6f6;
+}
+
+.team1 {
+    border: solid;
+    border-width: 0px 0px 1px 0px;
+}
+
+.team2 {
+    border: solid;
+    border-width: 1px 0px 0px 0px;
+}
+
+.img {
+    width: 40px;
+    height: 30px;
+    padding: 5px 10px 0px 10px;
+}
+
+.country {
+    
+}
+
+.goals {
+    font-size: 20px;
+    text-align: center;
+    border-style: dashed;
+    border-width: 0px 0px 0px 2px;
+}
+
+.team1>.goals {}
+
+.team2>.goals {}
+
+.group-container{
+    width: 25%;
+}
+
+.result{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 60%;
+  font-size: 30pt;
+}
+
+.x{
+    justify-content: center;
+    align-items: center;
+    font-size: 30pt;
+    margin-top: 50%;
+    margin-left: 10%;
+    height: 1.5em;
+    width: 1.5em;
+    background: red;
+    text-align: center;
+    color: white;
+}
+
+.one{
+    justify-content: center;
+    align-items: center;
+    font-size: 30pt;
+    margin-top: 30%;
+    margin-left: 50%;
+    height: 1.5em;
+    width: 1.5em;
+    background: green;
+    text-align: center;
+    color: white;
+}
+
+.two{
+    align-items: center;
+    justify-content: center;
+    font-size: 30pt;
+    margin-top: 30%;
+    margin-left: 40%;
+    height: 1.5em;
+    width: 1.5em;
+    background: orange;
+    text-align: center;
+    color: white;
+}
+
+.link{
+    position: absolute;
+    fill: none;
+    stroke: #000;
+    stroke-width: 5pt;
+    stroke-opacity: .2;
+}
+
+.paths{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
 }

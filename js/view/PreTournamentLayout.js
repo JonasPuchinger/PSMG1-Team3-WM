@@ -1,7 +1,7 @@
 var d3 = d3 || {};
 var WMVis = WMVis || {};
 var View = View || {};
-View.PreTournamentView = function () {
+View.PreTournamentLayout = function () {
     "use strict";
 
     const groupNames = ["A", "B", "C", "D", "E", "F", "G", "H"],
@@ -15,7 +15,7 @@ View.PreTournamentView = function () {
      ["Germany", "Portugal", "USA", "Ghana"],
      ["Belgium", "Russia", "South Korea", "Algeria"]
      ],
-    abbrs = [
+        abbrs = [
      ["br", "mx", "hr", "cm"],
      ["es", "cl", "nl", "au"],
      ["co", "ci", "gr", "jp"],
@@ -25,7 +25,7 @@ View.PreTournamentView = function () {
      ["de", "pt", "us", "gh"],
      ["be", "ru", "kr", "dz"]
      ],
-    flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
+        flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
 
     var that = new EventPublisher(),
       predictionData = [];
@@ -145,4 +145,4 @@ View.PreTournamentView = function () {
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
     return that;
-    };
+};
