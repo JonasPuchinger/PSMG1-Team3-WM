@@ -56,7 +56,7 @@ WMVis.View = function () {
         preTournamentLayout.showNationModal(nationData);
     }
 
-    function changeLayout(layout, data, games) {
+    function changeLayout(layout, data= null, games= null) {
         switch (layout) {
             case 0:
                 preTournamentLayout = new View.PreTournamentLayout();

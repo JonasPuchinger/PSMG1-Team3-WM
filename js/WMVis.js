@@ -115,23 +115,23 @@ WMVis = (function () {
     }
 
     function ko() {
-        view.changeLayout(2, null, null);
+        view.changeLayout(2);
     }
 
     function ro16() {
-        view.changeLayout(3, null, null);
+        view.changeLayout(3);
     }
 
     function quarter() {
-        view.changeLayout(4, null, null);
+        view.changeLayout(4);
     }
 
     function semi() {
-        view.changeLayout(5, null, null);
+        view.changeLayout(5);
     }
 
     function final() {
-        view.changeLayout(6, null, null);
+        view.changeLayout(6);
     }
 
     function togglePredictionRow(event) {

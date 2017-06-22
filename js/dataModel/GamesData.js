@@ -243,64 +243,68 @@ WMVis.GamesData = (function () {
                     result: "1:1"
                     }]],
             [{
-                game: ["BRA","CHI"],
-                result: ["4","3"]
+                game: ["BRA", "CHI"],
+                result: ["4", "3"]
             },
             {
-                game: ["COL","URU"],
-                result: ["2","0"]
+                game: ["COL", "URU"],
+                result: ["2", "0"]
             },
             {
-                game: ["NED","MEX"],
-                result: ["2","1"]
+                game: ["FRA", "NGA"],
+                result: ["2", "0"]
+            },
+             {
+                game: ["GER", "ALG"],
+                result: ["2", "1"]
             },
             {
-                game: ["CRC","GRE"],
-                result: ["6","4"]
+                game: ["NED", "MEX"],
+                result: ["2", "1"]
             },
             {
-                game: ["FRA","NGA"],
-                result: ["2","0"]
+                game: ["CRC", "GRE"],
+                result: ["6", "4"]
             },
             {
-                game: ["GER","ALG"],
-                result: ["2","1"]
+                game: ["ARG", "SUI"],
+                result: ["1", "0"]
             },
             {
-                game: ["ARG","SUI"],
-                result: ["1","0"]
+                game: ["BEL", "USA"],
+                result: ["2", "1"]
+            }
+            ],
+            [
+            {
+                game: ["BRA", "COL"],
+                result: ["2", "1"]
             },
             {
-                game: ["BEL","USA"],
-                result: ["2","1"]
+                game: ["FRA", "GER"],
+                result: ["0", "1"]
+            },
+            {
+                game: ["NED", "CRC"],
+                result: ["4", "3"]
+            },
+            {
+                game: ["ARG", "BEL"],
+                result: ["1", "0"]
+            }
+            ],
+            [
+            {
+                game: ["BRA", "GER"],
+                result: ["1", "7"]
+            },
+            {
+                game: ["NED", "ARG"],
+                result: ["2", "4"]
             }],
             [{
-                game: ["FRA","GER"],
-                result: ["0","1"]
-            },
-            {
-                game: ["BRA","COL"],
-                result: ["2","1"]
-            },
-            {
-                game: ["ARG","BEL"],
-                result: ["1","0"]
-            },
-            {
-                game: ["NED","CRC"],
-                result: ["4","3"]
-            }],
-            [{
-                game: ["BRA","GER"],
-                result: ["1","7"]
-            },
-            {
-                game: ["NED","ARG"],
-                result: ["2","4"]
-            }],
-            [{
-            game: ["GER","ARG"],
-            result: ["0","1"]
+            game: ["GER", "ARG"],
+            result: ["0", "1"]
             }]
         ];
 
