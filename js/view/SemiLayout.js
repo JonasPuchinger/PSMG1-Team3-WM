@@ -14,9 +14,15 @@ View.SemiLayout = function (data) {
             }],
         flagsUrlBase = "/data/flags/",
         compiledMatches,
-        compiledTBD;
+        compiledTBD,
+        compiledMatchesWithoutScore,
+        matchesWithoutScore = JSON.parse(JSON.stringify(data)); // Deep Copy
 
     function init() {
+        _.map(matchesWithoutScore, function (match) {
+            match.result = ["-", "-"];
+            return match;
+        });
         var semiTemplate = _.template($('#semiTemplate').html()),
             varsTBD = {
                 matches: TBD,
@@ -25,11 +31,14 @@ View.SemiLayout = function (data) {
             varsMatches = {
                 matches: data,
                 flagsUrlBase: flagsUrlBase
+            },
+            varsMatchesWithoutScore = {
+                matches: matchesWithoutScore,
+                flagsUrlBase: flagsUrlBase
             };
-            compiledMatches = semiTemplate(varsMatches);
-            compiledTBD = semiTemplate(varsTBD);
-        console.log(data);
-
+        compiledMatches = semiTemplate(varsMatches);
+        compiledMatchesWithoutScore = semiTemplate(varsMatchesWithoutScore);
+        compiledTBD = semiTemplate(varsTBD);
     }
 
     function appendMatches() {
@@ -40,8 +49,13 @@ View.SemiLayout = function (data) {
         $("#tournamentBracketsEl").append(compiledTBD);
     }
 
+    function appendMatchesWithoutScore() {
+        $("#tournamentBracketsEl").append(compiledMatchesWithoutScore);
+    }
+
     that.appendMatches = appendMatches;
     that.appendTBD = appendTBD;
+    that.appendMatchesWithoutScore = appendMatchesWithoutScore;
     that.init = init;
     return that;
 };

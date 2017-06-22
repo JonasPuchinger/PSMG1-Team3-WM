@@ -63,7 +63,6 @@ View.GroupLayout = function () {
             for(let j=2*i; j<2*(i+1); j++){
                 countries[0] = d3.select("#"+nations[j][0])._groups["0"]["0"];
                 countries[1] = d3.select("#"+nations[j][1])._groups["0"]["0"];
-                console.log(results[j]);
                 data.push("M " + (countries[0].offsetLeft+colLeft) + " " + (countries[0].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + "  " + (results[j].offsetLeft+results[j].offsetWidth-50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
                 data.push("M " + (countries[1].offsetLeft+colLeft) + " " + (countries[1].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
             }
@@ -74,7 +73,6 @@ View.GroupLayout = function () {
             var exitPaths = pathsUpdate.exit().remove();
             var link = enterPaths.append("path").attr("class","link");
             link.attr("d", function (d) {
-            console.log(d);
             return d;
         });
         }

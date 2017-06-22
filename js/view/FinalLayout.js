@@ -5,14 +5,20 @@ View.FinalLayout = function (data) {
     "use strict";
     var that = new EventPublisher(),
         TBD = [{
-            game: ["TBD","TBD"],
+            game: ["TBD", "TBD"],
             result: []
             }],
         flagsUrlBase = "/data/flags/",
         compiledMatches,
-        compiledTBD;
+        compiledMatchesWithoutScore,
+        compiledTBD,
+        matchesWithoutScore = JSON.parse(JSON.stringify(data)); // Deep Copy
 
     function init() {
+        _.map(matchesWithoutScore, function (match) {
+            match.result = ["-", "-"];
+            return match;
+        });
         var finalTemplate = _.template($('#finalTemplate').html()),
             varsTBD = {
                 matches: TBD,
@@ -21,8 +27,13 @@ View.FinalLayout = function (data) {
             varsMatches = {
                 matches: data,
                 flagsUrlBase: flagsUrlBase
+            },
+            varsMatchesWithoutScore = {
+                matches: matchesWithoutScore,
+                flagsUrlBase: flagsUrlBase
             };
         compiledMatches = finalTemplate(varsMatches);
+        compiledMatchesWithoutScore = finalTemplate(varsMatchesWithoutScore);
         compiledTBD = finalTemplate(varsTBD);
     }
 
@@ -34,8 +45,13 @@ View.FinalLayout = function (data) {
         $("#tournamentBracketsEl").append(compiledTBD);
     }
 
+    function appendMatchesWithoutScore() {
+        $("#tournamentBracketsEl").append(compiledMatchesWithoutScore);
+    }
+
     that.appendMatches = appendMatches;
     that.appendTBD = appendTBD;
+    that.appendMatchesWithoutScore = appendMatchesWithoutScore;
     that.init = init;
     return that;
 };

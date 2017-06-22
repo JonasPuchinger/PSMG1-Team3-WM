@@ -5,26 +5,32 @@ View.QuarterLayout = function (data) {
     "use strict";
     var that = new EventPublisher(),
         TBD = [{
-                game: ["TBD","TBD"],
+                game: ["TBD", "TBD"],
                 result: []
             },
             {
-                game: ["TBD","TBD"],
+                game: ["TBD", "TBD"],
                 result: []
             },
             {
-                game: ["TBD","TBD"],
+                game: ["TBD", "TBD"],
                 result: []
             },
             {
-                game: ["TBD","TBD"],
+                game: ["TBD", "TBD"],
                 result: []
             }],
         flagsUrlBase = "/data/flags/",
         compiledMatches,
-        compiledTBD;
+        compiledTBD,
+        compiledMatchesWithoutScore,
+        matchesWithoutScore = JSON.parse(JSON.stringify(data)); // Deep Copy
 
     function init() {
+        _.map(matchesWithoutScore, function (match) {
+            match.result = ["-", "-"];
+            return match;
+        });
         var quarterTemplate = _.template($('#quarterTemplate').html()),
             varsTBD = {
                 matches: TBD,
@@ -33,8 +39,13 @@ View.QuarterLayout = function (data) {
             varsMatches = {
                 matches: data,
                 flagsUrlBase: flagsUrlBase
+            },
+            varsMatchesWithoutScore = {
+                matches: matchesWithoutScore,
+                flagsUrlBase: flagsUrlBase
             };
         compiledMatches = quarterTemplate(varsMatches);
+        compiledMatchesWithoutScore = quarterTemplate(varsMatchesWithoutScore);
         compiledTBD = quarterTemplate(varsTBD);
     }
 
@@ -46,8 +57,13 @@ View.QuarterLayout = function (data) {
         $("#tournamentBracketsEl").append(compiledTBD);
     }
 
+    function appendMatchesWithoutScore() {
+        $("#tournamentBracketsEl").append(compiledMatchesWithoutScore);
+    }
+
     that.appendMatches = appendMatches;
     that.appendTBD = appendTBD;
+    that.appendMatchesWithoutScore = appendMatchesWithoutScore;
     that.init = init;
     return that;
 };

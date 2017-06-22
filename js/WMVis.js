@@ -25,8 +25,6 @@ WMVis = (function () {
         controller.addEventListener("nationCardHovered", togglePredictionRow);
         controller.addEventListener("nationCardLeft", togglePredictionRow);
         controller.addEventListener("nationCardClicked", onNationCardClicked);
-        // view.init();
-
         initCanvas();
     }
 
@@ -43,6 +41,7 @@ WMVis = (function () {
             semi: gamesData.getGames(5),
             final: gamesData.getGames(6)
         };
+        console.log(options.final);
 
         view.init(options);
     }
@@ -89,7 +88,6 @@ WMVis = (function () {
 
     function preTournament() {
         let pt = dataModel.getPreTournament();
-        console.log(pt);
         view.setPredictionData(pt);
         view.changeLayout(0, pt, null);
     }
@@ -101,7 +99,6 @@ WMVis = (function () {
 
     function md1() {
         let md1 = dataModel.getMatchday1();
-        console.log(md1);
         // probabilityController = new WMVis.ProbabilityController();
         // probabilityController.calculateProbabilities(["BRA","CRO",],md1);
         view.changeLayout(1, md1, gamesData.getGames(0));
@@ -109,40 +106,32 @@ WMVis = (function () {
 
     function md2() {
         let md2 = dataModel.getMatchday2();
-        console.log(md2);
         view.changeLayout(1, md2, gamesData.getGames(1));
     }
 
     function md3() {
         let md3 = dataModel.getMatchday3();
-        console.log(md3);
         view.changeLayout(1, md3, gamesData.getGames(2));
     }
 
     function ko() {
-        let ro16 = dataModel.getRo16();
-        view.setLayout();
+        view.changeLayout(2, null, null);
     }
 
     function ro16() {
-        let ro16 = dataModel.getRo16();
-        console.log(ro16);
-        let preKnockOutLayout = new View.PreKnockOutLayout(ro16);
+        view.changeLayout(3, null, null);
     }
 
     function quarter() {
-        let quarter = dataModel.getQuarter();
-        console.log(quarter);
+        view.changeLayout(4, null, null);
     }
 
     function semi() {
-        let semi = dataModel.getSemi();
-        console.log(semi);
+        view.changeLayout(5, null, null);
     }
 
     function final() {
-        let final = dataModel.getFinal();
-        console.log(final);
+        view.changeLayout(6, null, null);
     }
 
     function togglePredictionRow(event) {
