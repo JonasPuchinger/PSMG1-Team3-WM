@@ -16,16 +16,9 @@ WMVis = (function () {
     }
 
     function init() {
-        controller = new WMVis.Controller();
-        view = new WMVis.View();
         gamesData = new WMVis.GamesData();
-
-        controller.init();
-        controller.addEventListener("stageSliderChanged", onStageSliderChanged);
-        controller.addEventListener("nationCardHovered", togglePredictionRow);
-        controller.addEventListener("nationCardLeft", togglePredictionRow);
-        controller.addEventListener("nationCardClicked", onNationCardClicked);
         initCanvas();
+        initController();
     }
 
     function initCanvas() {
@@ -34,7 +27,17 @@ WMVis = (function () {
         preTournament();
     }
 
+    function initController() {
+        controller = new WMVis.Controller();
+        controller.init();
+        controller.addEventListener("stageSliderChanged", onStageSliderChanged);
+        controller.addEventListener("nationCardHovered", togglePredictionRow);
+        controller.addEventListener("nationCardLeft", togglePredictionRow);
+        controller.addEventListener("nationCardClicked", onNationCardClicked);
+    }
+
     function initView() {
+        view = new WMVis.View();
         var options = {
             ro16: gamesData.getGames(3),
             quarter: gamesData.getGames(4),
@@ -114,30 +117,39 @@ WMVis = (function () {
 
     function ko() {
         view.changeLayout(2);
+        controller.initElemBracketController();
     }
 
     function ro16() {
         view.changeLayout(3);
+        controller.initElemBracketController();
     }
 
     function quarter() {
         view.changeLayout(4);
+        controller.initElemBracketController();
     }
 
     function semi() {
         view.changeLayout(5);
+        controller.initElemBracketController();
     }
 
     function final() {
         view.changeLayout(6);
+        controller.initElemBracketController();
     }
 
     function togglePredictionRow(event) {
-      view.togglePredictionRow(event.data);
+        view.togglePredictionRow(event.data);
     }
 
     function onNationCardClicked(event) {
-      view.showNationModal(event.data);
+        view.showNationModal(event.data);
+    }
+
+    function togglePredictionBracket(event) {
+
     }
 
     that.loadDataModel = loadDataModel;

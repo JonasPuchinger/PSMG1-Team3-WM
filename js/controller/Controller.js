@@ -9,22 +9,44 @@ WMVis.Controller = function () {
         stageSlider;
 
     function init() {
+        stageSlider = document.querySelector("#stage-slider");
+        stageSlider.addEventListener("input", onSliderChange);
+
+        initPreTournamentController();
+        initElemBracketController();
+    }
+
+    function initPreTournamentController() {
         preTournamentController = new Controller.PreTournamentController();
         preTournamentController.init();
         preTournamentController.addEventListener("nationCardHovered", onNationCardHovered);
         preTournamentController.addEventListener("nationCardLeft", onNationCardLeft);
         preTournamentController.addEventListener("nationCardClicked", onNationCardClicked);
+    }
 
+    function initElemBracketController() {
         elemBracketController = new Controller.ElemBracketController();
         elemBracketController.init();
-
-        stageSlider = document.querySelector("#stage-slider");
-        stageSlider.addEventListener("input", onSliderChange);
+        elemBracketController.addEventListener("teamHovered", onTeamHovered);
+        elemBracketController.addEventListener("teamHovereLeft", onTeamHoverLeft);
+        elemBracketController.addEventListener("teamClicked", onTeamClicked);
     }
 
     function onSliderChange() {
         var newStage = stageSlider.value;
         that.notifyAll("stageSliderChanged", newStage);
+    }
+
+    function onTeamHovered(event) {
+        that.notifyAll("teamHovered", event.data);
+    }
+
+    function onTeamHoverLeft(event) {
+        that.notifyAll("teamHovereLeft", event.data);
+    }
+
+    function onTeamClicked(event) {
+        onNationCardClicked(event);
     }
 
     function onNationCardHovered(event) {
@@ -39,6 +61,7 @@ WMVis.Controller = function () {
         that.notifyAll("nationCardClicked", event.data);
     }
 
+    that.initElemBracketController = initElemBracketController;
     that.init = init;
     return that;
 };
