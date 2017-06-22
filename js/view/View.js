@@ -30,16 +30,6 @@ WMVis.View = function () {
 
     }
 
-    function setLayout() {
-        document.querySelector("#groups-list-el").innerHTML = "";
-        document.querySelector("#resultEl").innerHTML = "";
-        document.querySelector("#tournamentBracketsEl").innerHTML = "";
-        ro16Layout.appendMatches();
-        quarterLayout.appendTBD();
-        semiLayout.appendTBD();
-        finalLayout.appendTBD();
-    }
-
     function changeStageLabel(stage) {
         stageLabel.innerHTML = stages[stage];
     }
@@ -118,7 +108,6 @@ WMVis.View = function () {
     }
 
     that.init = init;
-    that.setLayout = setLayout;
     that.stages = stages;
     that.changeStageLabel = changeStageLabel;
     that.setPredictionData = setPredictionData;

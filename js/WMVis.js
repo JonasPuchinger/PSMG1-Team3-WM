@@ -41,8 +41,6 @@ WMVis = (function () {
             semi: gamesData.getGames(5),
             final: gamesData.getGames(6)
         };
-        console.log(options.final);
-
         view.init(options);
     }
 

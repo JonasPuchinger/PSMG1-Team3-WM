@@ -1,39 +1,44 @@
 var WMVis = WMVis || {};
-WMVis.Controller = function() {
-  "use strict";
+var Controller = Controller || {};
+WMVis.Controller = function () {
+    "use strict";
 
-  var that = new EventPublisher(),
-    preTournamentController,
-    stageSlider;
+    var that = new EventPublisher(),
+        preTournamentController,
+        elemBracketController,
+        stageSlider;
 
-  function init() {
-    preTournamentController = new Controller.PreTournamentController();
-    preTournamentController.init();
-    preTournamentController.addEventListener("nationCardHovered", onNationCardHovered);
-    preTournamentController.addEventListener("nationCardLeft", onNationCardLeft);
-    preTournamentController.addEventListener("nationCardClicked", onNationCardClicked);
+    function init() {
+        preTournamentController = new Controller.PreTournamentController();
+        preTournamentController.init();
+        preTournamentController.addEventListener("nationCardHovered", onNationCardHovered);
+        preTournamentController.addEventListener("nationCardLeft", onNationCardLeft);
+        preTournamentController.addEventListener("nationCardClicked", onNationCardClicked);
 
-    stageSlider = document.querySelector("#stage-slider");
-    stageSlider.addEventListener("input", onSliderChange);
-  }
+        elemBracketController = new Controller.ElemBracketController();
+        elemBracketController.init();
 
-  function onSliderChange() {
-    var newStage = stageSlider.value;
-    that.notifyAll("stageSliderChanged", newStage);
-  }
+        stageSlider = document.querySelector("#stage-slider");
+        stageSlider.addEventListener("input", onSliderChange);
+    }
 
-  function onNationCardHovered(event) {
-    that.notifyAll("nationCardHovered", event.data);
-  }
+    function onSliderChange() {
+        var newStage = stageSlider.value;
+        that.notifyAll("stageSliderChanged", newStage);
+    }
 
-  function onNationCardLeft(event) {
-    that.notifyAll("nationCardLeft", event.data);
-  }
+    function onNationCardHovered(event) {
+        that.notifyAll("nationCardHovered", event.data);
+    }
 
-  function onNationCardClicked(event) {
-    that.notifyAll("nationCardClicked", event.data);
-  }
+    function onNationCardLeft(event) {
+        that.notifyAll("nationCardLeft", event.data);
+    }
 
-  that.init = init;
-  return that;
+    function onNationCardClicked(event) {
+        that.notifyAll("nationCardClicked", event.data);
+    }
+
+    that.init = init;
+    return that;
 };
