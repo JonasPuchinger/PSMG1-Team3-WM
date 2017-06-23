@@ -1,20 +1,137 @@
-#stageMenu {
+html, body {
+  height: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.stage-menu-fixed {
+  background-color: #fff;
+  z-index: 100;
+}
+
+#stage-menu {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#stageSlider {
+#stage-slider {
   width: 50%;
 }
 
-#stageLabel {
+#stage-label {
   font-size: 20px;
 }
 
 .thumb {
-  display: none;
+    display: none;
+}
+
+#tournamentBracketsEl {
+/*    display: table;*/
+    width: 1550px;
+    height: 1106px;
+}
+
+
+.nationcard .card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ro16,
+.quarter,
+.semi,
+.final {
+/*    display: table-cell;*/
+    width: 300px;
+    float: left;
+}
+
+.ro16 {
+    margin-left: 50px;
+}
+
+.quarter,
+.semi,
+.final {
+    position: relative;
+    margin-left: 100px;
+}
+
+.quarter {
+    top: 78px;
+    height: 1028px;
+}
+
+.semi {
+    top: 215px;
+    height: 891px;
+}
+
+.final {
+    top: 479px;
+    height: 627px;
+}
+
+.quarter .match {
+    margin: 0px 0px 147px 0px;    
+}
+
+.semi .match {
+    margin: 0px 0px 421px 0px;
+}
+
+.final .match {
+    margin: 0px;
+}
+
+.match {
+    width: 300px;
+    height: 127px;
+    border-style: solid;
+    margin: 10px 0px 10px 0px;
+}
+
+.group-row {
+  position: relative;
+}
+
+.svg-container {
+  z-index: 50;
+  position: absolute;
+}
+
+.group-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.group-heading {
+  text-align: center;
+}
+
+/*.stagesrow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}*/
+
+.stagesrow div {
+  text-align: center;
+}
+
+.nationrow {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .nationcard .card-content{
@@ -22,7 +139,71 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  font-size: 15px;
 }
+
+.predictionrow {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.round-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.matchcol {
+  height: 81%;
+  z-index: 99;
+  position: absolute;
+  top: 19%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.resultcard {
+  text-align: center;
+}
+
+.team1,
+.team2 {
+    background-color: #f6f6f6;
+}
+
+.team1 {
+    border: solid;
+    border-width: 0px 0px 1px 0px;
+}
+
+.team2 {
+    border: solid;
+    border-width: 1px 0px 0px 0px;
+}
+
+.img {
+    width: 40px;
+    height: 30px;
+    padding: 5px 10px 0px 10px;
+}
+
+.country {
+    
+}
+
+.goals {
+    font-size: 20px;
+    text-align: center;
+    border-style: dashed;
+    border-width: 0px 0px 0px 2px;
+}
+
+.team1>.goals {}
+
+.team2>.goals {}
 
 .group-container{
     width: 25%;

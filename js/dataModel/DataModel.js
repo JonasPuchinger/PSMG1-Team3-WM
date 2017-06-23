@@ -32,7 +32,6 @@ WMVis.DataModel = function () {
 
     function loadPreTournament() {
         d3.csv("../../data/pre_tournament.csv", function (data) {
-
             //Sortierung nach Gruppen + Chance WM-Sieg
             data.sort(compareF);
             preTournament = data;
@@ -166,7 +165,6 @@ WMVis.DataModel = function () {
             }
         }
         teamsWithTournamentProgression = tournamentProgress;
-        console.log(teamsWithTournamentProgression);
         that.notifyAll("finishedLoading");
     }
 

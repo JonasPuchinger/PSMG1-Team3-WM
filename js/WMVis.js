@@ -1,5 +1,5 @@
 var WMVis = WMVis || {};
-WMVis = (function() {
+WMVis = (function () {
     "use strict";
 
     var that = {},
@@ -14,29 +14,43 @@ WMVis = (function() {
         dataModel.addEventListener("finishedLoading", init);
         dataModel.init();
     }
-    
+
     function init() {
-        controller = new WMVis.Controller();
-        view = new WMVis.View();
         gamesData = new WMVis.GamesData();
-
-        controller.init();
-        view.init();
-
         initCanvas();
+        initController();
     }
-    
+
     function initCanvas() {
+        let sliderEl = document.querySelector('#stage-slider');
+        initView();
         preTournament();
-        let sliderEl = document.querySelector('#stageSlider');
-        sliderEl.value = 0;
+    }
+
+    function initController() {
+        controller = new WMVis.Controller();
+        controller.init();
         controller.addEventListener("stageSliderChanged", onStageSliderChanged);
+        controller.addEventListener("nationCardHovered", togglePredictionRow);
+        controller.addEventListener("nationCardLeft", togglePredictionRow);
+        controller.addEventListener("nationCardClicked", onNationCardClicked);
+    }
+
+    function initView() {
+        view = new WMVis.View();
+        var options = {
+            ro16: gamesData.getGames(3),
+            quarter: gamesData.getGames(4),
+            semi: gamesData.getGames(5),
+            final: gamesData.getGames(6)
+        };
+        view.init(options);
     }
 
     function onStageSliderChanged(event) {
         var newStage = event.data;
         view.changeStageLabel(newStage);
-        
+
         switch (parseInt(newStage)) {
             case 0: //Before Tournament
                 preTournament();
@@ -68,9 +82,7 @@ WMVis = (function() {
             case 9: //After Finals
                 final();
                 break;
-                       
-          }
-
+        }
     }
     
     function getProbabilities(index){
@@ -89,13 +101,13 @@ WMVis = (function() {
             }
         }
     }
-                
+  
     function preTournament() {
         let pt = dataModel.getPreTournament();
-        console.log(pt);
+        view.setPredictionData(pt);
         view.changeLayout(0, pt, null);
     }
-    
+
     function md0() { //+wahrscheinlichkeiten und zukünftige spiele
         let md0 = dataModel.getPreTournament();
         view.changeLayout(1, md0, null);
@@ -119,34 +131,47 @@ WMVis = (function() {
     function md3() {
         let md3 = dataModel.getMatchday3();
         console.log(md3);
-        view.changeLayout(1, md3, gamesData.getGamesOfDay(2));
+        view.changeLayout(1, md3, gamesData.getGamesOfDay(2));;
     }
-    
+
     function ko() {
-        let ro16 = dataModel.getRo16();
+        view.changeLayout(2);
+        controller.initElemBracketController();
     }
 
     function ro16() {
-        let ro16 = dataModel.getRo16();
-        console.log(ro16);
-    } 
+        view.changeLayout(3);
+        controller.initElemBracketController();
+    }
 
     function quarter() {
-        let quarter = dataModel.getQuarter();
-        console.log(quarter);
-    } 
+        view.changeLayout(4);
+        controller.initElemBracketController();
+    }
 
     function semi() {
-        let semi = dataModel.getSemi();
-        console.log(semi);
-    } 
+        view.changeLayout(5);
+        controller.initElemBracketController();
+    }
 
     function final() {
-        let final = dataModel.getFinal();
-        console.log(final);
-    } 
+        view.changeLayout(6);
+        controller.initElemBracketController();
+    }
+
+    function togglePredictionRow(event) {
+        view.togglePredictionRow(event.data);
+    }
+
+    function onNationCardClicked(event) {
+        view.showNationModal(event.data);
+    }
+
+    function togglePredictionBracket(event) {
+
+    }
 
     that.loadDataModel = loadDataModel;
-//    that.init = init;
+    //    that.init = init;
     return that;
 }());

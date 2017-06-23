@@ -4,7 +4,7 @@ var View = View || {};
 View.GroupLayout = function () {
     "use strict";
 
-    const abbrs = [                                                       //aus einer csv-Datei
+    const abbrs = [                                                       
      ["br", "mx", "hr", "cm"],
      ["es", "cl", "nl", "au"],
      ["co", "ci", "gr", "jp"],
@@ -43,7 +43,7 @@ View.GroupLayout = function () {
       }
       //showProbabilities(probabilities);
     }
-    
+
     function connect(games){
         var nations = [],
             results,
@@ -51,12 +51,11 @@ View.GroupLayout = function () {
         for(let i=0; i<games.length; i++){
             for(let j=0; j<games[i].length; j++){
                 nations.push(games[i][j].game.split('-'));
-            } 
+            }
         }
         results = d3.selectAll(".result")._groups["0"];
         var rowHeight = document.querySelector("#group").offsetHeight+20;
         var colLeft = document.querySelector(".push-s3").offsetLeft;
-        
         for(let i=0; i<results.length/2; i++){
             var data = [];
             for(let j=2*i; j<2*(i+1); j++){
@@ -73,7 +72,6 @@ View.GroupLayout = function () {
             var exitPaths = pathsUpdate.exit().remove();
             var link = enterPaths.append("path").attr("class","link");
             link.attr("d", function (d) {
-            console.log(d);
             return d;
         });
         }
