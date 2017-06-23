@@ -6,7 +6,7 @@
             <div class="match" id="<%=id%>">
                 <table>
                     <tr class="team1" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[0] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
@@ -19,7 +19,7 @@
                         </td>
                     </tr>
                     <tr class="team2" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[1] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
@@ -46,7 +46,7 @@
             <div class="match" id="<%=id%>">
                 <table>
                     <tr class="team1" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[0] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
@@ -59,7 +59,7 @@
                         </td>
                     </tr>
                     <tr class="team2" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[1] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
@@ -85,7 +85,7 @@
             <div class="match" id="<%=id%>">
                 <table>
                     <tr class="team1" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[0] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
@@ -98,7 +98,7 @@
                         </td>
                     </tr>
                     <tr class="team2" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[1] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
@@ -124,7 +124,7 @@
             <div class="match" id="<%=id%>">
                 <table>
                     <tr class="team1" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[0] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
@@ -137,7 +137,7 @@
                         </td>
                     </tr>
                     <tr class="team2" id="team">
-                        <td class="img nationflag">
+                        <td class="img">
                             <% if(match.game[1] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
@@ -154,5 +154,9 @@
             <%});%>
     </div>
 </script>
+<div id="tournamentBracketsPreKo" class="hidden"></div>
+<div id="tournamentBracketsRo16El" class="hidden"></div>
+<div id="tournamentBracketsQuarterEl" class="hidden"></div>
+<div id="tournamentBracketsSemiEl" class="hidden"></div>
+<div id="tournamentBracketsFinalEl" class="hidden"></div>
 
-<div id="tournamentBracketsEl"></div>

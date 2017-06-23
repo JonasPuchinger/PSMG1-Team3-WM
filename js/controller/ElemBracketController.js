@@ -21,21 +21,21 @@ Controller.ElemBracketController = function () {
     }
 
     function onMatchHovered(event) {
-        that.notifyAll("matchHovered", {
+        that.notifyAll("teamHovered", {
             target: event.target,
             event: "enter"
         });
     }
 
     function onMatchLeft(event) {
-        that.notifyAll("matchLeft", {
+        that.notifyAll("teamHoverLeft", {
             target: event.target,
             event: "leave"
         });
     }
 
     function onMatchClicked(event) {
-        that.notifyAll("matchClicked", event.target);
+        that.notifyAll("teamClicked", event.target);
     }
 
     that.init = init;

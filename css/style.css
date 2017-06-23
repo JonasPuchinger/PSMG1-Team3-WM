@@ -31,7 +31,7 @@ html, body {
     display: none;
 }
 
-#tournamentBracketsEl {
+#tournamentBracketsPreKo, #tournamentBracketsRo16El, #tournamentBracketsQuarterEl, #tournamentBracketsSemiEl, #tournamentBracketsFinalEl {
 /*    display: table;*/
     width: 1550px;
     height: 1106px;

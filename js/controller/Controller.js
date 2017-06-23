@@ -12,7 +12,6 @@ WMVis.Controller = function () {
         stageSlider = document.querySelector("#stage-slider");
         stageSlider.addEventListener("input", onSliderChange);
 
-        initPreTournamentController();
         initElemBracketController();
     }
 
@@ -28,7 +27,7 @@ WMVis.Controller = function () {
         elemBracketController = new Controller.ElemBracketController();
         elemBracketController.init();
         elemBracketController.addEventListener("teamHovered", onTeamHovered);
-        elemBracketController.addEventListener("teamHovereLeft", onTeamHoverLeft);
+        elemBracketController.addEventListener("teamHoverLeft", onTeamHoverLeft);
         elemBracketController.addEventListener("teamClicked", onTeamClicked);
     }
 
@@ -38,15 +37,16 @@ WMVis.Controller = function () {
     }
 
     function onTeamHovered(event) {
-        that.notifyAll("teamHovered", event.data);
+//        that.notifyAll("teamHovered", event.data);
+        console.log(event.target);
     }
 
     function onTeamHoverLeft(event) {
-        that.notifyAll("teamHovereLeft", event.data);
+//        that.notifyAll("teamHoverLeft", event.data);
     }
 
     function onTeamClicked(event) {
-        onNationCardClicked(event);
+//        onNationCardClicked(event);
     }
 
     function onNationCardHovered(event) {
@@ -61,6 +61,7 @@ WMVis.Controller = function () {
         that.notifyAll("nationCardClicked", event.data);
     }
 
+    that.initPreTournamentController = initPreTournamentController;
     that.initElemBracketController = initElemBracketController;
     that.init = init;
     return that;

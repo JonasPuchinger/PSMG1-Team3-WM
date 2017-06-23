@@ -17,8 +17,8 @@ WMVis = (function () {
 
     function init() {
         gamesData = new WMVis.GamesData();
-        initCanvas();
         initController();
+        initCanvas();
     }
 
     function initCanvas() {
@@ -91,6 +91,7 @@ WMVis = (function () {
         let pt = dataModel.getPreTournament();
         view.setPredictionData(pt);
         view.changeLayout(0, pt, null);
+        controller.initPreTournamentController();
     }
 
     function md0() { //+wahrscheinlichkeiten und zukünftige spiele
@@ -117,27 +118,22 @@ WMVis = (function () {
 
     function ko() {
         view.changeLayout(2);
-        controller.initElemBracketController();
     }
 
     function ro16() {
         view.changeLayout(3);
-        controller.initElemBracketController();
     }
 
     function quarter() {
         view.changeLayout(4);
-        controller.initElemBracketController();
     }
 
     function semi() {
         view.changeLayout(5);
-        controller.initElemBracketController();
     }
 
     function final() {
         view.changeLayout(6);
-        controller.initElemBracketController();
     }
 
     function togglePredictionRow(event) {

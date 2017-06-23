@@ -7,7 +7,7 @@ View.Ro16Layout = function (data) {
         flagsUrlBase = "/data/flags/",
         compiledMatches,
         compiledMatchesWithoutScore,
-        matchesWithoutScore = JSON.parse(JSON.stringify(data));
+        matchesWithoutScore = JSON.parse(JSON.stringify(data)); // Deep Copy
 
     function init() {
         _.map(matchesWithoutScore, function (match) {
@@ -27,12 +27,12 @@ View.Ro16Layout = function (data) {
         compiledMatchesWithoutScore = ro16Template(varsMatchesWithoutScore);
     }
 
-    function appendMatches() {
-        $("#tournamentBracketsEl").append(compiledMatches);
+    function appendMatches(selector) {
+        $(selector).append(compiledMatches);
     }
 
-    function appendMatchesWithoutScore() {
-        $("#tournamentBracketsEl").append(compiledMatchesWithoutScore);
+    function appendMatchesWithoutScore(selector) {
+        $(selector).append(compiledMatchesWithoutScore);
     }
 
     that.appendMatches = appendMatches;
