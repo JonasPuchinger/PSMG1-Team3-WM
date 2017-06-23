@@ -12,7 +12,6 @@ WMVis.Controller = function () {
         stageSlider = document.querySelector("#stage-slider");
         stageSlider.addEventListener("input", onSliderChange);
 
-        initPreTournamentController();
         initElemBracketController();
     }
 
@@ -61,6 +60,7 @@ WMVis.Controller = function () {
         that.notifyAll("nationCardClicked", event.data);
     }
 
+    that.initPreTournamentController = initPreTournamentController;
     that.initElemBracketController = initElemBracketController;
     that.init = init;
     return that;

@@ -17,8 +17,8 @@ WMVis = (function () {
 
     function init() {
         gamesData = new WMVis.GamesData();
-        initCanvas();
         initController();
+        initCanvas();
     }
 
     function initCanvas() {
@@ -106,6 +106,7 @@ WMVis = (function () {
         let pt = dataModel.getPreTournament();
         view.setPredictionData(pt);
         view.changeLayout(0, pt, null);
+        controller.initPreTournamentController();
     }
 
     function md0() { //+wahrscheinlichkeiten und zukünftige spiele
