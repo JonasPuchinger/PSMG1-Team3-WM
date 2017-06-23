@@ -77,16 +77,31 @@ WMVis = (function () {
                 quarter();
                 break;
             case 8: //After Semi
-                semi()
+                semi();
                 break;
             case 9: //After Finals
                 final();
                 break;
-
         }
-
     }
-
+    
+    function getProbabilities(index){
+        probabilityController = new WMVis.ProbabilityController();
+        var probabilities = [];
+        for(var i=0; i<md1.length; i+=4){
+            probabilities[i] = [];
+            for(var j=0; j<4; j++){
+                var probability = 0;
+                var games = gamesData.getGroupGames(i, md1[i+j].country_id);
+                for(var k=0; k<games.length; k++){
+                    probability += probabilityController.calculateProbabilities(games[k].game.split("-"),md1);
+                }
+                console.log(probability);
+                probabilities[i].push(probability);
+            }
+        }
+    }
+  
     function preTournament() {
         let pt = dataModel.getPreTournament();
         view.setPredictionData(pt);
@@ -100,19 +115,23 @@ WMVis = (function () {
 
     function md1() {
         let md1 = dataModel.getMatchday1();
-        // probabilityController = new WMVis.ProbabilityController();
-        // probabilityController.calculateProbabilities(["BRA","CRO",],md1);
-        view.changeLayout(1, md1, gamesData.getGames(0));
-    }
+        console.log(md1);
+        var probabilities = getProbabilities(1);
+        console.log(probabilities);
+        view.changeLayout(1, md1, gamesData.getGamesOfDay(0));
+    }   
 
     function md2() {
         let md2 = dataModel.getMatchday2();
-        view.changeLayout(1, md2, gamesData.getGames(1));
-    }
+        console.log(md2);
+        var probabilities = getProbabilities(2);
+        view.changeLayout(1, md2, gamesData.getGamesOfDay(1));
+    } 
 
     function md3() {
         let md3 = dataModel.getMatchday3();
-        view.changeLayout(1, md3, gamesData.getGames(2));
+        console.log(md3);
+        view.changeLayout(1, md3, gamesData.getGamesOfDay(2));;
     }
 
     function ko() {

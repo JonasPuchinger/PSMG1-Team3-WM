@@ -47,58 +47,44 @@ WMVis.View = function () {
     }
 
     function changeLayout(layout, data= null, games= null) {
+        document.querySelector("#groups-list-el").innerHTML = "";
+        document.querySelector("#resultEl").innerHTML = "";
+        document.querySelector("#tournamentBracketsEl").innerHTML = "";
         switch (layout) {
             case 0:
                 preTournamentLayout = new View.PreTournamentLayout();
-                document.querySelector("#resultEl").innerHTML = "";
                 preTournamentLayout.init();
                 break;
             case 1:
-                groupLayout = new View.GroupLayout();
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
+                groupLayout = new View.GroupLayout();  
+                console.log(games);
                 groupLayout.init(data, games);
                 break;
             case 2:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                document.querySelector("#tournamentBracketsEl").innerHTML = "";
                 ro16Layout.appendMatchesWithoutScore();
                 quarterLayout.appendTBD();
                 semiLayout.appendTBD();
                 finalLayout.appendTBD();
                 break;
             case 3:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                document.querySelector("#tournamentBracketsEl").innerHTML = "";
                 ro16Layout.appendMatches();
                 quarterLayout.appendMatchesWithoutScore();
                 semiLayout.appendTBD();
                 finalLayout.appendTBD();
                 break;
             case 4:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                document.querySelector("#tournamentBracketsEl").innerHTML = "";
                 ro16Layout.appendMatches();
                 quarterLayout.appendMatches();
                 semiLayout.appendMatchesWithoutScore();
                 finalLayout.appendTBD();
                 break;
             case 5:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                document.querySelector("#tournamentBracketsEl").innerHTML = "";
                 ro16Layout.appendMatches();
                 quarterLayout.appendMatches();
                 semiLayout.appendMatches();
                 finalLayout.appendMatchesWithoutScore();
                 break;
             case 6:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                document.querySelector("#tournamentBracketsEl").innerHTML = "";
                 ro16Layout.appendMatches();
                 quarterLayout.appendMatches();
                 semiLayout.appendMatches();

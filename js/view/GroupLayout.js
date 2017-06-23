@@ -41,6 +41,7 @@ View.GroupLayout = function () {
       if(games!==null){
         connect(games);
       }
+      //showProbabilities(probabilities);
     }
 
     function connect(games){
@@ -53,18 +54,16 @@ View.GroupLayout = function () {
             }
         }
         results = d3.selectAll(".result")._groups["0"];
-        var row = document.querySelector("#group");
-        var rowHeight = row.offsetHeight+20;
-        var col = document.querySelector(".push-s3");
-        var colLeft = col.offsetLeft;
-
+        var rowHeight = document.querySelector("#group").offsetHeight+20;
+        var colLeft = document.querySelector(".push-s3").offsetLeft;
         for(let i=0; i<results.length/2; i++){
             var data = [];
             for(let j=2*i; j<2*(i+1); j++){
                 countries[0] = d3.select("#"+nations[j][0])._groups["0"]["0"];
                 countries[1] = d3.select("#"+nations[j][1])._groups["0"]["0"];
-                data.push("M " + (countries[0].offsetLeft+colLeft) + " " + (countries[0].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + "  " + (results[j].offsetLeft+results[j].offsetWidth-50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
-                data.push("M " + (countries[1].offsetLeft+colLeft) + " " + (countries[1].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-50) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
+                console.log(results[j]);
+                data.push("M " + (countries[0].offsetLeft+colLeft) + " " + (countries[0].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
+                data.push("M " + (countries[1].offsetLeft+colLeft) + " " + (countries[1].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
             }
             var root = d3.select(".row-"+i);
             var paths = root.selectAll("g");
@@ -77,15 +76,12 @@ View.GroupLayout = function () {
         });
         }
     }
-
-   /* <% _.each(paths[key1], function(path, key2){ console.log(document.querySelectorAll(".result"));
-            console.log(document.querySelector("#"+ids[key1][key2]));
-            %>
-            <path class="link" d="M2,<%= document.querySelectorAll(".result").right + window.scrollX %>,<%= document.querySelector("#"+ids[key1][key2][0]).left + window.scrollX %>"></path>
-            <path class="link" d="M2,<%= document.querySelectorAll(".result").right + window.scrollX %>,<%= document.querySelector("#"+ids[key1][key2][1]).left + window.scrollX %>"></path>
-            <%
-            });
-            %>  */
+    
+    function showProbabilities(probabilities){
+      for(let i=0; i<probabilities.length; i++){
+          
+      }
+    }
 
     that.init = init;
     return that;
