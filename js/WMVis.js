@@ -39,10 +39,10 @@ WMVis = (function () {
     function initView() {
         view = new WMVis.View();
         var options = {
-            ro16: gamesData.getGames(3),
-            quarter: gamesData.getGames(4),
-            semi: gamesData.getGames(5),
-            final: gamesData.getGames(6)
+            ro16: gamesData.getGamesOfDay(3),
+            quarter: gamesData.getGamesOfDay(4),
+            semi: gamesData.getGamesOfDay(5),
+            final: gamesData.getGamesOfDay(6)
         };
         view.init(options);
     }
