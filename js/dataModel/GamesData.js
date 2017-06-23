@@ -306,10 +306,29 @@ WMVis.GamesData = (function(){
     
     var that = {};
 
-    function getGames(key){
+    function getGamesOfDay(key){
         return games[key];
     }
     
-    that.getGames = getGames;
+    function getGroupGames(key, nation){
+        var allGames = [];
+        for(var i=key; i<3; i++){
+            allGames.push(getGamesOfDay(i));
+        }
+        var games = [];
+        for(var i=0; i<allGames.length; i++){
+            for(var j=0; j<allGames[i].length; j++){
+                for(var k=0; k<allGames[i][j].length; k++){
+                    if(allGames[i][j][k].game.includes(nation)){
+                        games.push(allGames[i][j][k]);
+                    }
+                }
+            }
+        }
+        return games;
+    }
+    
+    that.getGamesOfDay = getGamesOfDay;
+    that.getGroupGames = getGroupGames;
     return that;
 });

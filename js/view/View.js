@@ -19,21 +19,22 @@ WMVis.View = function () {
     }
     
     function changeLayout(layout, data, games){
+        document.querySelector("#groupsListEl").innerHTML = "";
+        document.querySelector("#resultEl").innerHTML = "";
+        //document.querySelector("#tournamentBracketsEl").innerHTML = "";
         switch(layout){
             case 0:
                 preTournamentLayout = new View.PreTournamentLayout();
-                document.querySelector("#resultEl").innerHTML = "";
                 preTournamentLayout.init();
                 console.log(games);
                 break;
             case 1:
-                groupLayout = new View.GroupLayout();
-                document.querySelector("#groupsListEl").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
+                groupLayout = new View.GroupLayout();  
                 console.log(games);
                 groupLayout.init(data, games);
                 break;
             case 2:
+                //Aufruf von Jakobs Methode
                 break;
                 
         }
