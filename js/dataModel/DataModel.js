@@ -233,6 +233,47 @@ WMVis.DataModel = function () {
         }
     }
 
+    function getNationsAbbrs(nations) {
+      var parser,
+        doc,
+        abbrs = [];
+
+      var indexIC = getIndexOfEntry(nations, "Ivory Coast");
+      nations[indexIC[0]][indexIC[1]] = "Côte d\'Ivoire";
+      var indexEN = getIndexOfEntry(nations, "England");
+      nations[indexEN[0]][indexEN[1]] = "United Kingdom";
+      var indexIR = getIndexOfEntry(nations, "Iran");
+      nations[indexIR[0]][indexIR[1]] = "Iran (Islamic Republic of)";
+      var indexUS = getIndexOfEntry(nations, "USA");
+      nations[indexUS[0]][indexUS[1]] = "United States of America";
+
+      $.ajax({
+        url: '../../data/flags/sourcecode.txt',
+        type: 'get',
+        success: function(sourcecode) {
+          parser = new DOMParser();
+          doc = parser.parseFromString(sourcecode, "text/html");
+
+          for(let i = 0; i < nations.length; i++) {
+              var abbrsGroup = [];
+              for(let j = 0; j < nations[i].length; j++) {
+                  abbrsGroup.push(doc.querySelector('[title="' + nations[i][j] + '"] .alpha-2').innerHTML.toLowerCase());
+              }
+              abbrs.push(abbrsGroup);
+          }
+        }
+      });
+      return abbrs;
+    }
+
+    function getIndexOfEntry(arr, entry) {
+      for (var i = 0; i < arr.length; i++) {
+        var index = arr[i].indexOf(entry);
+        if (index > -1) {
+          return [i, index];
+        }
+      }
+    }
 
     that.init = init;
     that.getMatchday1 = getMatchday1;
@@ -244,6 +285,6 @@ WMVis.DataModel = function () {
     that.getFinal = getFinal;
     that.getPreTournament = getPreTournament;
     that.getTournamentProgress = getTournamentProgress;
-
+    that.getNationsAbbrs = getNationsAbbrs;
     return that;
 };

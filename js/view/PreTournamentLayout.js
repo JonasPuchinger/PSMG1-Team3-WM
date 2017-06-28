@@ -1,36 +1,64 @@
 var d3 = d3 || {};
 var WMVis = WMVis || {};
 var View = View || {};
-View.PreTournamentLayout = function () {
+View.PreTournamentLayout = function() {
     "use strict";
 
-    const groupNames = ["A", "B", "C", "D", "E", "F", "G", "H"],
-    nations = [
-     ["Brazil", "Mexico", "Croatia", "Cameroon"],
-     ["Spain", "Chile", "Netherlands", "Australia"],
-     ["Colombia", "Ivory Coast", "Greece", "Japan"],
-     ["Uruguay", "England", "Italy", "Costa Rica"],
-     ["France", "Ecuador", "Switzerland", "Honduras"],
-     ["Argentina", "Bosnia and Herzegovina", "Nigeria", "Iran"],
-     ["Germany", "Portugal", "USA", "Ghana"],
-     ["Belgium", "Russia", "South Korea", "Algeria"]
-     ],
-        abbrs = [
-     ["br", "mx", "hr", "cm"],
-     ["es", "cl", "nl", "au"],
-     ["co", "ci", "gr", "jp"],
-     ["uy", "gb", "it", "cr"],
-     ["fr", "ec", "ch", "hn"],
-     ["ar", "ba", "ng", "ir"],
-     ["de", "pt", "us", "gh"],
-     ["be", "ru", "kr", "dz"]
-     ],
-        flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
+    // const groupNames = ["A", "B", "C", "D", "E", "F", "G", "H"],
+    //   nations = [
+    //  ["Brazil", "Mexico", "Croatia", "Cameroon"],
+    //  ["Spain", "Chile", "Netherlands", "Australia"],
+    //  ["Colombia", "Ivory Coast", "Greece", "Japan"],
+    //  ["Uruguay", "England", "Italy", "Costa Rica"],
+    //  ["France", "Ecuador", "Switzerland", "Honduras"],
+    //  ["Argentina", "Bosnia and Herzegovina", "Nigeria", "Iran"],
+    //  ["Germany", "Portugal", "USA", "Ghana"],
+    //  ["Belgium", "Russia", "South Korea", "Algeria"]
+    //  ],
+    //   abbrs = [
+    //  ["br", "mx", "hr", "cm"],
+    //  ["es", "cl", "nl", "au"],
+    //  ["co", "ci", "gr", "jp"],
+    //  ["uy", "gb", "it", "cr"],
+    //  ["fr", "ec", "ch", "hn"],
+    //  ["ar", "ba", "ng", "ir"],
+    //  ["de", "pt", "us", "gh"],
+    //  ["be", "ru", "kr", "dz"]
+    //  ];
 
     var that = new EventPublisher(),
+      flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/",
+      groupNames = [],
+      nations = [],
+      abbrs = [],
       predictionData = [];
 
-    function init() {
+    function init(data) {
+      if(predictionData.length === 0) {
+        predictionData = _.toArray(data[0]);
+      }
+      if(groupNames.length === 0) {
+        groupNames = data[1];
+      }
+      if(nations.length === 0) {
+        var nationsData = data[0];
+        for(let i = 0; i < nationsData.length; i += 4) {
+            var nationsGroup = [];
+            for(let j = i; j < (i + 4); j++) {
+                nationsGroup.push(nationsData[j].country);
+            }
+            nations.push(nationsGroup);
+        }
+      }
+      if(abbrs.length === 0) {
+        abbrs = data[3];
+      }
+
+      // er kann hier zwar abbrs anzeigen, aber nicht drauf zugreifen => timeout bis es verfügbar ist
+      setTimeout(createTemplate, 10);
+    }
+
+    function createTemplate() {
       var template,
         vars,
         compiled;
@@ -39,9 +67,10 @@ View.PreTournamentLayout = function () {
       vars = {groupNames: groupNames, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
       compiled = template(vars);
       $("#groups-list-el").append(compiled);
+      createPredictionRowView();
     }
 
-    function setPredictionData(predData) {
+    function setData(predData) {
       if(predictionData.length === 0) {
         predictionData = _.toArray(predData);
         createPredictionRowView();
@@ -141,7 +170,7 @@ View.PreTournamentLayout = function () {
     }
 
     that.init = init;
-    that.setPredictionData = setPredictionData;
+    that.setData = setData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
     return that;

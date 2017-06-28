@@ -84,7 +84,7 @@ WMVis = (function () {
                 break;
         }
     }
-    
+
     function getProbabilities(index){
         probabilityController = new WMVis.ProbabilityController();
         var probabilities = [];
@@ -101,12 +101,26 @@ WMVis = (function () {
             }
         }
     }
-  
+
     function preTournament() {
-        let pt = dataModel.getPreTournament();
-        view.setPredictionData(pt);
-        view.changeLayout(0, pt, null);
-        controller.initPreTournamentController();
+        var pt = dataModel.getPreTournament(),
+          groups = [],
+          nations = [];
+
+        for(let i = 0; i < pt.length; i += 4) {
+            var nationsGroup = [];
+            for(let j = i; j < (i + 4); j++) {
+                nationsGroup.push(pt[j].country);
+            }
+            nations.push(nationsGroup);
+            groups.push(pt[i].group.toUpperCase());
+        }
+
+        var abbrs = dataModel.getNationsAbbrs(nations);
+        // view.setData(pt);
+        view.changeLayout(0, [pt, groups, nations, abbrs], null);
+        // timeout, um zu warten bis template komplett initialisiert ist
+        setTimeout(function() { controller.initPreTournamentController(); } , 20);
     }
 
     function md0() { //+wahrscheinlichkeiten und zukünftige spiele
@@ -120,14 +134,14 @@ WMVis = (function () {
         var probabilities = getProbabilities(1);
         console.log(probabilities);
         view.changeLayout(1, md1, gamesData.getGamesOfDay(0));
-    }   
+    }
 
     function md2() {
         let md2 = dataModel.getMatchday2();
         console.log(md2);
         var probabilities = getProbabilities(2);
         view.changeLayout(1, md2, gamesData.getGamesOfDay(1));
-    } 
+    }
 
     function md3() {
         let md3 = dataModel.getMatchday3();
