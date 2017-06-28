@@ -37,12 +37,11 @@ WMVis.Controller = function () {
     }
 
     function onTeamHovered(event) {
-//        that.notifyAll("teamHovered", event.data);
-        console.log(event.target);
+        that.notifyAll("teamHovered", event.data);
     }
 
     function onTeamHoverLeft(event) {
-//        that.notifyAll("teamHoverLeft", event.data);
+        that.notifyAll("teamHoverLeft", event.data);
     }
 
     function onTeamClicked(event) {

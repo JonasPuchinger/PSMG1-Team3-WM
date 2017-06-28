@@ -17,6 +17,16 @@ WMVis.View = function () {
         stageLabel = document.querySelector("#stage-label");
         $(".stage-menu-fixed").stick_in_parent();
 
+        initElemBrackets(data);
+    }
+
+    function initElemBrackets(data) {
+        var selector1 = '#tournamentBracketsPreKo';
+        var selector2 = '#tournamentBracketsRo16El';
+        var selector3 = '#tournamentBracketsQuarterEl';
+        var selector4 = '#tournamentBracketsSemiEl';
+        var selector5 = '#tournamentBracketsFinalEl';
+
         preTournamentLayout = new View.PreTournamentLayout();
         preTournamentLayout.init();
         ro16Layout = new View.Ro16Layout(data.ro16);
@@ -27,12 +37,6 @@ WMVis.View = function () {
         semiLayout.init();
         finalLayout = new View.FinalLayout(data.final);
         finalLayout.init();
-
-        var selector1 = '#tournamentBracketsPreKo';
-        var selector2 = '#tournamentBracketsRo16El';
-        var selector3 = '#tournamentBracketsQuarterEl';
-        var selector4 = '#tournamentBracketsSemiEl';
-        var selector5 = '#tournamentBracketsFinalEl';
 
         ro16Layout.appendMatchesWithoutScore(selector1);
         quarterLayout.appendTBD(selector1);
@@ -80,11 +84,13 @@ WMVis.View = function () {
         switch (layout) {
             case 0:
                 preTournamentLayout = new View.PreTournamentLayout();
+                hideAllTournamentBracketLayouts();
                 document.querySelector("#resultEl").innerHTML = "";
                 preTournamentLayout.init();
                 break;
             case 1:
                 groupLayout = new View.GroupLayout();
+                hideAllTournamentBracketLayouts();
                 document.querySelector("#groups-list-el").innerHTML = "";
                 document.querySelector("#resultEl").innerHTML = "";
                 groupLayout.init(data, games);

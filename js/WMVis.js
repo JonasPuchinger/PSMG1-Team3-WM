@@ -7,7 +7,9 @@ WMVis = (function () {
         probabilityController,
         dataModel,
         view,
-        gamesData;
+        gamesData,
+        elemBracketPredView,
+        currentState;
 
     function loadDataModel() {
         dataModel = new WMVis.DataModel();
@@ -34,24 +36,36 @@ WMVis = (function () {
         controller.addEventListener("nationCardHovered", togglePredictionRow);
         controller.addEventListener("nationCardLeft", togglePredictionRow);
         controller.addEventListener("nationCardClicked", onNationCardClicked);
+        controller.addEventListener("teamHovered", onTeamHovered);
+        controller.addEventListener("teamHoverLeft", onTeamHoverLeft);
     }
 
     function initView() {
+        var optionsView = {
+                ro16: gamesData.getGames(3),
+                quarter: gamesData.getGames(4),
+                semi: gamesData.getGames(5),
+                final: gamesData.getGames(6)
+            },
+            optionsPred = {
+                ro16: dataModel.getRo16(),
+                quarter: dataModel.getQuarter(),
+                semi: dataModel.getSemi(),
+                final: dataModel.getFinal()
+            };
+
         view = new WMVis.View();
-        var options = {
-            ro16: gamesData.getGames(3),
-            quarter: gamesData.getGames(4),
-            semi: gamesData.getGames(5),
-            final: gamesData.getGames(6)
-        };
-        view.init(options);
+        view.init(optionsView);
+
+        elemBracketPredView = new WMVis.ElemBracketShowPred(optionsPred);
+        elemBracketPredView.init();
     }
 
     function onStageSliderChanged(event) {
-        var newStage = event.data;
-        view.changeStageLabel(newStage);
+        currentState = event.data;
+        view.changeStageLabel(currentState);
 
-        switch (parseInt(newStage)) {
+        switch (parseInt(currentState)) {
             case 0: //Before Tournament
                 preTournament();
                 break;
@@ -144,8 +158,12 @@ WMVis = (function () {
         view.showNationModal(event.data);
     }
 
-    function togglePredictionBracket(event) {
+    function onTeamHovered(event) {
+        elemBracketPredView.showPredRow(currentState, event.data);
+    }
 
+    function onTeamHoverLeft(event) {
+//        onStageSliderChanged({data: currentState});
     }
 
     that.loadDataModel = loadDataModel;
