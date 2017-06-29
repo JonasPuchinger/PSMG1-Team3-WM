@@ -25,16 +25,18 @@
 
     <main>
         <!-- Unsere Visualisierung -->
+        <!-- vllt in header verschieben -->
         <div class="row stage-menu-fixed">
             <div class="col s12">
-                <div class="section" id="stageMenu">
-                    <label id="stageLabel" for="stageSlider">Before Tournament</label>
-                    <input id="stageSlider" type="range" min="0" max="9" value="0" step="1">
+                <div class="section" id="stage-menu">
+                    <label id="stage-label" for="stage-slider">Before Tournament</label>
+                    <input id="stage-slider" type="range" min="0" max="9" value="0" step="1">
                 </div>
+                <div class="divider"></div>
             </div>
         </div>
 
-        <div w3-include-html="templates/pre-tournament.html"></div>
+        <div w3-include-html="templates/pre-tournament.html" id="pre-tournament-layout"></div>
 
         <div w3-include-html="templates/group-phase.html"></div>
 
@@ -54,26 +56,29 @@
         </div>
     </footer>
 
-
-    <script src="lib/jquery-bracket-master/dist/jquery.bracket.min.js"></script>
-    <link href="lib/jquery-bracket-master/dist/jquery.bracket.min.css" rel="stylesheet" />
+    <script src="./lib/d3/d3.js"></script>
     <script src="lib/d3/d3.min.js"></script>
     <script src="js/materialize/materialize.js"></script>
     <script src="js/materialize/init.js"></script>
     <script src="vendors/event-publisher/EventPublisher.js"></script>
     <script src="vendors/request/request.js"></script>
     <script src="vendors/sticky.js"></script>
+    <script src="vendors/jqSimpleConnect/source/jqSimpleConnect.js"></script>
     <script src="js/WMVis.js"></script>
     <script src="js/controller/Controller.js"></script>
     <script src="js/controller/ProbabilityController.js"></script>
-    <script src="js/view/View.js"></script>
+    <script src="js/controller/PreTournamentController.js"></script>
+    <script src="js/controller/ElemBracketController.js"></script>
     <script src="js/view/Ro16Layout.js"></script>
     <script src="js/view/QuarterLayout.js"></script>
     <script src="js/view/SemiLayout.js"></script>
     <script src="js/view/FinalLayout.js"></script>
+    <script src="js/view/View.js"></script>
     <script src="js/view/PreTournamentLayout.js"></script>
+    <script src="js/view/GroupLayout.js"></script>
+    <script src="js/view/ElemBracketShowPred.js"></script>
     <script src="js/dataModel/DataModel.js"></script>
-
+    <script src="js/dataModel/gamesData.js"></script>
     <script>
         w3.includeHTML();
 

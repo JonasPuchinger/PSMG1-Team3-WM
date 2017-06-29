@@ -4,33 +4,39 @@ var View = View || {};
 View.Ro16Layout = function (data) {
     "use strict";
     var that = new EventPublisher(),
-        matches = [
-            ["BRA", "CHI"],
-            ["COL", "URU"],
-            ["FRA", "NGA"],
-            ["GER", "ALG"],
-            ["NED", "MEX"],
-            ["CRC", "GRE"],
-            ["ARG", "SUI"],
-            ["BEL", "USA"]
-        ],
         flagsUrlBase = "/data/flags/",
-        compiledMatches;
+        compiledMatches,
+        compiledMatchesWithoutScore,
+        matchesWithoutScore = JSON.parse(JSON.stringify(data)); // Deep Copy
 
     function init() {
+        _.map(matchesWithoutScore, function (match) {
+            match.result = ["-", "-"];
+            return match;
+        });
         var ro16Template = _.template($('#ro16Template').html()),
             varsMatches = {
-                matches: matches,
+                matches: data,
+                flagsUrlBase: flagsUrlBase
+            },
+            varsMatchesWithoutScore = {
+                matches: matchesWithoutScore,
                 flagsUrlBase: flagsUrlBase
             };
-            compiledMatches = ro16Template(varsMatches);
+        compiledMatches = ro16Template(varsMatches),
+        compiledMatchesWithoutScore = ro16Template(varsMatchesWithoutScore);
     }
 
-    function appendMatches() {
-        $("#tournamentBracketsEl").append(compiledMatches);
+    function appendMatches(selector) {
+        $(selector).append(compiledMatches);
+    }
+
+    function appendMatchesWithoutScore(selector) {
+        $(selector).append(compiledMatchesWithoutScore);
     }
 
     that.appendMatches = appendMatches;
+    that.appendMatchesWithoutScore = appendMatchesWithoutScore;
     that.init = init;
     return that;
 };

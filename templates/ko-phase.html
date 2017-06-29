@@ -3,32 +3,32 @@
     <div class="ro16">
 
         <% _.each(matches, function(match,id) {%>
-            <div class="match" id="<%=id%>">
+            <div class="match" id="r<%=id+1%>">
                 <table>
-                    <tr class="team1">
+                    <tr class="team1" id="team">
                         <td class="img">
-                            <% if(match[0] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[0]%>.svg" width="40" height="30">
+                            <% if(match.game[0] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
                         </td>
                         <td class="country">
-                            <span><%=match[0]%></span>
+                            <span><%=match.game[0]%></span>
                         </td>
                         <td class="goals">
-                            <span>8</span>
+                            <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                         </td>
                     </tr>
-                    <tr class="team2">
+                    <tr class="team2" id="team">
                         <td class="img">
-                            <% if(match[1] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[1]%>.svg" width="40" height="30">
+                            <% if(match.game[1] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
                         </td>
                         <td class="country">
-                            <span><%=match[1]%></span>
+                            <span><%=match.game[1]%></span>
                         </td>
                         <td class="goals">
-                            <span>4</span>
+                            <span><%= typeof(match.result[1])!== 'undefined' ?  match.result[1] : '-' %></span>
                         </td>
                     </tr>
                 </table>
@@ -43,36 +43,32 @@
     <div class="quarter">
 
         <% _.each(matches, function(match,id) {%>
-            <div class="match" id="<%=id%>">
+            <div class="match" id="q<%=id+1%>">
                 <table>
-                    <tr class="team1">
+                    <tr class="team1" id="team">
                         <td class="img">
-                        
-                            <%if(match[0] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[0]%>.svg" width="40" height="30">
+                            <% if(match.game[0] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
-                                
                         </td>
                         <td class="country">
-                            <span><%=match[0]%></span>
+                            <span><%=match.game[0]%></span>
                         </td>
                         <td class="goals">
-                            <span>8</span>
+                            <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                         </td>
                     </tr>
-                    <tr class="team2">
+                    <tr class="team2" id="team">
                         <td class="img">
-                        
-                            <% if(match[1] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[1]%>.svg" width="40" height="30">
+                            <% if(match.game[1] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
-                                
                         </td>
                         <td class="country">
-                            <span><%=match[1]%></span>
+                            <span><%=match.game[1]%></span>
                         </td>
                         <td class="goals">
-                            <span>4</span>
+                            <span><%= typeof(match.result[1])!== 'undefined' ?  match.result[1] : '-' %></span>
                         </td>
                     </tr>
                 </table>
@@ -86,36 +82,32 @@
     <div class="semi">
 
         <% _.each(matches, function(match,id) {%>
-            <div class="match" id="<%=id%>">
+            <div class="match" id="s<%=id+1%>">
                 <table>
-                    <tr class="team1">
+                    <tr class="team1" id="team">
                         <td class="img">
-                        
-                            <%if(match[0] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[0]%>.svg" width="40" height="30">
+                            <% if(match.game[0] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
-                                
                         </td>
                         <td class="country">
-                            <span><%=match[0]%></span>
+                            <span><%=match.game[0]%></span>
                         </td>
                         <td class="goals">
-                            <span>8</span>
+                            <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                         </td>
                     </tr>
-                    <tr class="team2">
+                    <tr class="team2" id="team">
                         <td class="img">
-                        
-                            <% if(match[1] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[1]%>.svg" width="40" height="30">
+                            <% if(match.game[1] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
-                                
                         </td>
                         <td class="country">
-                            <span><%=match[1]%></span>
+                            <span><%=match.game[1]%></span>
                         </td>
                         <td class="goals">
-                            <span>4</span>
+                            <span><%= typeof(match.result[1])!== 'undefined' ?  match.result[1] : '-' %></span>
                         </td>
                     </tr>
                 </table>
@@ -129,36 +121,32 @@
     <div class="final">
 
         <% _.each(matches, function(match,id) {%>
-            <div class="match" id="<%=id%>">
+            <div class="match" id="f<%=id+1%>">
                 <table>
-                    <tr class="team1">
+                    <tr class="team1" id="team">
                         <td class="img">
-                        
-                            <%if(match[0] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[0]%>.svg" width="40" height="30">
+                            <% if(match.game[0] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" width="40" height="30">
                                 <%};%>
-                                
                         </td>
                         <td class="country">
-                            <span><%=match[0]%></span>
+                            <span><%=match.game[0]%></span>
                         </td>
                         <td class="goals">
-                            <span>8</span>
+                            <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                         </td>
                     </tr>
-                    <tr class="team2">
+                    <tr class="team2" id="team">
                         <td class="img">
-                        
-                            <% if(match[1] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match[1]%>.svg" width="40" height="30">
+                            <% if(match.game[1] != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" width="40" height="30">
                                 <%};%>
-                                
                         </td>
                         <td class="country">
-                            <span><%=match[1]%></span>
+                            <span><%=match.game[1]%></span>
                         </td>
                         <td class="goals">
-                            <span>4</span>
+                            <span><%= typeof(match.result[1])!== 'undefined' ?  match.result[1] : '-' %></span>
                         </td>
                     </tr>
                 </table>
@@ -166,5 +154,9 @@
             <%});%>
     </div>
 </script>
+<div id="tournamentBracketsPreKo" class="hidden"></div>
+<div id="tournamentBracketsPreQuarter" class="hidden"></div>
+<div id="tournamentBracketsPreSemi" class="hidden"></div>
+<div id="tournamentBracketsPreFinal" class="hidden"></div>
+<div id="tournamentBracketsWinner" class="hidden"></div>
 
-<div id="tournamentBracketsEl"></div>
