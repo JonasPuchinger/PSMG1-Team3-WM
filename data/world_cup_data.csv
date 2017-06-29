@@ -1,0 +1,153 @@
+Year,Position,Country,Country Name,ELO Rating,FIFA  Rating,Continent,Host Country,Host Continent
+2010,1,ESP,Spain,2080,1565,Europe,RSA,Africa
+2010,2,NED,Netherlands,2014,1231,Europe,RSA,Africa
+2010,3,GER,Germany,1926,1082,Europe,RSA,Africa
+2010,4,URU,Uruguay,1819,899,South America,RSA,Africa
+2010,QF,BRA,Brazil,2085,1611,South America,RSA,Africa
+2010,QF,ARG,Argentina,1899,1076,South America,RSA,Africa
+2010,QF,PAR,Paraguay,1730,820,South America,RSA,Africa
+2010,QF,GHA,Ghana,1679,800,Africa,RSA,Africa
+2010,Round of 16,ENG,England,1975,1068,Europe,RSA,Africa
+2010,Round of 16,MEX,Mexico,1872,895,South America,RSA,Africa
+2010,Round of 16,CHI,Chile,1860,888,South America,RSA,Africa
+2010,Round of 16,POR,Portugal,1844,1249,Europe,RSA,Africa
+2010,Round of 16,KOR,South Korea,1766,632,Asia,RSA,Africa
+2010,Round of 16,USA,USA,1749,957,North America,RSA,Africa
+2010,Round of 16,JPN,Japan,1687,682,Asia,RSA,Africa
+2010,Round of 16,SVK,Slovakia,1628,777,Europe,RSA,Africa
+2010,G3,AUS,Australia,1776,886,Oceania,RSA,Africa
+2010,G3,DEN,Denmark,1755,767,Europe,RSA,Africa
+2010,G3,SUI,Switzerland,1732,866,Europe,RSA,Africa
+2010,G3,GRE,Greece,1726,964,Europe,RSA,Africa
+2010,G3,CIV,Ivory Coast,1725,856,Africa,RSA,Africa
+2010,G3,SVN,Slovenia,1648,860,Europe,RSA,Africa
+2010,G3,RSA,South Africa,1569,392,Africa,RSA,Africa
+2010,G3,NZL,New Zealand,1548,410,Oceania,RSA,Africa
+2010,G4,ITA,Italy,1922,1611,Europe,RSA,Africa
+2010,G4,FRA,France,1851,1044,Europe,RSA,Africa
+2010,G4,SRB,Serbia,1816,947,Europe,RSA,Africa
+2010,G4,HON,Honduras,1720,734,North America,RSA,Africa
+2010,G4,NGA,Nigeria,1697,883,Africa,RSA,Africa
+2010,G4,CMR,Cameroon,1690,887,Africa,RSA,Africa
+2010,G4,PRK,Korea DPR,1533,285,Asia,RSA,Africa
+2010,G4,ALG,Algeria,1531,821,Africa,RSA,Africa
+2006,1,ITA,Italy,,728,Europe,GER,Europe
+2006,2,FRA,France,,749,Europe,GER,Europe
+2006,3,GER,Germany,,696,Europe,GER,Europe
+2006,4,POR,Portugal,,750,Europe,GER,Europe
+2006,QF,ARG,Argentina,,746,South America,GER,Europe
+2006,QF,UKR,Ukraine,,609,Europe,GER,Europe
+2006,QF,ENG,England,,741,Europe,GER,Europe
+2006,QF,BRA,Brazil,,827,South America,GER,Europe
+2006,Round of 16,SWE,Sweden,,709,Europe,GER,Europe
+2006,Round of 16,MEX,Mexico,,758,North America,GER,Europe
+2006,Round of 16,AUS,Australia,,612,Oceania,GER,Europe
+2006,Round of 16,SUI,Switzerland,,648,Europe,GER,Europe
+2006,Round of 16,ECU,Ecuador,,631,South America,GER,Europe
+2006,Round of 16,NED,Netherlands,,768,Europe,GER,Europe
+2006,Round of 16,GHA,Ghana,,600,Africa,GER,Europe
+2006,Round of 16,ESP,Spain,,756,Europe,GER,Europe
+2006,G3,POL,Poland,,677,Europe,GER,Europe
+2006,G3,PAR,Paraguay,,653,South America,GER,Europe
+2006,G3,CIV,Ivory Coast,,669,Africa,GER,Europe
+2006,G3,ANG,Angola,,581,Africa,GER,Europe
+2006,G3,CZE,Czech Republic,,772,Europe,GER,Europe
+2006,G3,CRO,Croatia,,686,Europe,GER,Europe
+2006,G3,KOR,South Korea,,677,Asia,GER,Europe
+2006,G3,TUN,Tunisia,,693,Africa,GER,Europe
+2006,G4,CRC,Costa Rica,,683,North America,GER,Europe
+2006,G4,TRI,Trinidad and Tobago,,604,South America,GER,Europe
+2006,G4,SRB and MNE,Serbia and Montenegro,,610,Europe,GER,Europe
+2006,G4,IRN,Iran,,686,Asia,GER,Europe
+2006,G4,USA,USA,,756,North America,GER,Europe
+2006,G4,JPN,Japan,,705,Asia,GER,Europe
+2006,G4,TOG,Togo,,569,Africa,GER,Europe
+2006,G4,KSA,Saudi Arabia,,651,Asia,GER,Europe
+2002,1,BRA,Brazil,,784,South America,KOR/JPN,Asia
+2002,2,GER,Germany,,695,Europe,KOR/JPN,Asia
+2002,3,TUR,Turkey,,654,Europe,KOR/JPN,Asia
+2002,4,KOR,South Korea,,603,Asia,KOR/JPN,Asia
+2002,QF,USA,USA,,690,North America,KOR/JPN,Asia
+2002,QF,ESP,Spain,,713,Europe,KOR/JPN,Asia
+2002,QF,ENG,England,,694,Europe,KOR/JPN,Asia
+2002,QF,SEN,Senegal,,599,Africa,KOR/JPN,Asia
+2002,Round of 16,PAR,Paraguay,,671,South America,KOR/JPN,Asia
+2002,Round of 16,MEX,Mexico,,716,North America,KOR/JPN,Asia
+2002,Round of 16,IRL,Republic of Ireland,,674,Europe,KOR/JPN,Asia
+2002,Round of 16,ITA,Italy,,717,Europe,KOR/JPN,Asia
+2002,Round of 16,DEN,Denmark,,657,Europe,KOR/JPN,Asia
+2002,Round of 16,BEL,Belgium,,653,Europe,KOR/JPN,Asia
+2002,Round of 16,SWE,Sweden,,665,Europe,KOR/JPN,Asia
+2002,Round of 16,JPN,Japan,,634,Asia,KOR/JPN,Asia
+2002,G3,URU,Uruguay,,652,South America,KOR/JPN,Asia
+2002,G3,RSA,South Africa,,623,Africa,KOR/JPN,Asia
+2002,G3,CRC,Costa Rica,,643,North America,KOR/JPN,Asia
+2002,G3,POR,Portugal,,726,Europe,KOR/JPN,Asia
+2002,G3,CMR,Cameroon,,672,Africa,KOR/JPN,Asia
+2002,G3,ARG,Argentina,,784,South America,KOR/JPN,Asia
+2002,G3,CRO,Croatia,,655,Europe,KOR/JPN,Asia
+2002,G3,RUS,Russia,,644,Europe/Asia,KOR/JPN,Asia
+2002,G4,FRA,France,,802,Europe,KOR/JPN,Asia
+2002,G4,SVN,Slovenia,,649,Europe,KOR/JPN,Asia
+2002,G4,CHI,Chile,,566,South America,KOR/JPN,Asia
+2002,G4,POL,Poland,,615,Europe,KOR/JPN,Asia
+2002,G4,KSA,Saudi Arabia,,627,Asia,KOR/JPN,Asia
+2002,G4,NGA,Nigeria,,644,Africa,KOR/JPN,Asia
+2002,G4,ECU,Ecuador,,624,South America,KOR/JPN,Asia
+2002,G4,TUN,Tunisia,,635,Africa,KOR/JPN,Asia
+1998,1,FRA,France,,56,Europe,FRA,Europe
+1998,2,BRA,Brazil,,71,South America,FRA,Europe
+1998,3,CRO,Croatia,,55,Europe,FRA,Europe
+1998,4,NED,Netherlands,,54,Europe,FRA,Europe
+1998,QF,DEN,Denmark,,52,Europe,FRA,Europe
+1998,QF,ARG,Argentina,,60,South America,FRA,Europe
+1998,QF,ITA,Italy,,56,Europe,FRA,Europe
+1998,QF,GER,Germany,,64,Europe,FRA,Europe
+1998,Round of 16,CHI,Chile,,58,South America,FRA,Europe
+1998,Round of 16,NGA,Nigeria,,36,Africa,FRA,Europe
+1998,Round of 16,YUG,Yugoslavia,,59,Europe,FRA,Europe
+1998,Round of 16,ENG,England,,60,Europe,FRA,Europe
+1998,Round of 16,NOR,Norway,,59,Europe,FRA,Europe
+1998,Round of 16,PAR,Paraguay,,52,South America,FRA,Europe
+1998,Round of 16,MEX,Mexico,,61,North America,FRA,Europe
+1998,Round of 16,URU,Uruguay,,54,Europe,FRA,Europe
+1998,G3,MAR,Morocco,,57,Africa,FRA,Europe
+1998,G3,AUT,Austria,,51,Europe,FRA,Europe
+1998,G3,RSA,South Africa,,54,Africa,FRA,Europe
+1998,G3,ESP,Spain,,56,Europe,FRA,Europe
+1998,G3,BEL,Belgium,,50,Europe,FRA,Europe
+1998,G3,IRN,Iran,,47,Asia,FRA,Europe
+1998,G3,COL,Colombia,,58,South America,FRA,Europe
+1998,G3,JAM,Jamaica,,52,North America,FRA,Europe
+1998,G4,SCO,Scotland,,48,Europe,FRA,Europe
+1998,G4,CMR,Cameroon,,45,Africa,FRA,Europe
+1998,G4,KSA,Saudi Arabia,,50,Europe,FRA,Europe
+1998,G4,BUL,Bulgaria,,50,Europe,FRA,Europe
+1998,G4,KOR,South Korea,,55,Asia,FRA,Europe
+1998,G4,USA,USA,,58,North America,FRA,Europe
+1998,G4,TUN,Tunisia,,55,Africa,FRA,Europe
+1998,G4,JPN,Japan,,57,Asia,FRA,Europe
+1994,1,BRA,Brazil,,58,South America,USA,North America
+1994,2,ITA,Italy,,49,Europe,USA,North America
+1994,3,SWE,Sweden,,56,Europe,USA,North America
+1994,4,BUL,Bulgaria,,44,Europe,USA,North America
+1994,QF,URU,Uruguay,,53,South America,USA,North America
+1994,QF,NED,Netherlands,,53,Europe,USA,North America
+1994,QF,GER,Germany,,58,Europe,USA,North America
+1994,QF,ESP,Spain,,54,Europe,USA,North America
+1994,Round of 16,ARG,Argentina,,55,South America,USA,North America
+1994,Round of 16,KSA,Saudi Arabia,,39,Asia,USA,North America
+1994,Round of 16,USA,USA,,46,North America,USA,North America
+1994,Round of 16,IRL,Republic of Ireland,,51,Europe,USA,North America
+1994,Round of 16,BEL,Belgium,,40,Europe,USA,North America
+1994,Round of 16,MEX,Mexico,,50,North America,USA,North America
+1994,Round of 16,NGA,Nigeria,,54,Africa,USA,North America
+1994,Round of 16,SUI,Switzerland,,54,Europe,USA,North America
+1994,G3,RUS,Russia,,48,Europe/Asia,USA,North America
+1994,G3,KOR,South Korea,,37,Asia,USA,North America
+1994,G4,COL,Colombia,,49,South America,USA,North America
+1994,G4,CMR,Cameroon,,45,Africa,USA,North America
+1994,G4,BOL,Bolivia,,35,Europe,USA,North America
+1994,G4,GRE,Greece,,41,Europe,USA,North America
+1994,G4,NOR,Norway,,56,Europe,USA,North America
+1994,G4,MAR,Morocco,,43,Africa,USA,North America

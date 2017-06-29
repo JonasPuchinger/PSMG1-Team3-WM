@@ -120,7 +120,7 @@ WMVis = (function () {
         // view.setData(pt);
         view.changeLayout(0, [pt, groups, nations, abbrs], null);
         // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initPreTournamentController(); } , 20);
+        setTimeout(function() { controller.initPreTournamentController(); } , 60);
     }
 
     function md0() { //+wahrscheinlichkeiten und zukünftige spiele

@@ -20,7 +20,9 @@ WMVis.DataModel = function () {
         quarter,
         semi,
         final,
-        teamsWithTournamentProgression;
+        teamsWithTournamentProgression,
+        rankingsData = [],
+        worldCupResults = [];
 
     function init() {
         loadCSVData();
@@ -165,7 +167,60 @@ WMVis.DataModel = function () {
             }
         }
         teamsWithTournamentProgression = tournamentProgress;
-        that.notifyAll("finishedLoading");
+
+        loadFifaRankings();
+    }
+
+    function loadFifaRankings() {
+      var pt = getPreTournament(),
+        nations = [];
+
+      for(let i = 0; i < pt.length; i++) {
+          nations.push(pt[i].country);
+      }
+
+      d3.csv("../../data/fifa_rankings_history.csv", function(data) {
+        for(let i = 0; i < data.length; i++) {
+          for(let j = 0; j < nations.length; j++) {
+            if(data[i]["team"] == nations[j]) {
+              if(rankingsData[nations[j]]) {
+                rankingsData[nations[j]].push(data[i]);
+              } else {
+                rankingsData[nations[j]] = [];
+                rankingsData[nations[j]].push(data[i]);
+              }
+            }
+          }
+        }
+      });
+
+      loadWorldCupResults();
+    }
+
+    function loadWorldCupResults() {
+      var pt = getPreTournament(),
+        nations = [];
+
+      for(let i = 0; i < pt.length; i++) {
+          nations.push(pt[i].country);
+      }
+
+      d3.csv("../../data/world_cup_data.csv", function(data) {
+        for(let i = 0; i < data.length; i++) {
+          for(let j = 0; j < nations.length; j++) {
+            if(data[i]["Country Name"] == nations[j]) {
+              if(worldCupResults[nations[j]]) {
+                worldCupResults[nations[j]].push(data[i]);
+              } else {
+                worldCupResults[nations[j]] = [];
+                worldCupResults[nations[j]].push(data[i]);
+              }
+            }
+          }
+        }
+      });
+
+      that.notifyAll("finishedLoading");
     }
 
     //Ausgeben der Datensätze
@@ -203,6 +258,14 @@ WMVis.DataModel = function () {
 
     function getTournamentProgress() {
         return teamsWithTournamentProgression;
+    }
+
+    function getFifaRankings() {
+        return rankingsData;
+    }
+
+    function getWorldCupResults() {
+        return worldCupResults;
     }
 
     //Sortiert zwei Datensätze und schneidet sie zusammen
@@ -286,5 +349,7 @@ WMVis.DataModel = function () {
     that.getPreTournament = getPreTournament;
     that.getTournamentProgress = getTournamentProgress;
     that.getNationsAbbrs = getNationsAbbrs;
+    that.getFifaRankings = getFifaRankings;
+    that.getWorldCupResults = getWorldCupResults;
     return that;
 };

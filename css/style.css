@@ -37,6 +37,17 @@ html, body {
     height: 1106px;
 }
 
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin-bottom: 0px;
+  margin-left: 25px;
+}
+
 
 .nationcard .card-content {
     display: flex;
@@ -81,7 +92,7 @@ html, body {
 }
 
 .quarter .match {
-    margin: 0px 0px 147px 0px;    
+    margin: 0px 0px 147px 0px;
 }
 
 .semi .match {
@@ -191,7 +202,7 @@ html, body {
 }
 
 .country {
-    
+
 }
 
 .goals {

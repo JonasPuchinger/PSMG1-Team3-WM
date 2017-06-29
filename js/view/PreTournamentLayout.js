@@ -55,7 +55,7 @@ View.PreTournamentLayout = function() {
       }
 
       // er kann hier zwar abbrs anzeigen, aber nicht drauf zugreifen => timeout bis es verfügbar ist
-      setTimeout(createTemplate, 10);
+      setTimeout(createTemplate, 50);
     }
 
     function createTemplate() {
