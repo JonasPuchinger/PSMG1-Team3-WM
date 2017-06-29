@@ -99,6 +99,18 @@ html, body {
     margin: 10px 0px 10px 0px;
 }
 
+.country {
+    width: 60%;
+}
+
+.img {
+    width: 20%;
+}
+
+.goals {
+    width: 20%;
+}
+
 .group-row {
   position: relative;
 }
@@ -185,7 +197,7 @@ html, body {
 }
 
 .img {
-    width: 40px;
+/*    width: 40px;*/
     height: 30px;
     padding: 5px 10px 0px 10px;
 }

@@ -163,10 +163,9 @@ WMVis = (function () {
     }
 
     function onTeamHoverLeft(event) {
-//        onStageSliderChanged({data: currentState});
+        elemBracketPredView.resetPreds();
     }
 
     that.loadDataModel = loadDataModel;
-    //    that.init = init;
     return that;
 }());

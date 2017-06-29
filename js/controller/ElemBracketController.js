@@ -9,11 +9,10 @@ Controller.ElemBracketController = function () {
     function init() {
         $(document).ready(function () {
             setTimeout(function () {
-                teams = document.querySelectorAll("#team");
-                console.log(teams);
+                teams = document.querySelectorAll("tr#team");
                 for (let i = 0; i < teams.length; i++) {
                     teams[i].addEventListener("mouseenter", onMatchHovered);
-                    teams[i].addEventListener("mouseout", onMatchLeft);
+                    teams[i].addEventListener("mouseleave", onMatchLeft);
                     teams[i].addEventListener("click", onMatchClicked);
                 }
             }, 1);

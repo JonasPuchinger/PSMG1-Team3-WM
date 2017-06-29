@@ -22,10 +22,10 @@ WMVis.View = function () {
 
     function initElemBrackets(data) {
         var selector1 = '#tournamentBracketsPreKo';
-        var selector2 = '#tournamentBracketsRo16El';
-        var selector3 = '#tournamentBracketsQuarterEl';
-        var selector4 = '#tournamentBracketsSemiEl';
-        var selector5 = '#tournamentBracketsFinalEl';
+        var selector2 = '#tournamentBracketsPreQuarter';
+        var selector3 = '#tournamentBracketsPreSemi';
+        var selector4 = '#tournamentBracketsPreFinal';
+        var selector5 = '#tournamentBracketsWinner';
 
         preTournamentLayout = new View.PreTournamentLayout();
         preTournamentLayout.init();
@@ -105,35 +105,35 @@ WMVis.View = function () {
                 document.querySelector("#groups-list-el").innerHTML = "";
                 document.querySelector("#resultEl").innerHTML = "";
                 hideAllTournamentBracketLayouts();
-                document.querySelector('#tournamentBracketsRo16El').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsPreQuarter').classList.remove('hidden');
                 break;
             case 4:
                 document.querySelector("#groups-list-el").innerHTML = "";
                 document.querySelector("#resultEl").innerHTML = "";
                 hideAllTournamentBracketLayouts();
-                document.querySelector('#tournamentBracketsQuarterEl').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsPreSemi').classList.remove('hidden');
                 break;
             case 5:
                 document.querySelector("#groups-list-el").innerHTML = "";
                 document.querySelector("#resultEl").innerHTML = "";
                 hideAllTournamentBracketLayouts();
-                document.querySelector('#tournamentBracketsSemiEl').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsPreFinal').classList.remove('hidden');
                 break;
             case 6:
                 document.querySelector("#groups-list-el").innerHTML = "";
                 document.querySelector("#resultEl").innerHTML = "";
                 hideAllTournamentBracketLayouts();
-                document.querySelector('#tournamentBracketsFinalEl').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsWinner').classList.remove('hidden');
                 break;
         }
     }
 
     function hideAllTournamentBracketLayouts() {
         document.querySelector('#tournamentBracketsPreKo').classList.add('hidden');
-        document.querySelector('#tournamentBracketsRo16El').classList.add('hidden');
-        document.querySelector('#tournamentBracketsQuarterEl').classList.add('hidden');
-        document.querySelector('#tournamentBracketsSemiEl').classList.add('hidden');
-        document.querySelector('#tournamentBracketsFinalEl').classList.add('hidden');
+        document.querySelector('#tournamentBracketsPreQuarter').classList.add('hidden');
+        document.querySelector('#tournamentBracketsPreSemi').classList.add('hidden');
+        document.querySelector('#tournamentBracketsPreFinal').classList.add('hidden');
+        document.querySelector('#tournamentBracketsWinner').classList.add('hidden');
 
     }
 
