@@ -96,9 +96,7 @@ WMVis = (function () {
             case 9: //After Finals
                 final();
                 break;
-
         }
-
     }
 
     function preTournament() {
@@ -107,6 +105,7 @@ WMVis = (function () {
         view.changeLayout(0, pt, null);
         controller.initPreTournamentController();
     }
+
 
     function md0() { //+wahrscheinlichkeiten und zukünftige spiele
         let md0 = dataModel.getPreTournament();

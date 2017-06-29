@@ -5,6 +5,7 @@ WMVis.View = function () {
     const stages = ["Before Tournament", "Before Matchday 1", "Matchday 1", "Matchday 2", "Matchday 3", "Before Knockout-Stage", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
 
     var that = new EventPublisher(),
+
         preTournamentLayout,
         ro16Layout,
         quarterLayout,
@@ -12,6 +13,7 @@ WMVis.View = function () {
         finalLayout,
         groupLayout,
         stageLabel;
+
 
     function init(data) {
         stageLabel = document.querySelector("#stage-label");
@@ -48,6 +50,7 @@ WMVis.View = function () {
         semiLayout.appendTBD(selector2);
         finalLayout.appendTBD(selector2);
 
+
         ro16Layout.appendMatches(selector3);
         quarterLayout.appendMatches(selector3);
         semiLayout.appendMatchesWithoutScore(selector3);
@@ -66,6 +69,27 @@ WMVis.View = function () {
 
     function changeStageLabel(stage) {
         stageLabel.innerHTML = stages[stage];
+    }
+
+    function changeLayout(layout, data, games){
+        switch(layout){
+            case 0:
+                preTournamentLayout = new View.PreTournamentLayout();
+                document.querySelector("#resultEl").innerHTML = "";
+                preTournamentLayout.init();
+                console.log(games);
+                break;
+            case 1:
+                groupLayout = new View.GroupLayout();
+                document.querySelector("#groupsListEl").innerHTML = "";
+                document.querySelector("#resultEl").innerHTML = "";
+                console.log(games);
+                groupLayout.init(data, games);
+                break;
+            case 2:
+                break;
+
+        }
     }
 
     function setPredictionData(predData) {

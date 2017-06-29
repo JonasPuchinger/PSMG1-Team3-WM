@@ -317,3 +317,4 @@ WMVis.GamesData = (function () {
     that.getGames = getGames;
     return that;
 });
+
