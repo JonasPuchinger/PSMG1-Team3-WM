@@ -28,7 +28,7 @@ WMVis.View = function () {
         var selector5 = '#tournamentBracketsWinner';
 
         preTournamentLayout = new View.PreTournamentLayout();
-        preTournamentLayout.init();
+        // preTournamentLayout.init();
         ro16Layout = new View.Ro16Layout(data.ro16);
         ro16Layout.init();
         quarterLayout = new View.QuarterLayout(data.quarter);
@@ -68,8 +68,8 @@ WMVis.View = function () {
         stageLabel.innerHTML = stages[stage];
     }
 
-    function setPredictionData(predData) {
-        preTournamentLayout.setPredictionData(predData);
+    function setData(predData) {
+        preTournamentLayout.setData(predData);
     }
 
     function togglePredictionRow(nationData) {
@@ -81,48 +81,30 @@ WMVis.View = function () {
     }
 
     function changeLayout(layout, data = null, games = null) {
+        document.querySelector("#groups-list-el").innerHTML = "";
+        document.querySelector("#resultEl").innerHTML = "";
+        hideAllTournamentBracketLayouts();
         switch (layout) {
             case 0:
-                preTournamentLayout = new View.PreTournamentLayout();
-                hideAllTournamentBracketLayouts();
-                document.querySelector("#resultEl").innerHTML = "";
-                preTournamentLayout.init();
+                preTournamentLayout.init(data);
                 break;
             case 1:
                 groupLayout = new View.GroupLayout();
-                hideAllTournamentBracketLayouts();
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
                 groupLayout.init(data, games);
                 break;
             case 2:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                hideAllTournamentBracketLayouts();
                 document.querySelector('#tournamentBracketsPreKo').classList.remove('hidden');
                 break;
             case 3:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                hideAllTournamentBracketLayouts();
                 document.querySelector('#tournamentBracketsPreQuarter').classList.remove('hidden');
                 break;
             case 4:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                hideAllTournamentBracketLayouts();
                 document.querySelector('#tournamentBracketsPreSemi').classList.remove('hidden');
                 break;
             case 5:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                hideAllTournamentBracketLayouts();
                 document.querySelector('#tournamentBracketsPreFinal').classList.remove('hidden');
                 break;
             case 6:
-                document.querySelector("#groups-list-el").innerHTML = "";
-                document.querySelector("#resultEl").innerHTML = "";
-                hideAllTournamentBracketLayouts();
                 document.querySelector('#tournamentBracketsWinner').classList.remove('hidden');
                 break;
         }
@@ -140,7 +122,7 @@ WMVis.View = function () {
     that.init = init;
     that.stages = stages;
     that.changeStageLabel = changeStageLabel;
-    that.setPredictionData = setPredictionData;
+    that.setData = setData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
     that.changeLayout = changeLayout;
