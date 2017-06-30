@@ -6,6 +6,7 @@ WMVis.DataModel = function () {
 
     var that = new EventPublisher(),
         compareG = propComp('win_group'),
+        compareAlphabetic = propComp('country'),
         /*
         compareRo16 = propComp('quarter'),
         compareQ = propComp('semi'),
@@ -35,7 +36,7 @@ WMVis.DataModel = function () {
     function loadPreTournament() {
         d3.csv("../../data/pre_tournament.csv", function (data) {
             //Sortierung nach Gruppen + Chance WM-Sieg
-            data.sort(compareF);
+            data.sort(groupSort());
             preTournament = data;
             preTournament.name = 'preTournament';
 
@@ -271,8 +272,8 @@ WMVis.DataModel = function () {
     //Sortiert zwei Datensätze und schneidet sie zusammen
     function computeGroupData(d1, d2) {
         //Sortierung nach Gruppe + Chance auf Gruppensieg
-        d1.sort(compareG);
-        d2.sort(compareG);
+        d1.sort(groupSort());
+        d2.sort(groupSort());
         return (d1.slice(0, 16)).concat(d2.slice(16));
     }
 
@@ -290,6 +291,24 @@ WMVis.DataModel = function () {
                 return -1;
             }
             if (a[prop] < b[prop]) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    function groupSort() {
+        return function (a, b) {
+            if (a.group.charCodeAt(0) < b.group.charCodeAt(0)) {
+                return -1;
+            }
+            if (a.group.charCodeAt(0) > b.group.charCodeAt(0)) {
+                return 1;
+            }
+            if (a.country.charCodeAt(0) < b.country.charCodeAt(0)) {
+                return -1;
+            }
+            if (a.country.charCodeAt(0) > b.country.charCodeAt(0)) {
                 return 1;
             }
             return 0;

@@ -31,7 +31,7 @@ html, body {
     display: none;
 }
 
-#tournamentBracketsPreKo, #tournamentBracketsRo16El, #tournamentBracketsQuarterEl, #tournamentBracketsSemiEl, #tournamentBracketsFinalEl {
+#tournamentBracketsPreKo, #tournamentBracketsPreQuarter, #tournamentBracketsPreSemi, #tournamentBracketsPreFinal, #tournamentBracketsWinner {
 /*    display: table;*/
     width: 1550px;
     height: 1106px;
@@ -249,10 +249,6 @@ path {
 /*    width: 40px;*/
     height: 30px;
     padding: 5px 10px 0px 10px;
-}
-
-.country {
-
 }
 
 .goals {
