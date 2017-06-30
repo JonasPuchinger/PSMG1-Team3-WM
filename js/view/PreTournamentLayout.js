@@ -99,7 +99,7 @@ View.PreTournamentLayout = function() {
 
     function appendRoundDiv(roundName, nationUpdate) {
       var nextRound = nationUpdate.append("div");
-      nextRound.attr("class", roundName + " col s2 round-div");
+      nextRound.attr("class", roundName + "-pre-tournament col s2 round-div");
       nextRound.text(function(d) {
         return Math.round(d[roundName] * 100) + "%";
       });
@@ -198,7 +198,6 @@ View.PreTournamentLayout = function() {
     			.y(function(d) {
     				return y(d);
     			})
-        console.log(currYears[currYears.length - 1] - currYears[0]);
         var xAxis = d3.axisBottom(x).ticks((currYears[currYears.length - 1] - currYears[0]) / 2);
         gRankings.append("svg:g")
 			      .attr("class", "x axis")
