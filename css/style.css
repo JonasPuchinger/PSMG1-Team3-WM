@@ -37,6 +37,14 @@ html, body {
     height: 1106px;
 }
 
+#nation-modal {
+  overflow-y: hidden;
+}
+
+#nation-modal:hover {
+  overflow-y: auto;
+}
+
 .modal-header {
   display: flex;
   flex-direction: row;
@@ -48,6 +56,36 @@ html, body {
   margin-left: 25px;
 }
 
+.modal-table-svg {
+  /*width: 100%;*/
+}
+
+path {
+	stroke: steelblue;
+	stroke-width: 1;
+	fill: none;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: lightgrey;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}
 
 .nationcard .card-content {
     display: flex;

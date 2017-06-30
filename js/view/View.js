@@ -18,6 +18,8 @@ WMVis.View = function () {
         $(".stage-menu-fixed").stick_in_parent();
 
         preTournamentLayout = new View.PreTournamentLayout();
+        preTournamentLayout.addEventListener("fifaRankingsRequested", requestFifaRankings);
+        preTournamentLayout.addEventListener("wcResultsRequested", requestWCResults);
         // preTournamentLayout.init();
         ro16Layout = new View.Ro16Layout(data.ro16);
         ro16Layout.init();
@@ -28,6 +30,14 @@ WMVis.View = function () {
         finalLayout = new View.FinalLayout(data.final);
         finalLayout.init();
 
+    }
+
+    function requestFifaRankings() {
+      that.notifyAll("fifaRankingsRequested");
+    }
+
+    function requestWCResults() {
+      that.notifyAll("wcResultsRequested");
     }
 
     function changeStageLabel(stage) {
@@ -93,6 +103,14 @@ WMVis.View = function () {
         }
     }
 
+    function passFifaRatings(rankings) {
+      preTournamentLayout.passFifaRatings(rankings);
+    }
+
+    function passWCResults(results) {
+      preTournamentLayout.passWCResults(results);
+    }
+
     that.init = init;
     that.stages = stages;
     that.changeStageLabel = changeStageLabel;
@@ -100,5 +118,7 @@ WMVis.View = function () {
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
     that.changeLayout = changeLayout;
+    that.passFifaRatings = passFifaRatings;
+    that.passWCResults = passWCResults;
     return that;
 };

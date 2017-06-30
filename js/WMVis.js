@@ -38,6 +38,8 @@ WMVis = (function () {
 
     function initView() {
         view = new WMVis.View();
+        view.addEventListener("fifaRankingsRequested", requestFifaRankings);
+        view.addEventListener("wcResultsRequested", requestWCResults);
         var options = {
             ro16: gamesData.getGamesOfDay(3),
             quarter: gamesData.getGamesOfDay(4),
@@ -45,6 +47,14 @@ WMVis = (function () {
             final: gamesData.getGamesOfDay(6)
         };
         view.init(options);
+    }
+
+    function requestFifaRankings() {
+      view.passFifaRatings(dataModel.getFifaRankings());
+    }
+
+    function requestWCResults() {
+      view.passWCResults(dataModel.getWorldCupResults());
     }
 
     function onStageSliderChanged(event) {
