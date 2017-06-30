@@ -27,7 +27,7 @@ WMVis.Controller = function () {
         elemBracketController = new Controller.ElemBracketController();
         elemBracketController.init();
         elemBracketController.addEventListener("teamHovered", onTeamHovered);
-        elemBracketController.addEventListener("teamHovereLeft", onTeamHoverLeft);
+        elemBracketController.addEventListener("teamHoverLeft", onTeamHoverLeft);
         elemBracketController.addEventListener("teamClicked", onTeamClicked);
     }
 
@@ -41,11 +41,11 @@ WMVis.Controller = function () {
     }
 
     function onTeamHoverLeft(event) {
-        that.notifyAll("teamHovereLeft", event.data);
+        that.notifyAll("teamHoverLeft", event.data);
     }
 
     function onTeamClicked(event) {
-        onNationCardClicked(event);
+//        onNationCardClicked(event);
     }
 
     function onNationCardHovered(event) {

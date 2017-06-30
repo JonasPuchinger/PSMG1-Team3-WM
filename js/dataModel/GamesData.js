@@ -254,7 +254,7 @@ WMVis.GamesData = (function () {
                 game: ["FRA", "NGA"],
                 result: ["2", "0"]
             },
-             {
+            {
                 game: ["GER", "ALG"],
                 result: ["2", "1"]
             },
@@ -310,20 +310,20 @@ WMVis.GamesData = (function () {
 
     var that = {};
 
-    function getGamesOfDay(key){
+    function getGamesOfDay(key) {
         return games[key];
     }
-    
-    function getGroupGames(key, nation){
+
+    function getGroupGames(key, nation) {
         var allGames = [];
-        for(var i=key; i<3; i++){
+        for (var i = key; i < 3; i++) {
             allGames.push(getGamesOfDay(i));
         }
         var games = [];
-        for(var i=0; i<allGames.length; i++){
-            for(var j=0; j<allGames[i].length; j++){
-                for(var k=0; k<allGames[i][j].length; k++){
-                    if(allGames[i][j][k].game.includes(nation)){
+        for (var i = 0; i < allGames.length; i++) {
+            for (var j = 0; j < allGames[i].length; j++) {
+                for (var k = 0; k < allGames[i][j].length; k++) {
+                    if (allGames[i][j][k].game.includes(nation)) {
                         games.push(allGames[i][j][k]);
                     }
                 }
@@ -331,7 +331,12 @@ WMVis.GamesData = (function () {
         }
         return games;
     }
-    
+
+    function getGames(key) {
+        return games[key];
+    }
+
+    that.getGames = getGames;
     that.getGamesOfDay = getGamesOfDay;
     that.getGroupGames = getGroupGames;
     return that;
