@@ -2,7 +2,7 @@ var WMVis = WMVis || {};
 WMVis.View = function () {
     "use strict";
 
-    const stages = ["Before Tournament", "Before Matchday 1", "Matchday 1", "Matchday 2", "Matchday 3", "Before Knockout-Stage", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
+    const stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Before Knockout-Stage", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
 
     var that = new EventPublisher(),
         preTournamentLayout,
@@ -19,6 +19,7 @@ WMVis.View = function () {
 
         preTournamentLayout = new View.PreTournamentLayout();
         preTournamentLayout.init();
+        groupLayout = new View.GroupLayout();
         ro16Layout = new View.Ro16Layout(data.ro16);
         ro16Layout.init();
         quarterLayout = new View.QuarterLayout(data.quarter);
@@ -45,8 +46,12 @@ WMVis.View = function () {
     function showNationModal(nationData) {
         preTournamentLayout.showNationModal(nationData);
     }
+    
+    function toggleCalcResult(nationData) {
+        groupLayout.toggleCalcResult(nationData);
+    }
 
-    function changeLayout(layout, data= null, games= null) {
+    function changeLayout(layout, data= null, games= null, probabilities= null) {
         document.querySelector("#groups-list-el").innerHTML = "";
         document.querySelector("#resultEl").innerHTML = "";
         document.querySelector("#tournamentBracketsEl").innerHTML = "";
@@ -58,7 +63,7 @@ WMVis.View = function () {
             case 1:
                 groupLayout = new View.GroupLayout();  
                 console.log(games);
-                groupLayout.init(data, games);
+                groupLayout.init(data, games, probabilities);
                 break;
             case 2:
                 ro16Layout.appendMatchesWithoutScore();
@@ -99,6 +104,7 @@ WMVis.View = function () {
     that.setPredictionData = setPredictionData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
+    that.toggleCalcResult = toggleCalcResult;
     that.changeLayout = changeLayout;
     return that;
 };

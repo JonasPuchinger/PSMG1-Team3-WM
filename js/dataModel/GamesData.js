@@ -304,7 +304,7 @@ WMVis.GamesData = (function () {
             }],
             [{
             game: ["GER", "ARG"],
-            result: ["0", "1"]
+            result: ["1", "0"]
             }]
         ];
 
