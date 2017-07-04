@@ -2,7 +2,7 @@ var WMVis = WMVis || {};
 WMVis.View = function () {
     "use strict";
 
-    const stages = ["Before Tournament", "Before Matchday 1", "Matchday 1", "Matchday 2", "Matchday 3", "Before Knockout-Stage", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
+    const stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Before Knockout-Stage", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
 
     var that = new EventPublisher(),
         preTournamentLayout,
@@ -28,6 +28,7 @@ WMVis.View = function () {
         var selector5 = '#tournamentBracketsWinner';
 
         preTournamentLayout = new View.PreTournamentLayout();
+        groupLayout = new View.GroupLayout();
         preTournamentLayout.addEventListener("fifaRankingsRequested", requestFifaRankings);
         preTournamentLayout.addEventListener("wcResultsRequested", requestWCResults);
         // preTournamentLayout.init();
@@ -89,8 +90,16 @@ WMVis.View = function () {
     function showNationModal(nationData) {
         preTournamentLayout.showNationModal(nationData);
     }
+    
+    function showCalcResult(game, calcResult) {
+        groupLayout.connectRowsForNation(game, calcResult);
+    }
+    
+    function removeCalcResult(){
+        groupLayout.deleteConnectRows();
+    }
 
-    function changeLayout(layout, data = null, games = null) {
+    function changeLayout(layout, data= null, games= null, probabilities= null) {
         document.querySelector("#groups-list-el").innerHTML = "";
         document.querySelector("#resultEl").innerHTML = "";
         hideAllTournamentBracketLayouts();
@@ -99,8 +108,9 @@ WMVis.View = function () {
                 preTournamentLayout.init(data);
                 break;
             case 1:
-                groupLayout = new View.GroupLayout();
-                groupLayout.init(data, games);
+                groupLayout = new View.GroupLayout();  
+                console.log(games);
+                groupLayout.init(data, games, probabilities);
                 break;
             case 2:
                 document.querySelector('#tournamentBracketsPreKo').classList.remove('hidden');
@@ -142,6 +152,8 @@ WMVis.View = function () {
     that.setData = setData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
+    that.showCalcResult = showCalcResult;
+    that.removeCalcResult = removeCalcResult;
     that.changeLayout = changeLayout;
     that.passFifaRatings = passFifaRatings;
     that.passWCResults = passWCResults;

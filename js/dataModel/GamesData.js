@@ -304,7 +304,7 @@ WMVis.GamesData = (function () {
             }],
             [{
             game: ["GER", "ARG"],
-            result: ["0", "1"]
+            result: ["1", "0"]
             }]
         ];
 
@@ -312,6 +312,22 @@ WMVis.GamesData = (function () {
 
     function getGamesOfDay(key) {
         return games[key];
+    }
+    
+    function getGame(key, country_id){
+        var game,
+            gamesOfDay = getGamesOfDay(key);
+        console.log("id " + country_id);
+        for(let i=0; i<gamesOfDay.length; i++){
+            for(let j=0; j<gamesOfDay[i].length; j++){
+                if(gamesOfDay[i][j].game.includes(country_id)){
+                    game = gamesOfDay[i][j].game;
+                    console.log(game);
+                    break;
+                }
+            }
+        }
+        return game;
     }
 
     function getGroupGames(key, nation) {
@@ -332,12 +348,8 @@ WMVis.GamesData = (function () {
         return games;
     }
 
-    function getGames(key) {
-        return games[key];
-    }
-
-    that.getGames = getGames;
     that.getGamesOfDay = getGamesOfDay;
+    that.getGame = getGame;
     that.getGroupGames = getGroupGames;
     return that;
 });
