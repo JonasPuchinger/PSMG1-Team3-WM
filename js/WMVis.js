@@ -7,7 +7,8 @@ WMVis = (function () {
         probabilityController,
         dataModel,
         view,
-        gamesData;
+        gamesData,
+        stage;
 
     function loadDataModel() {
         dataModel = new WMVis.DataModel();
@@ -34,8 +35,8 @@ WMVis = (function () {
         controller.addEventListener("nationCardHovered", togglePredictionRow);
         controller.addEventListener("nationCardLeft", togglePredictionRow);
         controller.addEventListener("nationCardClicked", onNationCardClicked);
-        controller.addEventListener("showCalcResult", toggleCalcResult);
-        controller.addEventListener("hideCalcResult", toggleCalcResult);
+        controller.addEventListener("showCalcResult", showCalcResult);
+        controller.addEventListener("hideCalcResult", removeCalcResult);
         controller.addEventListener("showModal", showModal);
     }
 
@@ -53,7 +54,6 @@ WMVis = (function () {
     function onStageSliderChanged(event) {
         var newStage = event.data;
         view.changeStageLabel(newStage);
-
         switch (parseInt(newStage)) {
             case 0: //Before Tournament
                 preTournament();
@@ -83,6 +83,7 @@ WMVis = (function () {
                 final();
                 break;
         }
+        stage = parseInt(newStage);
     }
     
     /*function getProbabilities(index){
@@ -204,8 +205,31 @@ WMVis = (function () {
 
     }
     
-    function toggleCalcResult(event) {
-        view.toggleCalcResult(event.data);
+    function showCalcResult(event) {
+        var country = event.data.target,
+            game = gamesData.getGame(stage, country.id),
+            data;
+        switch(stage){
+            case 0:
+                data = dataModel.getPreTournament();
+                break;
+            case 1:
+                data = dataModel.getMatchday1();
+                break;
+            case 2:
+                data = dataModel.getMatchday2();
+                break;
+            default:
+                data = null;
+                break;
+        }
+        if(data!==null){
+            view.showCalcResult(game, new WMVis.ProbabilityController().calculateProbabilities(game, data)[1]);
+        }
+    }
+    
+    function removeCalcResult(event){
+        view.removeCalcResult();
     }
     
     function showModal(event){

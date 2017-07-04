@@ -47,8 +47,12 @@ WMVis.View = function () {
         preTournamentLayout.showNationModal(nationData);
     }
     
-    function toggleCalcResult(nationData) {
-        groupLayout.toggleCalcResult(nationData);
+    function showCalcResult(game, calcResult) {
+        groupLayout.connectRowsForNation(game, calcResult);
+    }
+    
+    function removeCalcResult(){
+        groupLayout.deleteConnectRows();
     }
 
     function changeLayout(layout, data= null, games= null, probabilities= null) {
@@ -104,7 +108,8 @@ WMVis.View = function () {
     that.setPredictionData = setPredictionData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
-    that.toggleCalcResult = toggleCalcResult;
+    that.showCalcResult = showCalcResult;
+    that.removeCalcResult = removeCalcResult;
     that.changeLayout = changeLayout;
     return that;
 };

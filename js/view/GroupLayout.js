@@ -113,17 +113,25 @@ View.GroupLayout = function () {
             });
         }
     }
-    
-    function toggleCalcResult(nationData, opponent=null, calcResult=null){   //null aendern!
-        var data = [];
+
+    function connectRowsForNation(game, calcResult) {
+      console.log(game);
+      var data = [];
         var colLeft1 = document.querySelector(".push-s3").offsetLeft;
         var colLeft2 = document.querySelector(".push-s4").offsetLeft;
-        var country = d3.select("#"+nationData.country_id)._groups["0"]["0"];
-        var root = d3.select(".calcResult");
-        root.append
-        data.push("M " + (nationData.offsetLeft + nationData.offsetWidth + colLeft1) + " " + (nationData.offsetTop + nationData.offsetHeight/2) + " Q " + (chance.offsetLeft + colLeft2 - 60) + " " + (chance.offsetTop+chance.offsetHeight/2) + " " + (chance.offsetLeft + colLeft2 -10) + " " + (chance.offsetTop+chance.offsetHeight/2));
-        /*data.push("M " + (country.offsetLeft + country.offsetWidth + colLeft1) + " " + (country.offsetTop+country.offsetHeight/2) + " Q " + (chance.offsetLeft + colLeft2 - 60) + " " + (chance.offsetTop+chance.offsetHeight/2) + " " + (chance.offsetLeft + colLeft2 -10) + " " + (chance.offsetTop+chance.offsetHeight/2));*/
-        var root = d3.select(".calcResult");
+        var ids = game.split("-");
+        var countries = [];
+        for(let i=0; i<ids.length;i++){
+            countries.push(d3.select("#"+ids[i])._groups["0"]["0"]);
+        }
+        var root = d3.select("#calcResult");
+        var calcGoals = d3.select(".calcGoals")._groups["0"]["0"];
+        $(".calcGoals").css({top: (countries[0].offsetTop + countries[1].offsetTop + countries[1].offsetHeight)/2, left: colLeft2, position:'absolute'});
+        document.querySelector(".calcGoals").innerHTML = calcResult;
+        calcGoals.classList.remove("hidden");
+        for(let i=0; i<ids.length;i++){
+            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth + colLeft1) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (calcGoals.offsetLeft - 60) + " " + (calcGoals.offsetTop+calcGoals.offsetHeight/2) + " " + (calcGoals.offsetLeft -10) + " " + (calcGoals.offsetTop+calcGoals.offsetHeight/2));
+        }
         var paths = root.selectAll("g");
         var pathsUpdate = paths.data(data);
         var enterPaths = pathsUpdate.enter().append("g");
@@ -132,25 +140,20 @@ View.GroupLayout = function () {
         link.attr("d", function (d) {
         return d;
         });
-        switch (nationData.event) {
-          case "enter":
-              connectRowsForNation(nationData, opponent, calcResult);
-              break;
-          case "leave":
-              deleteConnectRows();
-              break;
-        }
-    }
-
-    function connectRowsForNation(nationData, calcResult) {
-      
     }
 
     function deleteConnectRows() {
-      
+       var root = document.querySelector(".calcGoals");
+       root.classList.add("hidden");
+       var path = root.getElementsByTagName("g")[0];
+       while(path!==undefined){
+           root.removeChild(path);
+           path = root.getElementsByTagName("g")[0];
+       }
     }
 
     that.init = init;
-    that.toggleCalcResult = toggleCalcResult;
+    that.connectRowsForNation = connectRowsForNation;
+    that.deleteConnectRows = deleteConnectRows;
     return that;
     };
