@@ -8,7 +8,10 @@ WMVis = (function () {
         dataModel,
         view,
         gamesData,
-        stage;
+        stage,
+        elemBracketPredView,
+        currentState;
+
 
     function loadDataModel() {
         dataModel = new WMVis.DataModel();
@@ -38,23 +41,46 @@ WMVis = (function () {
         controller.addEventListener("showCalcResult", showCalcResult);
         controller.addEventListener("hideCalcResult", removeCalcResult);
         controller.addEventListener("showModal", showModal);
+        controller.addEventListener("teamHovered", onTeamHovered);
+        controller.addEventListener("teamHoverLeft", onTeamHoverLeft);
     }
 
     function initView() {
+        var optionsView = {
+                ro16: gamesData.getGames(3),
+                quarter: gamesData.getGames(4),
+                semi: gamesData.getGames(5),
+                final: gamesData.getGames(6)
+            },
+            optionsPred = {
+                ro16: dataModel.getRo16(),
+                quarter: dataModel.getQuarter(),
+                semi: dataModel.getSemi(),
+                final: dataModel.getFinal()
+            };
+
         view = new WMVis.View();
-        var options = {
-            ro16: gamesData.getGamesOfDay(3),
-            quarter: gamesData.getGamesOfDay(4),
-            semi: gamesData.getGamesOfDay(5),
-            final: gamesData.getGamesOfDay(6)
-        };
-        view.init(options);
+        view.addEventListener("fifaRankingsRequested", requestFifaRankings);
+        view.addEventListener("wcResultsRequested", requestWCResults);
+        view.init(optionsView);
+
+        elemBracketPredView = new WMVis.ElemBracketShowPred(optionsPred);
+        elemBracketPredView.init();
+    }
+
+    function requestFifaRankings() {
+      view.passFifaRatings(dataModel.getFifaRankings());
+    }
+
+    function requestWCResults() {
+      view.passWCResults(dataModel.getWorldCupResults());
     }
 
     function onStageSliderChanged(event) {
-        var newStage = event.data;
-        view.changeStageLabel(newStage);
-        switch (parseInt(newStage)) {
+        currentState = event.data;
+        view.changeStageLabel(currentState);
+
+        switch (parseInt(currentState)) {
             case 0: //Before Tournament
                 preTournament();
                 break;
@@ -83,10 +109,10 @@ WMVis = (function () {
                 final();
                 break;
         }
-        stage = parseInt(newStage);
+        stage = parseInt(newStage);  //aendern!
     }
-    
-    /*function getProbabilities(index){
+
+  /*  function getProbabilities(index){
         probabilityController = new WMVis.ProbabilityController();
         var probabilities = [];
         for(var i=0; i<md1.length; i+=4){
@@ -124,7 +150,6 @@ WMVis = (function () {
         }
         return probabilities;
     }
-
   
     function getMaxIndex(arr) {
         var max = arr[0];
@@ -139,10 +164,24 @@ WMVis = (function () {
     }
 
     function preTournament() {
-        let pt = dataModel.getPreTournament();
-        view.setPredictionData(pt);
-        view.changeLayout(0, pt, null);
-        controller.initPreTournamentController();
+        var pt = dataModel.getPreTournament(),
+          groups = [],
+          nations = [];
+
+        for(let i = 0; i < pt.length; i += 4) {
+            var nationsGroup = [];
+            for(let j = i; j < (i + 4); j++) {
+                nationsGroup.push(pt[j].country);
+            }
+            nations.push(nationsGroup);
+            groups.push(pt[i].group.toUpperCase());
+        }
+
+        var abbrs = dataModel.getNationsAbbrs(nations);
+        // view.setData(pt);
+        view.changeLayout(0, [pt, groups, nations, abbrs], null);
+        // timeout, um zu warten bis template komplett initialisiert ist
+        setTimeout(function() { controller.initPreTournamentController(); } , 60);
     }
 
     function md1() {
@@ -170,27 +209,22 @@ WMVis = (function () {
 
     function ko() {
         view.changeLayout(2);
-        controller.initElemBracketController();
     }
 
     function ro16() {
         view.changeLayout(3);
-        controller.initElemBracketController();
     }
 
     function quarter() {
         view.changeLayout(4);
-        controller.initElemBracketController();
     }
 
     function semi() {
         view.changeLayout(5);
-        controller.initElemBracketController();
     }
 
     function final() {
         view.changeLayout(6);
-        controller.initElemBracketController();
     }
 
     function togglePredictionRow(event) {
@@ -201,8 +235,12 @@ WMVis = (function () {
         view.showNationModal(event.data);
     }
 
-    function togglePredictionBracket(event) {
+    function onTeamHovered(event) {
+        elemBracketPredView.showPredRow(currentState, event.data);
+    }
 
+    function onTeamHoverLeft(event) {
+        elemBracketPredView.resetPreds();
     }
     
     function showCalcResult(event) {
@@ -237,6 +275,5 @@ WMVis = (function () {
     }
 
     that.loadDataModel = loadDataModel;
-    //    that.init = init;
     return that;
 }());

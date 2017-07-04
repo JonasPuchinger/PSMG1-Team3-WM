@@ -37,16 +37,16 @@ View.FinalLayout = function (data) {
         compiledTBD = finalTemplate(varsTBD);
     }
 
-    function appendMatches() {
-        $("#tournamentBracketsEl").append(compiledMatches);
+    function appendMatches(selector) {
+        $(selector).append(compiledMatches);
     }
 
-    function appendTBD() {
-        $("#tournamentBracketsEl").append(compiledTBD);
+    function appendTBD(selector) {
+        $(selector).append(compiledTBD);
     }
 
-    function appendMatchesWithoutScore() {
-        $("#tournamentBracketsEl").append(compiledMatchesWithoutScore);
+    function appendMatchesWithoutScore(selector) {
+        $(selector).append(compiledMatchesWithoutScore);
     }
 
     that.appendMatches = appendMatches;

@@ -4,7 +4,7 @@ var View = View || {};
 View.GroupLayout = function () {
     "use strict";
 
-    const abbrs = [                                                       
+    const abbrs = [
      ["br", "mx", "hr", "cm"],
      ["es", "cl", "nl", "au"],
      ["co", "ci", "gr", "jp"],

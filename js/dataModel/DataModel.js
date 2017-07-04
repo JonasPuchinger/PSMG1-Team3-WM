@@ -6,6 +6,7 @@ WMVis.DataModel = function () {
 
     var that = new EventPublisher(),
         compareG = propComp('win_group'),
+        compareAlphabetic = propComp('country'),
         /*
         compareRo16 = propComp('quarter'),
         compareQ = propComp('semi'),
@@ -20,7 +21,9 @@ WMVis.DataModel = function () {
         quarter,
         semi,
         final,
-        teamsWithTournamentProgression;
+        teamsWithTournamentProgression,
+        rankingsData = [],
+        worldCupResults = [];
 
     function init() {
         loadCSVData();
@@ -33,7 +36,7 @@ WMVis.DataModel = function () {
     function loadPreTournament() {
         d3.csv("../../data/pre_tournament.csv", function (data) {
             //Sortierung nach Gruppen + Chance WM-Sieg
-            data.sort(compareF);
+            data.sort(groupSort());
             preTournament = data;
             preTournament.name = 'preTournament';
 
@@ -165,7 +168,60 @@ WMVis.DataModel = function () {
             }
         }
         teamsWithTournamentProgression = tournamentProgress;
-        that.notifyAll("finishedLoading");
+
+        loadFifaRankings();
+    }
+
+    function loadFifaRankings() {
+      var pt = getPreTournament(),
+        nations = [];
+
+      for(let i = 0; i < pt.length; i++) {
+          nations.push(pt[i].country);
+      }
+
+      d3.csv("../../data/fifa_rankings_history.csv", function(data) {
+        for(let i = 0; i < data.length; i++) {
+          for(let j = 0; j < nations.length; j++) {
+            if(data[i]["team"] == nations[j]) {
+              if(rankingsData[nations[j]]) {
+                rankingsData[nations[j]].push(data[i]);
+              } else {
+                rankingsData[nations[j]] = [];
+                rankingsData[nations[j]].push(data[i]);
+              }
+            }
+          }
+        }
+      });
+
+      loadWorldCupResults();
+    }
+
+    function loadWorldCupResults() {
+      var pt = getPreTournament(),
+        nations = [];
+
+      for(let i = 0; i < pt.length; i++) {
+          nations.push(pt[i].country);
+      }
+
+      d3.csv("../../data/world_cup_data.csv", function(data) {
+        for(let i = 0; i < data.length; i++) {
+          for(let j = 0; j < nations.length; j++) {
+            if(data[i]["Country Name"] == nations[j]) {
+              if(worldCupResults[nations[j]]) {
+                worldCupResults[nations[j]].push(data[i]);
+              } else {
+                worldCupResults[nations[j]] = [];
+                worldCupResults[nations[j]].push(data[i]);
+              }
+            }
+          }
+        }
+      });
+
+      that.notifyAll("finishedLoading");
     }
 
     //Ausgeben der Datensätze
@@ -205,11 +261,19 @@ WMVis.DataModel = function () {
         return teamsWithTournamentProgression;
     }
 
+    function getFifaRankings() {
+        return rankingsData;
+    }
+
+    function getWorldCupResults() {
+        return worldCupResults;
+    }
+
     //Sortiert zwei Datensätze und schneidet sie zusammen
     function computeGroupData(d1, d2) {
         //Sortierung nach Gruppe + Chance auf Gruppensieg
-        d1.sort(compareG);
-        d2.sort(compareG);
+        d1.sort(groupSort());
+        d2.sort(groupSort());
         return (d1.slice(0, 16)).concat(d2.slice(16));
     }
 
@@ -233,6 +297,65 @@ WMVis.DataModel = function () {
         }
     }
 
+    function groupSort() {
+        return function (a, b) {
+            if (a.group.charCodeAt(0) < b.group.charCodeAt(0)) {
+                return -1;
+            }
+            if (a.group.charCodeAt(0) > b.group.charCodeAt(0)) {
+                return 1;
+            }
+            if (a.country.charCodeAt(0) < b.country.charCodeAt(0)) {
+                return -1;
+            }
+            if (a.country.charCodeAt(0) > b.country.charCodeAt(0)) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    function getNationsAbbrs(nations) {
+      var parser,
+        doc,
+        abbrs = [];
+
+      var indexIC = getIndexOfEntry(nations, "Ivory Coast");
+      nations[indexIC[0]][indexIC[1]] = "Côte d\'Ivoire";
+      var indexEN = getIndexOfEntry(nations, "England");
+      nations[indexEN[0]][indexEN[1]] = "United Kingdom";
+      var indexIR = getIndexOfEntry(nations, "Iran");
+      nations[indexIR[0]][indexIR[1]] = "Iran (Islamic Republic of)";
+      var indexUS = getIndexOfEntry(nations, "USA");
+      nations[indexUS[0]][indexUS[1]] = "United States of America";
+
+      $.ajax({
+        url: '../../data/flags/sourcecode.txt',
+        type: 'get',
+        success: function(sourcecode) {
+          parser = new DOMParser();
+          doc = parser.parseFromString(sourcecode, "text/html");
+
+          for(let i = 0; i < nations.length; i++) {
+              var abbrsGroup = [];
+              for(let j = 0; j < nations[i].length; j++) {
+                  abbrsGroup.push(doc.querySelector('[title="' + nations[i][j] + '"] .alpha-2').innerHTML.toLowerCase());
+              }
+              abbrs.push(abbrsGroup);
+          }
+        }
+      });
+      return abbrs;
+    }
+
+    function getIndexOfEntry(arr, entry) {
+      for (var i = 0; i < arr.length; i++) {
+        var index = arr[i].indexOf(entry);
+        if (index > -1) {
+          return [i, index];
+        }
+      }
+    }
 
     that.init = init;
     that.getMatchday1 = getMatchday1;
@@ -244,6 +367,8 @@ WMVis.DataModel = function () {
     that.getFinal = getFinal;
     that.getPreTournament = getPreTournament;
     that.getTournamentProgress = getTournamentProgress;
-
+    that.getNationsAbbrs = getNationsAbbrs;
+    that.getFifaRankings = getFifaRankings;
+    that.getWorldCupResults = getWorldCupResults;
     return that;
 };

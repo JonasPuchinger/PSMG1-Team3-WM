@@ -1,36 +1,51 @@
 var d3 = d3 || {};
 var WMVis = WMVis || {};
 var View = View || {};
-View.PreTournamentLayout = function () {
+View.PreTournamentLayout = function() {
     "use strict";
 
-    const groupNames = ["A", "B", "C", "D", "E", "F", "G", "H"],
-    nations = [
-     ["Brazil", "Mexico", "Croatia", "Cameroon"],
-     ["Spain", "Chile", "Netherlands", "Australia"],
-     ["Colombia", "Ivory Coast", "Greece", "Japan"],
-     ["Uruguay", "England", "Italy", "Costa Rica"],
-     ["France", "Ecuador", "Switzerland", "Honduras"],
-     ["Argentina", "Bosnia and Herzegovina", "Nigeria", "Iran"],
-     ["Germany", "Portugal", "USA", "Ghana"],
-     ["Belgium", "Russia", "South Korea", "Algeria"]
-     ],
-        abbrs = [
-     ["br", "mx", "hr", "cm"],
-     ["es", "cl", "nl", "au"],
-     ["co", "ci", "gr", "jp"],
-     ["uy", "gb", "it", "cr"],
-     ["fr", "ec", "ch", "hn"],
-     ["ar", "ba", "ng", "ir"],
-     ["de", "pt", "us", "gh"],
-     ["be", "ru", "kr", "dz"]
-     ],
-        flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
-
     var that = new EventPublisher(),
-      predictionData = [];
+      flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/",
+      groupNames = [],
+      nations = [],
+      nationNames = [],
+      abbrs = [],
+      predictionData = [],
+      fifaRankings = [],
+      worldCupResults = [];
 
-    function init() {
+    function init(data) {
+      if(predictionData.length === 0) {
+        predictionData = _.toArray(data[0]);
+      }
+      if(groupNames.length === 0) {
+        groupNames = data[1];
+      }
+      if(nations.length === 0) {
+        var nationsData = data[0];
+        for(let i = 0; i < nationsData.length; i += 4) {
+          var nationsGroup = [];
+          for(let j = i; j < (i + 4); j++) {
+              nationsGroup.push(nationsData[j].country);
+          }
+          nations.push(nationsGroup);
+        }
+        for(let k = 0; k < nationsData.length; k++) {
+          nationNames.push(nationsData[k].country);
+        }
+      }
+      if(abbrs.length === 0) {
+        abbrs = data[3];
+      }
+
+      that.notifyAll("fifaRankingsRequested");
+      that.notifyAll("wcResultsRequested");
+
+      // er kann hier zwar abbrs anzeigen, aber nicht drauf zugreifen => timeout bis es verfügbar ist
+      setTimeout(createTemplate, 50);
+    }
+
+    function createTemplate() {
       var template,
         vars,
         compiled;
@@ -39,9 +54,10 @@ View.PreTournamentLayout = function () {
       vars = {groupNames: groupNames, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
       compiled = template(vars);
       $("#groups-list-el").append(compiled);
+      createPredictionRowView();
     }
 
-    function setPredictionData(predData) {
+    function setData(predData) {
       if(predictionData.length === 0) {
         predictionData = _.toArray(predData);
         createPredictionRowView();
@@ -68,7 +84,7 @@ View.PreTournamentLayout = function () {
 
     function appendRoundDiv(roundName, nationUpdate) {
       var nextRound = nationUpdate.append("div");
-      nextRound.attr("class", roundName + " col s2 round-div");
+      nextRound.attr("class", roundName + "-pre-tournament col s2 round-div");
       nextRound.text(function(d) {
         return Math.round(d[roundName] * 100) + "%";
       });
@@ -124,11 +140,145 @@ View.PreTournamentLayout = function () {
 
     function showNationModal(nationData) {
       $(document).ready(function() {
-        $(".modal").modal();
+        $(".modal").modal({
+          complete: function() {
+            $("#fifa-rankings-table").empty();
+            $("#world-cup-results-table").empty();
+          }
+        });
         $("#nation-modal").modal("open");
         var abbrIndexes = get2DArrayIndex(nations, nationData.alt);
         $(".modal-nationflag").attr("src", flagsUrlBase + abbrs[abbrIndexes[0]][abbrIndexes[1]] +".svg");
         $("#modal-nation-header").html(nationData.alt);
+
+        var margin = {top: 20, right: 20, bottom: 30, left: 50};
+        var width = 750 - margin.left - margin.right;
+        var height = 350 - margin.top - margin.bottom;
+
+        var months = ["January", "February", "March", "April", "May", "June", "Juli", "August", "September", "October", "November", "December"];
+
+        var parseTimeRankings = d3.timeParse("%Y-%B");
+
+        var gRankings = d3.select("#fifa-rankings-table").append("svg:svg")
+			      .attr("width", width + margin.left + margin.right)
+			      .attr("height", height + margin.top + margin.bottom)
+			    .append("svg:g")
+			      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var xRankings = d3.scaleTime().range([0, width]);
+	      var yRankings = d3.scaleLinear().range([height, 0]);
+
+        var allRankings2 = [];
+        d3.csv("../../data/fifa_rankings_history.csv", function(d, i) {
+          if(d["team"] == nationData.alt) {
+            d.Date = parseTimeRankings(d.Date.substring(0, 4) + "-" + months[parseInt(d.Date.substring(5)) - 1]);
+            d.Value = +d.Value;
+            return d;
+          }
+        }, function(error, data) {
+          if (error) throw error;
+
+          var line = d3.line()
+            .x(function(d, i) {
+              if(d.Date != null) {
+                return xRankings(d.Date);
+              } else {
+                return xRankings(data[i - 1].Date);
+              }
+            })
+            .y(function(d) { return yRankings(d.Value); })
+
+          xRankings.domain(d3.extent(data, function(d) { return d.Date; }));
+
+          yRankings.domain([211, 1]);
+
+          gRankings.append("g")
+              .attr("class", "axis axis--x")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(xRankings));
+
+          gRankings.append("g")
+              .attr("class", "axis axis--y")
+              .call(d3.axisLeft(yRankings).ticks(10))
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", "0.71em")
+              .attr("text-anchor", "end")
+              .text("Value");
+
+          gRankings.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .attr("d", line);
+        });
+
+        var resultsOrdinals = ["1", "2", "3", "4", "QF", "Round of 16", "G3", "G4"];
+        var resultsRange = [];
+        for(let i = 0; i < resultsOrdinals.length; i++) {
+          resultsRange.push((i / resultsOrdinals.length) * height);
+        }
+
+        var parseTimeResults = d3.timeParse("%Y");
+
+        var gResults = d3.select("#world-cup-results-table").append("svg:svg")
+			      .attr("width", width + margin.left + margin.right)
+			      .attr("height", height + margin.top + margin.bottom)
+			    .append("svg:g")
+			      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var xResults = d3.scaleTime().range([0, width]);
+	      var yResults = d3.scaleOrdinal().range(resultsRange);
+
+        d3.csv("../../data/world_cup_data.csv", function(d) {
+          if(d["Country Name"] == nationData.alt) {
+            d.Year = parseTimeResults(d.Year);
+            return d;
+          }
+        }, function(error, data) {
+          if (error) throw error;
+
+          console.log(data);
+
+          var line = d3.line()
+            .x(function(d) { return xResults(d.Year); })
+            .y(function(d) { return yResults(d.Position); })
+
+          xResults.domain(d3.extent(data, function(d) {
+            return d.Year;
+          }));
+          yResults.domain(resultsOrdinals);
+
+          gResults.append("g")
+              .attr("class", "axis axis--x")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(xResults));
+
+          gResults.append("g")
+              .attr("class", "axis axis--y")
+              .call(d3.axisLeft(yResults).ticks(10))
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", "0.71em")
+              .attr("text-anchor", "end")
+              .text("Result");
+
+          gResults.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .attr("d", line);
+
+            gResults.selectAll("circle")
+              .data(data)
+            .enter().append("circle")
+              .attr("class", "circle")
+              .attr("cx", function(d) { return xResults(d.Year); })
+              .attr("cy", function(d) { return yResults(d.Position); })
+              .attr("r", 4)
+              .style("fill", "steelblue");
+        });
+
       });
     }
 
@@ -140,9 +290,24 @@ View.PreTournamentLayout = function () {
       }
     }
 
+    function passFifaRatings(rankings) {
+      fifaRankings = rankings;
+    }
+
+    function passWCResults(results) {
+      worldCupResults = results;
+    }
+
+    function clearGraphs() {
+      $("#fifa-rankings-table").innerHTML = "";
+      $("#world-cup-results-table").innerHTML = "";
+    }
+
     that.init = init;
-    that.setPredictionData = setPredictionData;
+    that.setData = setData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
+    that.passFifaRatings = passFifaRatings;
+    that.passWCResults = passWCResults;
     return that;
 };
