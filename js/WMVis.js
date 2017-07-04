@@ -8,7 +8,6 @@ WMVis = (function () {
         dataModel,
         view,
         gamesData,
-        stage,
         elemBracketPredView,
         currentState;
 
@@ -47,10 +46,10 @@ WMVis = (function () {
 
     function initView() {
         var optionsView = {
-                ro16: gamesData.getGames(3),
-                quarter: gamesData.getGames(4),
-                semi: gamesData.getGames(5),
-                final: gamesData.getGames(6)
+                ro16: gamesData.getGamesOfDay(3),
+                quarter: gamesData.getGamesOfDay(4),
+                semi: gamesData.getGamesOfDay(5),
+                final: gamesData.getGamesOfDay(6)
             },
             optionsPred = {
                 ro16: dataModel.getRo16(),
@@ -109,7 +108,6 @@ WMVis = (function () {
                 final();
                 break;
         }
-        stage = parseInt(newStage);  //aendern!
     }
 
   /*  function getProbabilities(index){
@@ -245,9 +243,9 @@ WMVis = (function () {
     
     function showCalcResult(event) {
         var country = event.data.target,
-            game = gamesData.getGame(stage, country.id),
+            game = gamesData.getGame(currentState, country.id),
             data;
-        switch(stage){
+        switch(currentState){
             case 0:
                 data = dataModel.getPreTournament();
                 break;
