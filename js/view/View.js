@@ -18,6 +18,12 @@ WMVis.View = function () {
         $(".stage-menu-fixed").stick_in_parent();
 
         initElemBrackets(data);
+
+        preTournamentLayout = new View.PreTournamentLayout();
+        groupLayout = new View.GroupLayout();
+        preTournamentLayout.addEventListener("fifaRankingsRequested", requestFifaRankings);
+        preTournamentLayout.addEventListener("wcResultsRequested", requestWCResults);
+        // preTournamentLayout.init();
     }
 
     function initElemBrackets(data) {
@@ -27,11 +33,7 @@ WMVis.View = function () {
         var selector4 = '#tournamentBracketsPreFinal';
         var selector5 = '#tournamentBracketsWinner';
 
-        preTournamentLayout = new View.PreTournamentLayout();
-        groupLayout = new View.GroupLayout();
-        preTournamentLayout.addEventListener("fifaRankingsRequested", requestFifaRankings);
-        preTournamentLayout.addEventListener("wcResultsRequested", requestWCResults);
-        // preTournamentLayout.init();
+
         ro16Layout = new View.Ro16Layout(data.ro16);
         ro16Layout.init();
         quarterLayout = new View.QuarterLayout(data.quarter);

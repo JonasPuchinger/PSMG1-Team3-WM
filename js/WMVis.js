@@ -76,10 +76,10 @@ WMVis = (function () {
     }
 
     function onStageSliderChanged(event) {
-        currentState = event.data;
+        currentState = parseInt(event.data);
         view.changeStageLabel(currentState);
 
-        switch (parseInt(currentState)) {
+        switch (currentState) {
             case 0: //Before Tournament
                 preTournament();
                 break;
@@ -201,6 +201,7 @@ WMVis = (function () {
     function md3() {
         let md3 = dataModel.getMatchday3();
         console.log(md3);
+        var probabilities = getProbabilities(md3);
         view.changeLayout(1, md3, gamesData.getGamesOfDay(2), probabilities);
         controller.initGroupController();
     }
