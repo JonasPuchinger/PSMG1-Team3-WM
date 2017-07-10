@@ -9,6 +9,7 @@ View.GroupLayout = function () {
     var that = new EventPublisher(),
         groups,
         nations,
+        ids,
         abbrs,
         md,
         games,
@@ -19,7 +20,8 @@ View.GroupLayout = function () {
       probabilities = probabilityData;
       groups = data[1],
       nations = data[2],
-      abbrs = data[3],
+      ids = data[3],
+      abbrs = data[4],
       md = data[0];
       setTimeout(createTemplate, 50);
     }
@@ -29,13 +31,13 @@ View.GroupLayout = function () {
         vars,
         compiled;  
       template = _.template($("#resultList").html());
-      vars = {groupNames: groups, games: games, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
+      vars = {groupNames: groups, games: games, nations: nations, ids: ids, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
       compiled = template(vars);
       $("#resultEl").append(compiled);
       if(games!==null){
         connect(games);
       }
-     showProbabilities(abbrs, probabilities);
+     showProbabilities(probabilities);
     }
 
     function setData(predData) {
@@ -48,24 +50,23 @@ View.GroupLayout = function () {
     function connect(){
         var countries = [],
             results,
-            cards = Array(2);
+            cards = [];
         for(let i=0; i<games.length; i++){
             for(let j=0; j<games[i].length; j++){
                 countries.push(games[i][j].game.split('-'));
             }
         }
-        console.log(countries);
         results = d3.selectAll(".result")._groups["0"];
         var rowHeight = document.querySelector(".group").offsetHeight+20;
         var colLeft = document.querySelector(".push-s3").offsetLeft;
         for(let i=0; i<results.length/2; i++){
             var data = [];
             for(let j=2*i; j<2*(i+1); j++){
-                cards[0] = d3.select("#"+countries[j][0])._groups["0"]["0"];
-                cards[1] = d3.select("#"+countries[j][1])._groups["0"]["0"];
-                console.log(cards);
-                data.push("M " + (cards[0].offsetLeft+colLeft) + " " + (cards[0].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
-                data.push("M " + (cards[1].offsetLeft+colLeft) + " " + (cards[1].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
+                cards = [];
+                cards.push(document.querySelector("#"+countries[j][0]));
+                cards.push(document.querySelector("#"+countries[j][1]));
+                data.push("M " + (cards[0].offsetLeft+colLeft+10) + " " + (cards[0].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
+                data.push("M " + (cards[1].offsetLeft+colLeft+10) + " " + (cards[1].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
             }
             var root = d3.select(".row-"+i);
             var paths = root.selectAll("g");
@@ -74,12 +75,12 @@ View.GroupLayout = function () {
             var exitPaths = pathsUpdate.exit().remove();
             var link = enterPaths.append("path").attr("class","link");
             link.attr("d", function (d) {
-            return d;
-        });
+                return d;
+            });
         }
     }
     
-    function showProbabilities(ids, probabilities){
+    function showProbabilities(probabilities){
       var x = d3.selectAll(".x")._groups["0"],
           one = d3.selectAll(".one")._groups["0"],
           two = d3.selectAll(".two")._groups["0"],
@@ -117,24 +118,32 @@ View.GroupLayout = function () {
         }
     }
 
-    function connectRowsForNation(country, game, calcResult) {
+    function connectRowsForNation(country, games, calcResults) {
         var data = [],
-            group = country.parentElement.id;
+            group = country.id;
         var colLeft1 = document.querySelector(".push-s3").offsetLeft;
         var colLeft2 = document.querySelector(".push-s4").offsetLeft;
-        var ids = game.split("-");
-        var countries = [];
-        for(let i=0; i<ids.length;i++){
-            countries.push(d3.select("#"+ids[i])._groups["0"]["0"]);
+        var countries = [],
+            result,
+            calcGoals,
+            rect;
+        for(let i=0; i<games.length; i++){
+            var ids = games[i].game.split("-");
+            for(let j=0; j<ids.length; j++){
+                countries.push(d3.select("#"+ids[j])._groups["0"]["0"]);
+            }
         }
+        toggle(group);
         var root = d3.select(".row3-"+group);
-        var calcGoals = document.querySelector("#cR-"+group);
-        calcGoals.setAttribute("top", (countries[0].offsetTop + countries[1].offsetTop + countries[1].offsetHeight)/2); 
-        calcGoals.innerHTML = calcResult;
-        calcGoals.classList.remove("hidden");
-        console.log(calcGoals);
-        for(let i=0; i<ids.length;i++){
-            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth + colLeft1) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (calcGoals.offsetLeft - 60) + " " + (calcGoals.offsetTop+calcGoals.offsetHeight/2) + " " + (calcGoals.offsetLeft -10) + " " + (calcGoals.offsetTop+calcGoals.offsetHeight/2));
+        for(let i=0; i<countries.length; i++){
+            if(i%2===0){
+                var index = parseInt(i/2);
+                result= document.querySelector("#cR"+index+"-"+group);
+                console.log(result);
+                result.innerHTML = calcResults[index];
+                calcGoals = result.parentElement;
+            }
+            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth + colLeft1) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft+colLeft2 - 60) + " " + (result.offsetTop+result.clientTop) + " " + (result.offsetLeft+colLeft2 -10) + " " + (result.offsetTop+result.offsetHeight/2));
         }
         var paths = root.selectAll("g");
         var pathsUpdate = paths.data(data);
@@ -142,29 +151,38 @@ View.GroupLayout = function () {
         var exitPaths = pathsUpdate.exit().remove();
         var link = enterPaths.append("path").attr("class","link");
         link.attr("d", function (d) {
+        console.log(d);
         return d;
         });
-        toggle(group);
     }
 
     function deleteConnectRows(country) {
-       var root = d3.select(".row3-"+country.group);
-       var path = root.selectAll("g")[0];
+       var group = country.id;
+       var root = document.querySelector(".row3-"+group);
+       var path = root.childNodes[0];
        while(path!==undefined){
            root.removeChild(path);
-           path = root.selectAll("g")[0];
+           path = root.childNodes[0];
        }
-       toggle(country.group);
+       console.log(country);
+       toggle(group);
     }
     
     function toggle(group){
-        var calcGoals = document.querySelector(".calcGoals");
-        calcGoals.classList.toggle("hidden");
-        var groupRow = d3.select("#group-"+group);
-        var circles = groupRow.selectAll(".circles");
-        circles.forEach(function(element){  element.classList.toggle(".hidden");   });
-        var paths = groupRow.selectAll(".paths")[1];
-        paths.classList.toggle(".hidden");
+        var groupRow = document.querySelector("#"+group+".s3");
+        console.log(group);
+        var x = groupRow.querySelector(".x"),
+            one = groupRow.querySelector(".one"),
+            two = groupRow.querySelector(".two");
+        x.classList.toggle("hidden");
+        one.classList.toggle("hidden");
+        two.classList.toggle("hidden");
+        var calcResult = groupRow.querySelectorAll(".calcResult");
+        for(let i=0; i<calcResult.length; i++){
+            calcResult[i].classList.toggle("hidden");
+        }
+        var rightSvg = document.querySelector("#paths-"+group);
+        rightSvg.classList.toggle("hidden");
     }
 
     that.init = init;

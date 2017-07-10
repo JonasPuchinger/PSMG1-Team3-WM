@@ -90,6 +90,7 @@ path {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    z-index: 50;
 }
 
 .ro16,
@@ -154,7 +155,7 @@ path {
     width: 20%;
 }
 
-.goals {
+.goal {
     width: 20%;
 }
 
@@ -284,19 +285,21 @@ path {
     background: red;
     text-align: center;
     color: white;
+    z-index: 0;
 }
 
 .one{
     justify-content: center;
     align-items: center;
     font-size: 30pt;
-    margin-top: 30%;
+    margin-top: 10%;
     margin-left: 50%;
     height: 1.5em;
     width: 1.5em;
     background: green;
     text-align: center;
     color: white;
+    z-index: 0;
 }
 
 .two{
@@ -310,6 +313,7 @@ path {
     background: orange;
     text-align: center;
     color: white;
+    z-index: 0;
 }
 
 .link{
@@ -318,28 +322,25 @@ path {
     stroke: #000;
     stroke-width: 5pt;
     stroke-opacity: .3;
+    z-index: 0;
 }
 
 .paths{
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
 }
 
-#calcResult{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
+.calcResult{
+  display:flex;
+  justify-content: space-around;
+  padding-top: 39%;
+  font-size: 30pt;
+  z-index: 5;
 }
 
-.calcGoals{
+.calculated{
     position: absolute;
-    width: 30%;
-    height: 10%;
-    font-size: 30pt;
-    font-style: oblique;
-    text-align: center;
-    z-index: 2;
+    z-index: 5;
 }

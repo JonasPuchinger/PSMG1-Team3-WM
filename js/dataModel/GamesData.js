@@ -4,242 +4,242 @@ WMVis.GamesData = (function () {
 
     const games = [[[{
                     group: "A",
-                    game: "br-hr",
+                    game: "BRA-CRO",
                     result: "3:1"
                     },
                 {
                     group: "A",
-                    game: "cm-mx",
+                    game: "CMR-MEX",
                     result: "0:1"
                     }],
                     [{
                     group: "B",
-                    game: "nl-es",
+                    game: "NED-ESP",
                     result: "5:1"
                     },
                 {
                     group: "B",
-                    game: "au-cl",
+                    game: "AUS-CHI",
                     result: "1:3"
                     }],
                     [{
                     group: "C",
-                    game: "co-gr",
+                    game: "COL-GRE",
                     result: "3:0"
                     },
                 {
                     group: "C",
-                    game: "ci-jp",
+                    game: "CIV-JPN",
                     result: "2:1"
                     }],
                     [{
                     group: "D",
-                    game: "cr-uy",
+                    game: "CRC-URU",
                     result: "3:1"
                     },
                 {
                     group: "D",
-                    game: "gb-it",
+                    game: "ENG-ITA",
                     result: "1:2"
                     }],
                     [{
                     group: "E",
-                    game: "ec-ch",
+                    game: "ECU-SUI",
                     result: "1:2"
                     },
                 {
                     group: "E",
-                    game: "fr-hn",
+                    game: "FRA-HON",
                     result: "3:0"
                     }],
                     [{
                     group: "F",
-                    game: "ar-ba",
+                    game: "ARG-BIH",
                     result: "2:1"
                     },
                 {
                     group: "F",
-                    game: "ir-ng",
+                    game: "IRN-NGA",
                     result: "0:0"
                     }],
                     [{
                     group: "G",
-                    game: "de-pt",
+                    game: "GER-POR",
                     result: "4:0"
                     },
                 {
                     group: "G",
-                    game: "gh-us",
+                    game: "GHA-USA",
                     result: "1:2"
                     }],
                     [{
                     group: "H",
-                    game: "dz-be",
+                    game: "ALG-BEL",
                     result: "1:2"
                     },
                 {
                     group: "H",
-                    game: "ru-kr",
+                    game: "KOR-RUS",
                     result: "1:1"
                     }]],
                     [[{
                     group: "A",
-                    game: "br-mx",
+                    game: "BRA-MEX",
                     result: "0:0"
                     },
                 {
                     group: "A",
-                    game: "cm-hr",
+                    game: "CMR-CRO",
                     result: "0:4"
                     }],
                     [{
                     group: "B",
-                    game: "au-nl",
+                    game: "AUS-NED",
                     result: "2:3"
                     },
                 {
                     group: "B",
-                    game: "cl-es",
+                    game: "CHI-ESP",
                     result: "2:0"
                     }],
                     [{
                     group: "C",
-                    game: "co-ci",
+                    game: "COL-CIV",
                     result: "2:1"
                     },
                 {
                     group: "C",
-                    game: "gr-jp",
+                    game: "GRE-JPN",
                     result: "0:0"
                     }],
                     [{
                     group: "D",
-                    game: "gb-uy",
+                    game: "ENG-URU",
                     result: "1:2"
                     },
                 {
                     group: "D",
-                    game: "cr-it",
+                    game: "CRC-ITA",
                     result: "1:0"
                     }],
                     [{
                     group: "E",
-                    game: "fr-ch",
+                    game: "FRA-SUI",
                     result: "5:2"
                     },
                 {
                     group: "E",
-                    game: "ec-hn",
+                    game: "ECU-HON",
                     result: "2:1"
                     }],
                     [{
                     group: "F",
-                    game: "ar-ir",
+                    game: "ARG-IRN",
                     result: "1:0"
                     },
                 {
                     group: "F",
-                    game: "ba-ng",
+                    game: "BIH-NGA",
                     result: "0:1"
                     }],
                     [{
                     group: "G",
-                    game: "gh-de",
+                    game: "GHA-GER",
                     result: "2:2"
                     },
                 {
                     group: "G",
-                    game: "pt-us",
+                    game: "POR-USA",
                     result: "2:2"
                     }],
                     [{
                     group: "H",
-                    game: "be-ru",
+                    game: "BEL-RUS",
                     result: "1:0"
                     },
                 {
                     group: "H",
-                    game: "dz-kr",
+                    game: "ALG-KOR",
                     result: "4:2"
                     }]],
                     [[{
                     group: "A",
-                    game: "br-cm",
+                    game: "BRA-CMR",
                     result: "4:1"
                     },
                 {
                     group: "A",
-                    game: "hr-mx",
+                    game: "CRO-MEX",
                     result: "1:3"
                     }],
                     [{
                     group: "B",
-                    game: "au-es",
+                    game: "AUS-ESP",
                     result: "0:3"
                     },
                 {
                     group: "B",
-                    game: "cl-nl",
+                    game: "CHI-NED",
                     result: "0:2"
                     }],
                     [{
                     group: "C",
-                    game: "co-jp",
+                    game: "COL-JPN",
                     result: "4:1"
                     },
                 {
                     group: "C",
-                    game: "gr-ci",
+                    game: "GRE-CIV",
                     result: "2:1"
                     }],
                     [{
                     group: "D",
-                    game: "it-uy",
+                    game: "ITA-URU",
                     result: "0:1"
                     },
                 {
                     group: "D",
-                    game: "cr-gb",
+                    game: "CRC-ENG",
                     result: "0:0"
                     }],
                     [{
                     group: "E",
-                    game: "hn-ch",
+                    game: "HON-SUI",
                     result: "0:3"
                     },
                 {
                     group: "E",
-                    game: "ec-fr",
+                    game: "ECU-FRA",
                     result: "0:0"
                     }],
                     [{
                     group: "F",
-                    game: "ar-ng",
+                    game: "ARG-NGA",
                     result: "3:2"
                     },
                 {
                     group: "F",
-                    game: "ba-ir",
+                    game: "BIH-IRN",
                     result: "3:1"
                     }],
                     [{
                     group: "G",
-                    game: "de-us",
+                    game: "GER-USA",
                     result: "1:0"
                     },
                 {
                     group: "G",
-                    game: "gh-pt",
+                    game: "GHA-POR",
                     result: "1:2"
                     }],
                     [{
                     group: "H",
-                    game: "be-kr",
+                    game: "BEL-KOR",
                     result: "1:0"
                     },
                 {
                     group: "H",
-                    game: "dz-ru",
+                    game: "ALG-RUS",
                     result: "1:1"
                     }]],
             [{
@@ -314,18 +314,17 @@ WMVis.GamesData = (function () {
         return games[key];
     }
     
-    function getGame(key, country_id){
-        var game,
+    function getGames(key, group){
+        var games,
             gamesOfDay = getGamesOfDay(key);
         for(let i=0; i<gamesOfDay.length; i++){
-            for(let j=0; j<gamesOfDay[i].length; j++){
-                if(gamesOfDay[i][j].game.includes(country_id)){
-                    game = gamesOfDay[i][j].game;
-                    break;
-                }
+            if(gamesOfDay[i][0].group === group){
+                games = gamesOfDay[i];
+                console.log(games);
+                break;
             }
         }
-        return game;
+        return games;
     }
 
     function getGroupGames(key, nation) {
@@ -347,7 +346,7 @@ WMVis.GamesData = (function () {
     }
 
     that.getGamesOfDay = getGamesOfDay;
-    that.getGame = getGame;
+    that.getGames = getGames;
     that.getGroupGames = getGroupGames;
     return that;
 });
