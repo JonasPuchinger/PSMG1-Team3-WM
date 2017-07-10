@@ -38,9 +38,6 @@ View.PreTournamentLayout = function() {
         abbrs = data[3];
       }
 
-      that.notifyAll("fifaRankingsRequested");
-      that.notifyAll("wcResultsRequested");
-
       // er kann hier zwar abbrs anzeigen, aber nicht drauf zugreifen => timeout bis es verfügbar ist
       setTimeout(createTemplate, 50);
     }
@@ -290,14 +287,6 @@ View.PreTournamentLayout = function() {
       }
     }
 
-    function passFifaRatings(rankings) {
-      fifaRankings = rankings;
-    }
-
-    function passWCResults(results) {
-      worldCupResults = results;
-    }
-
     function clearGraphs() {
       $("#fifa-rankings-table").innerHTML = "";
       $("#world-cup-results-table").innerHTML = "";
@@ -307,7 +296,5 @@ View.PreTournamentLayout = function() {
     that.setData = setData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
-    that.passFifaRatings = passFifaRatings;
-    that.passWCResults = passWCResults;
     return that;
 };
