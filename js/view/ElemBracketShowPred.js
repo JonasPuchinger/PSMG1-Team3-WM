@@ -18,15 +18,14 @@ WMVis.ElemBracketShowPred = function (predData) {
         preFinalEl = document.querySelector('#tournamentBracketsPreFinal');
 
     function init() {
-
     }
 
     function showPredRow(state, data) {
         recentChanges = [];
         if (data.target.children[1].innerText !== 'TBD') {
             country = data.target.children[1].innerText;
-            switch (parseInt(state)) {
-                case 5: //Pre Ro16
+            switch (state) {
+                case 4: //Pre Ro16
                     var ro16MatchID = parseInt((data.target.parentNode.parentNode.parentNode.id).replace(/\D/g, '')),
                         qMatchID = Math.round((ro16MatchID) / 2),
                         sMatchID = Math.round((qMatchID) / 2),
@@ -60,7 +59,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                     });
                     break;
 
-                case 6: //Pre Quarter
+                case 5: //Pre Quarter
                     var qMatchID = parseInt((data.target.parentNode.parentNode.parentNode.id).replace(/\D/g, '')),
                         sMatchID = Math.round((qMatchID) / 2),
                         fMatchID = 1,
@@ -89,7 +88,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                     });
                     break;
 
-                case 7: //Pre Semi
+                case 6: //Pre Semi
                     var sMatchID = parseInt((data.target.parentNode.parentNode.parentNode.id).replace(/\D/g, '')),
                         fMatchID = 1,
                         countryPred = _.find(preSemi, function (obj) {
@@ -114,7 +113,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                     });
                     break;
 
-                case 8: //Pre Final
+                case 7: //Pre Final
 
                     break;
             }
