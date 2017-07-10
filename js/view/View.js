@@ -93,12 +93,12 @@ WMVis.View = function () {
         preTournamentLayout.showNationModal(nationData);
     }
     
-    function showCalcResult(game, calcResult) {
-        groupLayout.connectRowsForNation(game, calcResult);
+    function showCalcResult(country, game, calcResult) {
+        groupLayout.connectRowsForNation(country, game, calcResult);
     }
     
-    function removeCalcResult(){
-        groupLayout.deleteConnectRows();
+    function removeCalcResult(country){
+        groupLayout.deleteConnectRows(country);
     }
 
     function changeLayout(layout, data= null, games= null, probabilities= null) {

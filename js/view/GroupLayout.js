@@ -4,65 +4,69 @@ var View = View || {};
 View.GroupLayout = function () {
     "use strict";
 
-    const abbrs = [
-     ["br", "mx", "hr", "cm"],
-     ["es", "cl", "nl", "au"],
-     ["co", "ci", "gr", "jp"],
-     ["uy", "gb", "it", "cr"],
-     ["fr", "ec", "ch", "hn"],
-     ["ar", "ba", "ng", "ir"],
-     ["de", "pt", "us", "gh"],
-     ["be", "ru", "kr", "dz"]
-     ],
-    flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
+    const flagsUrlBase = "https://lipis.github.io/flag-icon-css/flags/4x3/";
 
-    var that = new EventPublisher();
+    var that = new EventPublisher(),
+        groups,
+        nations,
+        ids,
+        abbrs,
+        md,
+        games,
+        probabilities;
 
-    function init(data, games, probabilities) {
-      var connections = [],
-          groups = [],
-          nations = [],
-          ids = [];
-      for(let i=0; i<data.length; i+=4){
-          var nationsGroup = [],
-              idsGroup = [];
-          for(let j=i; j<(i+4); j++){
-              nationsGroup.push(data[j].country);
-              idsGroup.push(data[j].country_id);
-          }
-          nations.push(nationsGroup);
-          ids.push(idsGroup);
-          groups.push(data[i].group.toUpperCase());
-      }
-      var template = _.template($("#resultList").html());
-      var vars = {groupNames: groups, games: games, nations: nations, ids: ids, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
-      var compiled = template(vars);
+    function init(data, gamesData, probabilityData ) {
+      games = gamesData,
+      probabilities = probabilityData;
+      groups = data[1],
+      nations = data[2],
+      ids = data[3],
+      abbrs = data[4],
+      md = data[0];
+      setTimeout(createTemplate, 50);
+    }
+    
+    function createTemplate() {
+      var template,
+        vars,
+        compiled;  
+      template = _.template($("#resultList").html());
+      vars = {groupNames: groups, games: games, nations: nations, ids: ids, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
+      compiled = template(vars);
       $("#resultEl").append(compiled);
       if(games!==null){
         connect(games);
       }
-     showProbabilities(ids, probabilities);
+     showProbabilities(probabilities);
     }
 
-    function connect(games){
-        var nations = [],
+    function setData(predData) {
+      if(predictionData.length === 0) {
+        predictionData = _.toArray(predData);
+        createPredictionRowView();
+      }
+    }
+
+    function connect(){
+        var countries = [],
             results,
-            countries = [];
+            cards = [];
         for(let i=0; i<games.length; i++){
             for(let j=0; j<games[i].length; j++){
-                nations.push(games[i][j].game.split('-'));
+                countries.push(games[i][j].game.split('-'));
             }
         }
         results = d3.selectAll(".result")._groups["0"];
-        var rowHeight = document.querySelector("#group").offsetHeight+20;
+        var rowHeight = document.querySelector(".group").offsetHeight+20;
         var colLeft = document.querySelector(".push-s3").offsetLeft;
         for(let i=0; i<results.length/2; i++){
             var data = [];
             for(let j=2*i; j<2*(i+1); j++){
-                countries[0] = d3.select("#"+nations[j][0])._groups["0"]["0"];
-                countries[1] = d3.select("#"+nations[j][1])._groups["0"]["0"];
-                data.push("M " + (countries[0].offsetLeft+colLeft) + " " + (countries[0].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
-                data.push("M " + (countries[1].offsetLeft+colLeft) + " " + (countries[1].offsetTop+countries[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
+                cards = [];
+                cards.push(document.querySelector("#"+countries[j][0]));
+                cards.push(document.querySelector("#"+countries[j][1]));
+                data.push("M " + (cards[0].offsetLeft+colLeft+10) + " " + (cards[0].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
+                data.push("M " + (cards[1].offsetLeft+colLeft+10) + " " + (cards[1].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-114));
             }
             var root = d3.select(".row-"+i);
             var paths = root.selectAll("g");
@@ -71,12 +75,12 @@ View.GroupLayout = function () {
             var exitPaths = pathsUpdate.exit().remove();
             var link = enterPaths.append("path").attr("class","link");
             link.attr("d", function (d) {
-            return d;
-        });
+                return d;
+            });
         }
     }
     
-    function showProbabilities(ids, probabilities){
+    function showProbabilities(probabilities){
       var x = d3.selectAll(".x")._groups["0"],
           one = d3.selectAll(".one")._groups["0"],
           two = d3.selectAll(".two")._groups["0"],
@@ -114,23 +118,32 @@ View.GroupLayout = function () {
         }
     }
 
-    function connectRowsForNation(game, calcResult) {
-      console.log(game);
-      var data = [];
+    function connectRowsForNation(country, games, calcResults) {
+        var data = [],
+            group = country.id;
         var colLeft1 = document.querySelector(".push-s3").offsetLeft;
         var colLeft2 = document.querySelector(".push-s4").offsetLeft;
-        var ids = game.split("-");
-        var countries = [];
-        for(let i=0; i<ids.length;i++){
-            countries.push(d3.select("#"+ids[i])._groups["0"]["0"]);
+        var countries = [],
+            result,
+            calcGoals,
+            rect;
+        for(let i=0; i<games.length; i++){
+            var ids = games[i].game.split("-");
+            for(let j=0; j<ids.length; j++){
+                countries.push(d3.select("#"+ids[j])._groups["0"]["0"]);
+            }
         }
-        var root = d3.select("#calcResult");
-        var calcGoals = d3.select(".calcGoals")._groups["0"]["0"];
-        $(".calcGoals").css({top: (countries[0].offsetTop + countries[1].offsetTop + countries[1].offsetHeight)/2, left: colLeft2, position:'absolute'});
-        document.querySelector(".calcGoals").innerHTML = calcResult;
-        calcGoals.classList.remove("hidden");
-        for(let i=0; i<ids.length;i++){
-            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth + colLeft1) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (calcGoals.offsetLeft - 60) + " " + (calcGoals.offsetTop+calcGoals.offsetHeight/2) + " " + (calcGoals.offsetLeft -10) + " " + (calcGoals.offsetTop+calcGoals.offsetHeight/2));
+        toggle(group);
+        var root = d3.select(".row3-"+group);
+        for(let i=0; i<countries.length; i++){
+            if(i%2===0){
+                var index = parseInt(i/2);
+                result= document.querySelector("#cR"+index+"-"+group);
+                console.log(result);
+                result.innerHTML = calcResults[index];
+                calcGoals = result.parentElement;
+            }
+            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth + colLeft1) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft+colLeft2 - 60) + " " + (result.offsetTop+result.clientTop) + " " + (result.offsetLeft+colLeft2 -10) + " " + (result.offsetTop+result.offsetHeight/2));
         }
         var paths = root.selectAll("g");
         var pathsUpdate = paths.data(data);
@@ -138,18 +151,38 @@ View.GroupLayout = function () {
         var exitPaths = pathsUpdate.exit().remove();
         var link = enterPaths.append("path").attr("class","link");
         link.attr("d", function (d) {
+        console.log(d);
         return d;
         });
     }
 
-    function deleteConnectRows() {
-       var root = document.querySelector(".calcGoals");
-       root.classList.add("hidden");
-       var path = root.getElementsByTagName("g")[0];
+    function deleteConnectRows(country) {
+       var group = country.id;
+       var root = document.querySelector(".row3-"+group);
+       var path = root.childNodes[0];
        while(path!==undefined){
            root.removeChild(path);
-           path = root.getElementsByTagName("g")[0];
+           path = root.childNodes[0];
        }
+       console.log(country);
+       toggle(group);
+    }
+    
+    function toggle(group){
+        var groupRow = document.querySelector("#"+group+".s3");
+        console.log(group);
+        var x = groupRow.querySelector(".x"),
+            one = groupRow.querySelector(".one"),
+            two = groupRow.querySelector(".two");
+        x.classList.toggle("hidden");
+        one.classList.toggle("hidden");
+        two.classList.toggle("hidden");
+        var calcResult = groupRow.querySelectorAll(".calcResult");
+        for(let i=0; i<calcResult.length; i++){
+            calcResult[i].classList.toggle("hidden");
+        }
+        var rightSvg = document.querySelector("#paths-"+group);
+        rightSvg.classList.toggle("hidden");
     }
 
     that.init = init;

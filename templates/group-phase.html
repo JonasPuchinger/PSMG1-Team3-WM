@@ -1,9 +1,10 @@
 <script type="text/x-underscore" id="resultList">
     <% _.each(groupNames, function(group, key1){
     %>
-        <div class="row" id="group">
-          <svg class="paths row-<%= key1 %>" width="100%" height="100%"></svg>
-          <svg class="paths row2-<%= key1 %>" width="100%" height="100%"></svg>
+        <div class="row group" id="group-<%= group %>">
+            <svg class="paths row-<%= key1 %>" width="100%" height="100%"></svg>
+            <svg class="paths row2-<%= key1 %>" id="paths-<%= group %>" width="100%" height="100%"></svg>
+            <svg class="paths row3-<%= group %>" width="100%" height="100%"></svg>
           <div class="col s2">
             <% if(games!==null){ %><h3>Results</h3>
             <div class="row result-row">
@@ -25,11 +26,11 @@
                 <% _.each(nations[key1], function(nation, key2, list2) {
                 %>
                 <div class="row nation-row">
-                    <div class="col s12">
+                    <div class="col s12" id="<%= group %>">
                         <div class="card nationcard" id="<%= ids[key1][key2] %>">
-                            <div class="card-content" id="<%= ids[key1][key2] %>">
-                                <img src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48" id="<%= ids[key1][key2] %>">
-                                <span id="<%= ids[key1][key2] %>"><%= nation %></span>
+                            <div class="card-content">
+                                <img class="nationflag" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48" id="<%= group %>">
+                                <span id="<%= group %>"><%= nation %></span>
                             </div>
                         </div>
                     </div>
@@ -38,7 +39,16 @@
                   });
                 %>
             </div>
-            <div class="col s3 push-s4">
+            <div class="col s3 push-s4" id="<%= group %>">
+                <h3>Calculated Result</h3>
+                <% _.each(games[key1], function(groupGames, key2){
+                 %>
+                    <div class="calcResult hidden">
+                        <div class="calculated" id="cR<%= key2 %>-<%= group %>"></div>
+                    </div>
+                <%
+                });
+                %>
                 <div class="circle one">1</div>
                 <div class="circle two">2</div>
                 <div class="circle x">X</div>
@@ -47,9 +57,6 @@
     <%
       });
     %>
-    <svg class="paths" id="calcResult" width="100%" height="100%">
-         <div class="calcGoals hidden"></div>
-    </svg>
 </script>
 
 <div id="resultEl"></div>
