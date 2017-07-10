@@ -21,8 +21,6 @@ WMVis.View = function () {
 
         preTournamentLayout = new View.PreTournamentLayout();
         groupLayout = new View.GroupLayout();
-        preTournamentLayout.addEventListener("fifaRankingsRequested", requestFifaRankings);
-        preTournamentLayout.addEventListener("wcResultsRequested", requestWCResults);
         // preTournamentLayout.init();
     }
 
@@ -69,14 +67,6 @@ WMVis.View = function () {
         finalLayout.appendMatches(selector5);
     }
 
-    function requestFifaRankings() {
-      that.notifyAll("fifaRankingsRequested");
-    }
-
-    function requestWCResults() {
-      that.notifyAll("wcResultsRequested");
-    }
-
     function changeStageLabel(stage) {
         stageLabel.innerHTML = stages[stage];
     }
@@ -92,11 +82,11 @@ WMVis.View = function () {
     function showNationModal(nationData) {
         preTournamentLayout.showNationModal(nationData);
     }
-    
+
     function showCalcResult(country, game, calcResult) {
         groupLayout.connectRowsForNation(country, game, calcResult);
     }
-    
+
     function removeCalcResult(country){
         groupLayout.deleteConnectRows(country);
     }
@@ -110,7 +100,7 @@ WMVis.View = function () {
                 preTournamentLayout.init(data);
                 break;
             case 1:
-                groupLayout = new View.GroupLayout();  
+                groupLayout = new View.GroupLayout();
                 console.log(games);
                 groupLayout.init(data, games, probabilities);
                 break;
@@ -132,14 +122,6 @@ WMVis.View = function () {
         }
     }
 
-    function passFifaRatings(rankings) {
-      preTournamentLayout.passFifaRatings(rankings);
-    }
-
-    function passWCResults(results) {
-      preTournamentLayout.passWCResults(results);
-    }
-
     function hideAllTournamentBracketLayouts() {
         document.querySelector('#tournamentBracketsPreKo').classList.add('hidden');
         document.querySelector('#tournamentBracketsPreQuarter').classList.add('hidden');
@@ -157,7 +139,5 @@ WMVis.View = function () {
     that.showCalcResult = showCalcResult;
     that.removeCalcResult = removeCalcResult;
     that.changeLayout = changeLayout;
-    that.passFifaRatings = passFifaRatings;
-    that.passWCResults = passWCResults;
     return that;
 };

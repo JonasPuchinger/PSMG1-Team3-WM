@@ -38,9 +38,6 @@ View.PreTournamentLayout = function() {
         abbrs = data[3];
       }
 
-      that.notifyAll("fifaRankingsRequested");
-      that.notifyAll("wcResultsRequested");
-
       // er kann hier zwar abbrs anzeigen, aber nicht drauf zugreifen => timeout bis es verfügbar ist
       setTimeout(createTemplate, 50);
     }
@@ -144,6 +141,7 @@ View.PreTournamentLayout = function() {
           complete: function() {
             $("#fifa-rankings-table").empty();
             $("#world-cup-results-table").empty();
+            $("#spi-ratings-donut").empty();
           }
         });
         $("#nation-modal").modal("open");
@@ -238,8 +236,6 @@ View.PreTournamentLayout = function() {
         }, function(error, data) {
           if (error) throw error;
 
-          console.log(data);
-
           var line = d3.line()
             .x(function(d) { return xResults(d.Year); })
             .y(function(d) { return yResults(d.Position); })
@@ -279,6 +275,64 @@ View.PreTournamentLayout = function() {
               .style("fill", "steelblue");
         });
 
+        var radius = Math.min(width, height) / 2;
+
+        var arc = d3.arc()
+          .outerRadius(radius - 10)
+          .innerRadius(radius - 70);
+
+        var pie = d3.pie()
+          .sort(null)
+          .value(function(d, i) {
+            if(i % 2 == 0) {
+              return d.spi_offense;
+            } else {
+              return d.spi_defense;
+            }
+          });
+
+        var gSPIRatings = d3.select("#spi-ratings-donut").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + (width + margin.left + margin.right) / 2 + "," + height / 2 + ")");
+
+        d3.csv("../../data/raw data/wc-20140609-140000.csv", function(d) {
+          if(d["country"] == nationData.alt) {
+            return [d, d];
+          }
+        },
+        function(error, data) {
+          if (error) throw error;
+
+          var g = gSPIRatings.selectAll(".arc")
+              .data(pie(data[0]))
+            .enter().append("g")
+              .attr("class", "arc");
+
+          g.append("path")
+            .attr("d", arc)
+            .style("fill", function(d, i) {
+              if(i % 2 == 0) {
+                return "#ff8c00";
+              } else {
+                return "steelblue";
+              }
+            });
+
+          g.append("text")
+            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+            .attr("dy", ".35em")
+            .text(function(d, i) {
+              if(i % 2 == 0) {
+                return "SPI Offense: " + d.data.spi_offense;
+              } else {
+                return "SPI Defense: " + d.data.spi_defense;
+              }
+            });
+
+        });
+
       });
     }
 
@@ -290,14 +344,6 @@ View.PreTournamentLayout = function() {
       }
     }
 
-    function passFifaRatings(rankings) {
-      fifaRankings = rankings;
-    }
-
-    function passWCResults(results) {
-      worldCupResults = results;
-    }
-
     function clearGraphs() {
       $("#fifa-rankings-table").innerHTML = "";
       $("#world-cup-results-table").innerHTML = "";
@@ -307,7 +353,5 @@ View.PreTournamentLayout = function() {
     that.setData = setData;
     that.togglePredictionRow = togglePredictionRow;
     that.showNationModal = showNationModal;
-    that.passFifaRatings = passFifaRatings;
-    that.passWCResults = passWCResults;
     return that;
 };

@@ -39,7 +39,7 @@ WMVis = (function () {
         controller.addEventListener("nationCardClicked", onNationCardClicked);
         controller.addEventListener("showCalcResult", showCalcResult);
         controller.addEventListener("hideCalcResult", removeCalcResult);
-        controller.addEventListener("showModal", showModal);
+        controller.addEventListener("showModal", onNationCardClicked);
         controller.addEventListener("teamHovered", onTeamHovered);
         controller.addEventListener("teamHoverLeft", onTeamHoverLeft);
     }
@@ -59,20 +59,10 @@ WMVis = (function () {
             };
 
         view = new WMVis.View();
-        view.addEventListener("fifaRankingsRequested", requestFifaRankings);
-        view.addEventListener("wcResultsRequested", requestWCResults);
         view.init(optionsView);
 
         elemBracketPredView = new WMVis.ElemBracketShowPred(optionsPred);
         elemBracketPredView.init();
-    }
-
-    function requestFifaRankings() {
-      view.passFifaRatings(dataModel.getFifaRankings());
-    }
-
-    function requestWCResults() {
-      view.passWCResults(dataModel.getWorldCupResults());
     }
 
     function onStageSliderChanged(event) {
@@ -148,7 +138,7 @@ WMVis = (function () {
         }
         return probabilities;
     }
-  
+
     function getMaxIndex(arr) {
         var max = arr[0];
         var maxIndex = 0;
@@ -205,7 +195,7 @@ WMVis = (function () {
         view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function() { controller.initGroupController(); } , 60);
-    }   
+    }
 
     function md2() {
         var md2 = dataModel.getMatchday2(),
@@ -230,7 +220,7 @@ WMVis = (function () {
         view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function() { controller.initGroupController(); } , 60);
-    } 
+    }
 
     function md3() {
         var md3 = dataModel.getMatchday3(),
@@ -292,7 +282,7 @@ WMVis = (function () {
     function onTeamHoverLeft(event) {
         elemBracketPredView.resetPreds();
     }
-    
+
     function showCalcResult(event) {
         var data;
         switch(currentState){
@@ -320,13 +310,9 @@ WMVis = (function () {
             view.showCalcResult(flag, games, probabilities);
         }
     }
-    
+
     function removeCalcResult(event){
         view.removeCalcResult(event.data.target);
-    }
-    
-    function showModal(event){
-        
     }
 
     that.loadDataModel = loadDataModel;
