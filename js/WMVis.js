@@ -315,10 +315,6 @@ WMVis = (function () {
         view.removeCalcResult(event.data.target);
     }
 
-    function showModal(event){
-
-    }
-
     that.loadDataModel = loadDataModel;
     return that;
 }());

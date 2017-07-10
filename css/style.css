@@ -87,6 +87,15 @@ path {
   stroke: #000;
 }
 
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
 .nationcard .card-content {
     display: flex;
     flex-direction: row;
