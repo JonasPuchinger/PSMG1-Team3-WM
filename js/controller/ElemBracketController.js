@@ -3,13 +3,12 @@ var Controller = Controller || {};
 Controller.ElemBracketController = function () {
     "use strict";
 
-    var that = new EventPublisher(),
-        teams;
+    var that = new EventPublisher();
 
     function init() {
         $(document).ready(function () {
             setTimeout(function () {
-                teams = document.querySelectorAll("tr#team");
+                var teams = $('#tournamentBracketsPreKo .ro16 tr#team, #tournamentBracketsPreQuarter .quarter tr#team, #tournamentBracketsPreSemi .semi tr#team, #tournamentBracketsPreFinal .final tr#team');
                 for (let i = 0; i < teams.length; i++) {
                     teams[i].addEventListener("mouseenter", onMatchHovered);
                     teams[i].addEventListener("mouseleave", onMatchLeft);
