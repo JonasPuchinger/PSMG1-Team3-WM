@@ -14,6 +14,9 @@ Controller.GroupController = function () {
                     nationCards[i].addEventListener("mouseout", onHideCalcResult);
                     nationCards[i].addEventListener("click", onShowModal);
                 }
+                $('.button-collapse').sideNav({
+                  closeOnClick: true
+                });
             }, 10);
         });
     }

@@ -23,7 +23,7 @@ WMVis.Controller = function () {
         preTournamentController.addEventListener("nationCardLeft", onNationCardLeft);
         preTournamentController.addEventListener("nationCardClicked", onNationCardClicked);
     }
-    
+
     function initGroupController() {
         groupController = new Controller.GroupController();
         groupController.init();
@@ -60,7 +60,7 @@ WMVis.Controller = function () {
     function onNationCardHovered(event) {
         that.notifyAll("nationCardHovered", event.data);
     }
-                       
+
     function onNationCardLeft(event) {
         that.notifyAll("nationCardLeft", event.data);
     }
@@ -68,15 +68,15 @@ WMVis.Controller = function () {
     function onNationCardClicked(event) {
         that.notifyAll("nationCardClicked", event.data);
     }
-    
+
     function onShowCalcResult(event) {
         that.notifyAll("showCalcResult", event.data);
     }
-    
+
     function onHideCalcResult(event) {
         that.notifyAll("hideCalcResult", event.data);
     }
-    
+
     function onShowModal(event) {
         that.notifyAll("showModal", event.data);
     }
