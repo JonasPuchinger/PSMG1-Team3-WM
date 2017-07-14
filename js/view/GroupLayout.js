@@ -23,7 +23,7 @@ View.GroupLayout = function () {
       ids = data[3],
       abbrs = data[4],
       md = data[0];
-      setTimeout(createTemplate, 50);
+      setTimeout(createTemplate, 30);
     }
     
     function createTemplate() {
@@ -141,9 +141,8 @@ View.GroupLayout = function () {
                 result= document.querySelector("#cR"+index+"-"+group);
                 console.log(result);
                 result.innerHTML = calcResults[index];
-                calcGoals = result.parentElement;
             }
-            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth + colLeft1) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft+colLeft2 - 60) + " " + (result.offsetTop+result.clientTop) + " " + (result.offsetLeft+colLeft2 -10) + " " + (result.offsetTop+result.offsetHeight/2));
+            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth + colLeft1) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft+colLeft2 - 60) + " " + (result.offsetTop+result.offsetHeight/2) + " " + (result.offsetLeft+colLeft2 -10) + " " + (result.offsetTop+result.offsetHeight/2));
         }
         var paths = root.selectAll("g");
         var pathsUpdate = paths.data(data);
