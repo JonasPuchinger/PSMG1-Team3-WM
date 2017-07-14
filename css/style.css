@@ -37,6 +37,14 @@ html, body {
     width: 1550px;
 }
 
+.side-nav {
+  overflow-y: hidden;
+}
+
+.side-nav:hover {
+  overflow-y: auto;
+}
+
 #nation-modal {
   overflow-y: hidden;
 }
@@ -102,6 +110,10 @@ path {
     justify-content: space-around;
     align-items: center;
     z-index: 50;
+}
+
+.nationflag:hover {
+  cursor: pointer;
 }
 
 .ro16,

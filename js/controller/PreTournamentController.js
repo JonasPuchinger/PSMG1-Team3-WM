@@ -15,6 +15,9 @@ Controller.PreTournamentController = function () {
                     nationCards[i].addEventListener("mouseout", onNationCardLeft);
                     nationCards[i].addEventListener("click", onNationCardClicked);
                 }
+                $('.button-collapse').sideNav({
+                  closeOnClick: true
+                });
             }, 1);
         });
     }
