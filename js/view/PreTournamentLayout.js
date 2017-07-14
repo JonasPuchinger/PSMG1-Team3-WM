@@ -10,6 +10,7 @@ View.PreTournamentLayout = function() {
       nations = [],
       nationNames = [],
       abbrs = [],
+      ids = [],
       predictionData = [],
       fifaRankings = [],
       worldCupResults = [];
@@ -35,9 +36,12 @@ View.PreTournamentLayout = function() {
         }
       }
       if(abbrs.length === 0) {
-        abbrs = data[3];
+        abbrs = data[4];
       }
-
+        
+     if(ids.length === 0) {
+        ids = data[3];
+      }
       // er kann hier zwar abbrs anzeigen, aber nicht drauf zugreifen => timeout bis es verfügbar ist
       setTimeout(createTemplate, 50);
     }
@@ -48,7 +52,7 @@ View.PreTournamentLayout = function() {
         compiled;
 
       template = _.template($("#groups-list").html());
-      vars = {groupNames: groupNames, nations: nations, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
+      vars = {groupNames: groupNames, nations: nations, abbrs: abbrs, ids: ids, flagsUrlBase: flagsUrlBase};
       compiled = template(vars);
       $("#groups-list-el").append(compiled);
       createPredictionRowView();
@@ -105,34 +109,22 @@ View.PreTournamentLayout = function() {
       return rgb;
     }
 
-    function togglePredictionRow(nationData) {
-      var predictionRowEls = document.querySelectorAll("#" + nationData.target.getAttribute("group") + "-row .predictionrow");
-      var matchRowEls = document.querySelectorAll("#" + nationData.target.getAttribute("group") + "-row .fillrow");
-      var matchRowEl = document.querySelector("#" + nationData.target.getAttribute("group") + "-matchcol");
-      var connectRowsEl = document.querySelector("#svg-container-" + nationData.target.getAttribute("group"));
+    function togglePredictionRow(group) {
+      var predictionRowEls = document.querySelectorAll("#" + group + "-row .predictionrow");
+      var matchRowEls = document.querySelectorAll("#" + group + "-row .fillrow");
       for(let i = 0; i < predictionRowEls.length; i++) {
         predictionRowEls[i].classList.toggle("hidden");
         matchRowEls[i].classList.toggle("hidden");
       }
-      matchRowEl.classList.toggle("hidden");
-      connectRowsEl.classList.toggle("hidden");
-      switch (nationData.event) {
-          case "enter":
-              connectRowsForNation(nationData, connectRowsEl);
-              break;
-          case "leave":
-              deleteConnectRows();
-              break;
+      var groupRow = document.querySelector("#"+group+"-row"),
+          roundTitles = groupRow.querySelectorAll(".round");
+        for(let i=0; i<roundTitles.length; i++){
+            roundTitles[i].classList.toggle("hidden");
         }
-    }
-
-    function connectRowsForNation(nationData, connectRowsEl) {
-      jqSimpleConnect.connect("#Brazil-nationscard", "#resultcard-0", {/*OPTIONS*/});
-      jqSimpleConnect.connect("#Mexico-nationscard", "#resultcard-0", {/*OPTIONS*/});
-    }
-
-    function deleteConnectRows() {
-      jqSimpleConnect.removeAll();
+        var calcResult = groupRow.querySelectorAll("#"+group+"-matchcol");
+        for(let i=0; i<calcResult.length; i++){
+            calcResult[i].classList.toggle("hidden");
+        }
     }
 
     function showNationModal(nationData) {
@@ -348,10 +340,58 @@ View.PreTournamentLayout = function() {
       $("#fifa-rankings-table").innerHTML = "";
       $("#world-cup-results-table").innerHTML = "";
     }
+    
+        function connectRowsForNation(country, games, calcResults) {
+        var data = [],
+            group = country.id;
+        var countries = [],
+            result,
+            calcGoals,
+            rect;
+        for(let i=0; i<games.length; i++){
+            var ids = games[i].game.split("-");
+            for(let j=0; j<ids.length; j++){
+                countries.push(d3.select("#"+ids[j])._groups["0"]["0"]);
+            }
+        }
+        togglePredictionRow(group);
+        var colLeft = document.querySelectorAll("#" + group + "-matchcol")[1].offsetLeft;
+        var root = d3.select("#paths-"+group);
+        for(let i=0; i<countries.length; i++){
+            if(i%2===0){
+                var index = parseInt(i/2);
+                var matchCol = document.querySelectorAll("#"+group+"-matchcol")[1];
+                result= matchCol.querySelector("#resultcard-"+index);
+                result.querySelector("#goals").innerHTML = calcResults[index];
+            }
+            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft + colLeft - 80) + " " + (result.offsetTop+result.offsetHeight/2 + 177) + " " + (result.offsetLeft + colLeft + 35) + " " + (result.offsetTop+result.offsetHeight/2 + 177));
+        }
+        var paths = root.selectAll("g");
+        var pathsUpdate = paths.data(data);
+        var enterPaths = pathsUpdate.enter().append("g");
+        var exitPaths = pathsUpdate.exit().remove();
+        var link = enterPaths.append("path").attr("class","link");
+        link.attr("d", function (d) {
+        return d;
+        });
+    }
+
+    function deleteConnectRows(country) {
+       var group = country.id;
+       var root = document.querySelector("#paths-"+group);
+       var path = root.childNodes[0];
+       while(path!==undefined){
+           root.removeChild(path);
+           path = root.childNodes[0];
+       }
+       togglePredictionRow(group);
+    }
+    
 
     that.init = init;
     that.setData = setData;
-    that.togglePredictionRow = togglePredictionRow;
+    that.connectRowsForNation = connectRowsForNation;
+    that.deleteConnectRows = deleteConnectRows;
     that.showNationModal = showNationModal;
     return that;
 };

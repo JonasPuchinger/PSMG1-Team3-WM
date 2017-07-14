@@ -197,12 +197,14 @@ path {
 
 .stagesrow div {
   text-align: center;
+  z-index: 0;
 }
 
 .nationrow {
   height: 100%;
   display: flex;
   align-items: center;
+  z-index: 5;
 }
 
 .nationcard .card-content{
@@ -218,6 +220,11 @@ path {
   display: flex;
   flex-direction: row;
   align-items: center;
+  z-index: 5;
+}
+
+.foreground {
+    z-index: 5;
 }
 
 .round-div {
@@ -233,7 +240,6 @@ path {
   top: 19%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 }
 
 .resultcard {
@@ -348,10 +354,27 @@ path {
   justify-content: space-around;
   padding-top: 39%;
   font-size: 30pt;
-  z-index: 5;
+  z-index: 10;
 }
 
-.calculated{
-    position: absolute;
+#goals{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 76%;
+  align-items: center;
+  font-size: 30pt;
+}
+
+.calcGoals{
+    align-content: center;
+    z-index: 10;
+}
+
+.round{
     z-index: 5;
+}
+
+.title{
+    text-align: center;
 }

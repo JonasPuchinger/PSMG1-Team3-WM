@@ -9,7 +9,7 @@ WMVis = (function () {
         view,
         gamesData,
         elemBracketPredView,
-        currentState;
+        currentState = 0;
 
 
     function loadDataModel() {
@@ -34,8 +34,8 @@ WMVis = (function () {
         controller = new WMVis.Controller();
         controller.init();
         controller.addEventListener("stageSliderChanged", onStageSliderChanged);
-        controller.addEventListener("nationCardHovered", togglePredictionRow);
-        controller.addEventListener("nationCardLeft", togglePredictionRow);
+        controller.addEventListener("nationCardHovered", showCalcResult);
+        controller.addEventListener("nationCardLeft", removeCalcResult);
         controller.addEventListener("nationCardClicked", onNationCardClicked);
         controller.addEventListener("showCalcResult", showCalcResult);
         controller.addEventListener("hideCalcResult", removeCalcResult);
@@ -154,22 +154,26 @@ WMVis = (function () {
     function preTournament() {
         var pt = dataModel.getPreTournament(),
           groups = [],
-          nations = [];
+          nations = [],
+          ids = [];
 
         for(let i = 0; i < pt.length; i += 4) {
             var nationsGroup = [];
+            var idsGroup = [];
             for(let j = i; j < (i + 4); j++) {
                 nationsGroup.push(pt[j].country);
+                idsGroup.push(pt[j].country_id);
             }
             nations.push(nationsGroup);
+            ids.push(idsGroup);
             groups.push(pt[i].group.toUpperCase());
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
         // view.setData(pt);
-        view.changeLayout(0, [pt, groups, nations, abbrs], null);
+        view.changeLayout(0, [pt, groups, nations, ids, abbrs], null);
         // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initPreTournamentController(); } , 60);
+        setTimeout(function() { controller.initPreTournamentController(); } , 40);
     }
 
     function md1() {
@@ -267,10 +271,6 @@ WMVis = (function () {
         view.changeLayout(6);
     }
 
-    function togglePredictionRow(event) {
-        view.togglePredictionRow(event.data);
-    }
-
     function onNationCardClicked(event) {
         view.showNationModal(event.data);
     }
@@ -307,12 +307,14 @@ WMVis = (function () {
             for(let i=0; i<games.length; i++){
                 probabilities.push(probabilityController.calculateProbabilities(games[i].game, data)[1]);
             }
-            view.showCalcResult(flag, games, probabilities);
+            view.showCalcResult(currentState, flag, games, probabilities);
         }
     }
 
     function removeCalcResult(event){
-        view.removeCalcResult(event.data.target);
+        if(currentState!==3){
+            view.removeCalcResult(currentState, event.data.target);
+        }
     }
 
     that.loadDataModel = loadDataModel;

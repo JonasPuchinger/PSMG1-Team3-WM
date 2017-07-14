@@ -19,17 +19,14 @@ Controller.GroupController = function () {
     }
 
     function onShowCalcResult(event) {
-        console.log("show");
         that.notifyAll("showCalcResult", {
-            target: event.target,
-            event: "enter"
+            target: event.target
         });
     }
 
     function onHideCalcResult(event) {
         that.notifyAll("hideCalcResult", {
-            target: event.target,
-            event: "leave"
+            target: event.target
         });
     }
 

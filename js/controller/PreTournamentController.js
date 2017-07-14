@@ -20,16 +20,15 @@ Controller.PreTournamentController = function () {
     }
 
     function onNationCardHovered(event) {
+        console.log("enter");
         that.notifyAll("nationCardHovered", {
-            target: event.target,
-            event: "enter"
+            target: event.target
         });
     }
 
     function onNationCardLeft(event) {
         that.notifyAll("nationCardLeft", {
-            target: event.target,
-            event: "leave"
+            target: event.target
         });
     }
 
