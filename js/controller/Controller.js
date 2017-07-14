@@ -54,7 +54,7 @@ WMVis.Controller = function () {
     }
 
     function onTeamClicked(event) {
-//        onNationCardClicked(event);
+        that.notifyAll("teamClicked", event.data);
     }
 
     function onNationCardHovered(event) {

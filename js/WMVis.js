@@ -42,6 +42,7 @@ WMVis = (function () {
         controller.addEventListener("showModal", onNationCardClicked);
         controller.addEventListener("teamHovered", onTeamHovered);
         controller.addEventListener("teamHoverLeft", onTeamHoverLeft);
+        controller.addEventListener("teamClicked", onTeamClicked);
     }
 
     function initView() {
@@ -282,6 +283,13 @@ WMVis = (function () {
     function onTeamHoverLeft(event) {
         elemBracketPredView.resetPreds();
     }
+
+    function onTeamClicked(event) {
+        var elem = event.data;
+        var parent = $(elem).parents('tr:first');
+        var img = parent.find('td.img').get(0).children[0];
+        view.showNationModal(img);
+}
 
     function showCalcResult(event) {
         var data;
