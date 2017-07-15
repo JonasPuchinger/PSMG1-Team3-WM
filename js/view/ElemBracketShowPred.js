@@ -31,7 +31,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                         sMatchID = Math.round((qMatchID) / 2),
                         fMatchID = 1,
                         countryPred = _.find(preRo16, function (obj) {
-                            if (obj.country_id === country) {
+                            if (obj.country === country) {
                                 return true;
                             }
                         }),
@@ -64,7 +64,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                         sMatchID = Math.round((qMatchID) / 2),
                         fMatchID = 1,
                         countryPred = _.find(preQuarter, function (obj) {
-                            if (obj.country_id === country) {
+                            if (obj.country === country) {
                                 return true;
                             }
                         }),
@@ -92,7 +92,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                     var sMatchID = parseInt((data.target.parentNode.parentNode.parentNode.id).replace(/\D/g, '')),
                         fMatchID = 1,
                         countryPred = _.find(preSemi, function (obj) {
-                            if (obj.country_id === country) {
+                            if (obj.country === country) {
                                 return true;
                             }
                         }),

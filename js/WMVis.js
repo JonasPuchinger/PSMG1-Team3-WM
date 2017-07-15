@@ -50,7 +50,8 @@ WMVis = (function () {
                 ro16: gamesData.getGamesOfDay(3),
                 quarter: gamesData.getGamesOfDay(4),
                 semi: gamesData.getGamesOfDay(5),
-                final: gamesData.getGamesOfDay(6)
+                final: gamesData.getGamesOfDay(6),
+                dictionary: dataModel.getCountryDictionary()
             },
             optionsPred = {
                 ro16: dataModel.getRo16(),

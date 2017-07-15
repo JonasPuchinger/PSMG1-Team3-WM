@@ -1,7 +1,7 @@
 var d3 = d3 || {};
 var WMVis = WMVis || {};
 var View = View || {};
-View.SemiLayout = function (data) {
+View.SemiLayout = function (options) {
     "use strict";
     var that = new EventPublisher(),
         TBD = [{
@@ -16,7 +16,7 @@ View.SemiLayout = function (data) {
         compiledMatches,
         compiledTBD,
         compiledMatchesWithoutScore,
-        matchesWithoutScore = JSON.parse(JSON.stringify(data)); // Deep Copy
+        matchesWithoutScore = JSON.parse(JSON.stringify(options.data)); // Deep Copy
 
     function init() {
         _.map(matchesWithoutScore, function (match) {
@@ -26,15 +26,18 @@ View.SemiLayout = function (data) {
         var semiTemplate = _.template($('#semiTemplate').html()),
             varsTBD = {
                 matches: TBD,
-                flagsUrlBase: flagsUrlBase
+                flagsUrlBase: flagsUrlBase,
+                dictionary: options.dictionary
             },
             varsMatches = {
-                matches: data,
-                flagsUrlBase: flagsUrlBase
+                matches: options.data,
+                flagsUrlBase: flagsUrlBase,
+                dictionary: options.dictionary
             },
             varsMatchesWithoutScore = {
                 matches: matchesWithoutScore,
-                flagsUrlBase: flagsUrlBase
+                flagsUrlBase: flagsUrlBase,
+                dictionary: options.dictionary
             };
         compiledMatches = semiTemplate(varsMatches);
         compiledMatchesWithoutScore = semiTemplate(varsMatchesWithoutScore);

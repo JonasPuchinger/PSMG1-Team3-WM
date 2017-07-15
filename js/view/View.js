@@ -32,13 +32,13 @@ WMVis.View = function () {
         var selector5 = '#tournamentBracketsWinner';
 
 
-        ro16Layout = new View.Ro16Layout(data.ro16);
+        ro16Layout = new View.Ro16Layout({data: data.ro16, dictionary: data.dictionary});
         ro16Layout.init();
-        quarterLayout = new View.QuarterLayout(data.quarter);
+        quarterLayout = new View.QuarterLayout({data: data.quarter, dictionary: data.dictionary});
         quarterLayout.init();
-        semiLayout = new View.SemiLayout(data.semi);
+        semiLayout = new View.SemiLayout({data: data.semi, dictionary: data.dictionary});
         semiLayout.init();
-        finalLayout = new View.FinalLayout(data.final);
+        finalLayout = new View.FinalLayout({data: data.final, dictionary: data.dictionary});
         finalLayout.init();
 
         ro16Layout.appendMatchesWithoutScore(selector1);

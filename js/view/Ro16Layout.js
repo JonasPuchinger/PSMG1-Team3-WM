@@ -1,13 +1,13 @@
 var d3 = d3 || {};
 var WMVis = WMVis || {};
 var View = View || {};
-View.Ro16Layout = function (data) {
+View.Ro16Layout = function (options) {
     "use strict";
     var that = new EventPublisher(),
         flagsUrlBase = "/data/flags/",
         compiledMatches,
         compiledMatchesWithoutScore,
-        matchesWithoutScore = JSON.parse(JSON.stringify(data)); // Deep Copy
+        matchesWithoutScore = JSON.parse(JSON.stringify(options.data)); // Deep Copy
 
     function init() {
         _.map(matchesWithoutScore, function (match) {
@@ -16,12 +16,14 @@ View.Ro16Layout = function (data) {
         });
         var ro16Template = _.template($('#ro16Template').html()),
             varsMatches = {
-                matches: data,
-                flagsUrlBase: flagsUrlBase
+                matches: options.data,
+                flagsUrlBase: flagsUrlBase,
+                dictionary: options.dictionary
             },
             varsMatchesWithoutScore = {
                 matches: matchesWithoutScore,
-                flagsUrlBase: flagsUrlBase
+                flagsUrlBase: flagsUrlBase,
+                dictionary: options.dictionary
             };
         compiledMatches = ro16Template(varsMatches),
         compiledMatchesWithoutScore = ro16Template(varsMatchesWithoutScore);

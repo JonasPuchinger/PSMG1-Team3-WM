@@ -21,7 +21,8 @@ WMVis.DataModel = function () {
         quarter,
         semi,
         final,
-        teamsWithTournamentProgression;
+        teamsWithTournamentProgression,
+        countryDictionary = {};
 
     function init() {
         loadCSVData();
@@ -155,10 +156,10 @@ WMVis.DataModel = function () {
 
 
         for (let phase of tournamentPhases) {
-            for (let i = 0; i<phase.length; i++) {
-                _.each(phase, function(country) {
+            for (let i = 0; i < phase.length; i++) {
+                _.each(phase, function (country) {
                     let placeholder = {}
-                    placeholder = _.find(tournamentProgress, function(entry) {
+                    placeholder = _.find(tournamentProgress, function (entry) {
                         return country.country_id == entry.country_id;
                     })
                     placeholder[phase.name] = country.win;
@@ -167,6 +168,7 @@ WMVis.DataModel = function () {
         }
         teamsWithTournamentProgression = tournamentProgress;
 
+        createCountryDictionary();
         that.notifyAll("finishedLoading");
     }
 
@@ -254,45 +256,55 @@ WMVis.DataModel = function () {
     }
 
     function getNationsAbbrs(nations) {
-      var parser,
-        doc,
-        abbrs = [];
+        var parser,
+            doc,
+            abbrs = [];
 
-      var indexIC = getIndexOfEntry(nations, "Ivory Coast");
-      nations[indexIC[0]][indexIC[1]] = "Côte d\'Ivoire";
-      var indexEN = getIndexOfEntry(nations, "England");
-      nations[indexEN[0]][indexEN[1]] = "United Kingdom";
-      var indexIR = getIndexOfEntry(nations, "Iran");
-      nations[indexIR[0]][indexIR[1]] = "Iran (Islamic Republic of)";
-      var indexUS = getIndexOfEntry(nations, "USA");
-      nations[indexUS[0]][indexUS[1]] = "United States of America";
+        var indexIC = getIndexOfEntry(nations, "Ivory Coast");
+        nations[indexIC[0]][indexIC[1]] = "Côte d\'Ivoire";
+        var indexEN = getIndexOfEntry(nations, "England");
+        nations[indexEN[0]][indexEN[1]] = "United Kingdom";
+        var indexIR = getIndexOfEntry(nations, "Iran");
+        nations[indexIR[0]][indexIR[1]] = "Iran (Islamic Republic of)";
+        var indexUS = getIndexOfEntry(nations, "USA");
+        nations[indexUS[0]][indexUS[1]] = "United States of America";
 
-      $.ajax({
-        url: '../../data/flags/sourcecode.txt',
-        type: 'get',
-        success: function(sourcecode) {
-          parser = new DOMParser();
-          doc = parser.parseFromString(sourcecode, "text/html");
+        $.ajax({
+            url: '../../data/flags/sourcecode.txt',
+            type: 'get',
+            success: function (sourcecode) {
+                parser = new DOMParser();
+                doc = parser.parseFromString(sourcecode, "text/html");
 
-          for(let i = 0; i < nations.length; i++) {
-              var abbrsGroup = [];
-              for(let j = 0; j < nations[i].length; j++) {
-                  abbrsGroup.push(doc.querySelector('[title="' + nations[i][j] + '"] .alpha-2').innerHTML.toLowerCase());
-              }
-              abbrs.push(abbrsGroup);
-          }
-        }
-      });
-      return abbrs;
+                for (let i = 0; i < nations.length; i++) {
+                    var abbrsGroup = [];
+                    for (let j = 0; j < nations[i].length; j++) {
+                        abbrsGroup.push(doc.querySelector('[title="' + nations[i][j] + '"] .alpha-2').innerHTML.toLowerCase());
+                    }
+                    abbrs.push(abbrsGroup);
+                }
+            }
+        });
+        return abbrs;
     }
 
     function getIndexOfEntry(arr, entry) {
-      for (var i = 0; i < arr.length; i++) {
-        var index = arr[i].indexOf(entry);
-        if (index > -1) {
-          return [i, index];
+        for (var i = 0; i < arr.length; i++) {
+            var index = arr[i].indexOf(entry);
+            if (index > -1) {
+                return [i, index];
+            }
         }
-      }
+    }
+
+    function createCountryDictionary() {
+        for (var i = 0; i < preTournament.length; i++) {
+            countryDictionary[(preTournament[i].country_id)] = preTournament[i].country;
+        }
+    }
+
+    function getCountryDictionary() {
+        return countryDictionary;
     }
 
     that.init = init;
@@ -306,5 +318,6 @@ WMVis.DataModel = function () {
     that.getPreTournament = getPreTournament;
     that.getTournamentProgress = getTournamentProgress;
     that.getNationsAbbrs = getNationsAbbrs;
+    that.getCountryDictionary = getCountryDictionary;
     return that;
 };

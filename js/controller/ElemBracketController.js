@@ -8,11 +8,15 @@ Controller.ElemBracketController = function () {
     function init() {
         $(document).ready(function () {
             setTimeout(function () {
-                var teams = $('#tournamentBracketsPreKo .ro16 tr#team, #tournamentBracketsPreQuarter .quarter tr#team, #tournamentBracketsPreSemi .semi tr#team, #tournamentBracketsPreFinal .final tr#team');
-                for (let i = 0; i < teams.length; i++) {
-                    teams[i].addEventListener("mouseenter", onMatchHovered);
-                    teams[i].addEventListener("mouseleave", onMatchLeft);
-                    teams[i].addEventListener("click", onMatchClicked);
+                var teamsHover = $('#tournamentBracketsPreKo .ro16 tr.team, #tournamentBracketsPreQuarter .quarter tr.team, #tournamentBracketsPreSemi .semi tr.team, #tournamentBracketsPreFinal .final tr.team'),
+                    teamsClick = $('tr.team:not("[id=TBD]")');
+                console.log(teamsClick);
+                for (let i = 0; i < teamsHover.length; i++) {
+                    teamsHover[i].addEventListener("mouseenter", onMatchHovered);
+                    teamsHover[i].addEventListener("mouseleave", onMatchLeft);
+                }
+                for (let i = 0; i < teamsClick.length; i++) {
+                    teamsClick[i].addEventListener("click", onMatchClicked);
                 }
             }, 1);
         });
