@@ -1,8 +1,14 @@
-var d3 = d3 || {};
-var WMVis = WMVis || {};
-var View = View || {};
+/*jslint nomen: true*/
+/*global $, _*/
+
+var d3 = d3 || {},
+    WMVis = WMVis || {},
+    View = View || {},
+    EventPublisher = EventPublisher || {};
+
 View.Ro16Layout = function (options) {
     "use strict";
+
     var that = new EventPublisher(),
         flagsUrlBase = "/data/flags/",
         compiledMatches,
@@ -25,7 +31,7 @@ View.Ro16Layout = function (options) {
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             };
-        compiledMatches = ro16Template(varsMatches),
+        compiledMatches = ro16Template(varsMatches);
         compiledMatchesWithoutScore = ro16Template(varsMatchesWithoutScore);
     }
 
