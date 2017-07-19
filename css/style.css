@@ -6,6 +6,13 @@ html, body {
   display: none !important;
 }
 
+#hamburger-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .stage-menu-fixed {
   background-color: #fff;
   z-index: 100;
@@ -57,6 +64,7 @@ html, body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .modal-header h3 {
