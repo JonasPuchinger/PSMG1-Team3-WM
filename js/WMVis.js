@@ -120,21 +120,38 @@ WMVis = (function () {
         var probabilities = [],
             one,
             two,
+            values,
             chance;
         for(let i=0; i<parseInt(data.length/4); i++){
             one = [];
             two = [];
-            chance = [];
+            chance = ['x','x','x','x'];
+            values = [];
             for(let j=0; j<4; j++){
                 one.push(data[i*4+j].win_group);
                 two.push(data[i*4+j].sixteen - one[j]);
-            }
-            chance = ['x','x','x','x'];
+            } 
             var maxOne = getMaxIndex(one);
             chance[maxOne] = '1';
             var maxTwo = getMaxIndex(two);
             chance[maxTwo] = '2';
-            probabilities.push(chance);
+            for(let k=0; k<chance.length;k++){
+                switch(chance[k]){
+                    case '1':
+                        values.push(data[i*4+k].win_group);
+                        break;
+                    case '2':
+                        values.push(data[i*4+k].sixteen - data[i*4+k].win_group);
+                        break;
+                    case 'x':
+                        values.push(1-data[i*4+k].sixteen);
+                        break;
+                    default:
+                        values.push(0);
+                        break;
+                }
+            }
+            probabilities.push([chance, values]);
         }
         return probabilities;
     }
@@ -173,7 +190,7 @@ WMVis = (function () {
         // view.setData(pt);
         view.changeLayout(0, [pt, groups, nations, ids, abbrs], null);
         // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initPreTournamentController(); } , 40);
+        setTimeout(function() { controller.initPreTournamentController(); } , 60);
     }
 
     function md1() {
@@ -198,7 +215,7 @@ WMVis = (function () {
         var probabilities = getProbabilities(md1);
         view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initGroupController(); } , 60);
+        setTimeout(function() { controller.initGroupController(); } , 40);
     }
 
     function md2() {
@@ -223,7 +240,7 @@ WMVis = (function () {
         var probabilities = getProbabilities(md2);
         view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initGroupController(); } , 60);
+        setTimeout(function() { controller.initGroupController(); } , 40);
     }
 
     function md3() {
@@ -248,7 +265,7 @@ WMVis = (function () {
         var probabilities = getProbabilities(md3);
         view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initGroupController(); } , 60);
+        setTimeout(function() { controller.initGroupController(); } , 40);
     }
 
     function ko() {
