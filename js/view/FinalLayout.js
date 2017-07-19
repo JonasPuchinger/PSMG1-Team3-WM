@@ -1,13 +1,17 @@
-var d3 = d3 || {};
-var WMVis = WMVis || {};
-var View = View || {};
+/*jslint nomen: true*/
+/*global $, _*/
+
+var d3 = d3 || {},
+    WMVis = WMVis || {},
+    View = View || {},
+    EventPublisher = EventPublisher || {};
 View.FinalLayout = function (options) {
     "use strict";
     var that = new EventPublisher(),
         TBD = [{
             game: ["TBD", "TBD"],
             result: []
-            }],
+        }],
         flagsUrlBase = "/data/flags/",
         compiledMatches,
         compiledMatchesWithoutScore,

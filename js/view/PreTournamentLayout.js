@@ -401,7 +401,7 @@ View.PreTournamentLayout = function() {
             return ["orange","orange"];
         }
     }
-    
+
 
     that.init = init;
     that.setData = setData;

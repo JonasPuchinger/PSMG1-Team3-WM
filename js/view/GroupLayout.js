@@ -106,7 +106,7 @@ View.GroupLayout = function () {
         }
         return colours;
     }
-    
+
     function getWidthsArray(goals){
         var widths = [];
         for(let i=0; i<goals.length; i++){
@@ -114,7 +114,7 @@ View.GroupLayout = function () {
         }
         return widths;
     }
-    
+
     function showProbabilities(probabilities){
       var x = d3.selectAll(".X")._groups["0"],
           one = d3.selectAll(".one")._groups["0"],

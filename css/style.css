@@ -1,107 +1,104 @@
-html, body {
-  height: 100%;
+html,
+body {
+    height: 100%;
+    font-family: Arial, Times;
 }
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 
 .stage-menu-fixed {
-  background-color: #fff;
-  z-index: 100;
+    background-color: #fff;
+    z-index: 100;
 }
 
 #stage-menu {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #stage-slider {
-  width: 50%;
+    width: 50%;
 }
 
 #stage-label {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .thumb {
     display: none;
 }
 
-#tournamentBracketsPreKo, #tournamentBracketsPreQuarter, #tournamentBracketsPreSemi, #tournamentBracketsPreFinal, #tournamentBracketsWinner {
-/*    display: table;*/
-    height: 1106px;
-    width: 1550px;
-}
-
 .side-nav {
-  overflow-y: hidden;
+    overflow-y: hidden;
 }
 
 .side-nav:hover {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 #nation-modal {
-  overflow-y: hidden;
+    overflow-y: hidden;
 }
 
 #nation-modal:hover {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 .modal-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .modal-header h3 {
-  margin-bottom: 0px;
-  margin-left: 25px;
+    margin-bottom: 0px;
+    margin-left: 25px;
 }
 
 .modal-table-svg {
-  /*width: 100%;*/
+    /*width: 100%;*/
 }
 
 path {
-	stroke: steelblue;
-	stroke-width: 1;
-	fill: none;
+    stroke: steelblue;
+    stroke-width: 1;
+    fill: none;
 }
 
 .axis {
-  shape-rendering: crispEdges;
+    shape-rendering: crispEdges;
 }
 
 .x.axis line {
-  stroke: lightgrey;
+    stroke: lightgrey;
 }
 
 .x.axis .minor {
-  stroke-opacity: .5;
+    stroke-opacity: .5;
 }
 
 .x.axis path {
-  display: none;
+    display: none;
 }
 
-.y.axis line, .y.axis path {
-  fill: none;
-  stroke: #000;
+.y.axis line,
+.y.axis path {
+    fill: none;
+    stroke: #000;
 }
 
 .arc text {
-  font: 10px sans-serif;
-  text-anchor: middle;
+    font: 10px sans-serif;
+    text-anchor: middle;
 }
 
 .arc path {
-  stroke: #fff;
+    stroke: #fff;
 }
 
 .nationcard .card-content {
@@ -113,50 +110,58 @@ path {
 }
 
 .nationflag:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .ro16,
 .quarter,
 .semi,
 .final {
-/*    display: table-cell;*/
-    width: 300px;
-    float: left;
+    /*    display: table-cell;*/
 }
 
 .ro16 {
-    margin-left: 50px;
+    margin: 0px 0px 0px 10px;
+}
+
+#tournamentBracketsPreKo,
+#tournamentBracketsPreQuarter,
+#tournamentBracketsPreSemi,
+#tournamentBracketsPreFinal,
+#tournamentBracketsWinner {
+    min-width: 1072px;
+    margin: 0px 0px 0px 10px;
 }
 
 .quarter,
 .semi,
 .final {
     position: relative;
-    margin-left: 100px;
 }
 
 .quarter {
     top: 78px;
-    height: 1028px;
 }
 
 .semi {
     top: 215px;
-    height: 891px;
 }
 
 .final {
     top: 479px;
-    height: 627px;
 }
 
 .quarter .match {
     margin: 0px 0px 147px 0px;
+    padding: 0px;
 }
 
-.semi .match {
+.semi > div#s1.match {
     margin: 0px 0px 421px 0px;
+}
+
+.semi > div#s2.match  {
+    margin: 0px;
 }
 
 .final .match {
@@ -164,42 +169,47 @@ path {
 }
 
 .match {
-    width: 300px;
     height: 127px;
     border-style: solid;
     margin: 10px 0px 10px 0px;
 }
 
 .country {
-    width: 60%;
+    width: 58%;
+    min-width:83px;
+    font-size: 13px;
+    font-size: calc(7px + .5vw);
 }
 
 .img {
+    min-width: 50px;
     width: 22%;
 }
 
-.goal {
-    width: 18%;
+.goals {
+    min-width: 40px;
+    width: 20%;
 }
 
 .group-row {
-  position: relative;
+    position: relative;
 }
 
 .svg-container {
-  z-index: 50;
-  position: absolute;
+    z-index: 50;
+    position: absolute;
 }
 
 .group-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .group-heading {
-  text-align: center;
+    text-align: center;
 }
+
 
 /*.stagesrow {
   display: flex;
@@ -208,31 +218,31 @@ path {
 }*/
 
 .stagesrow div {
-  text-align: center;
-  z-index: 0;
+    text-align: center;
+    z-index: 0;
 }
 
 .nationrow {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  z-index: 5;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 5;
 }
 
-.nationcard .card-content{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  font-size: 15px;
+.nationcard .card-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 15px;
 }
 
 .predictionrow {
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  z-index: 5;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 5;
 }
 
 .foreground {
@@ -240,22 +250,22 @@ path {
 }
 
 .round-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .matchcol {
-  height: 81%;
-  z-index: 99;
-  position: absolute;
-  top: 19%;
-  display: flex;
-  flex-direction: column;
+    height: 81%;
+    z-index: 99;
+    position: absolute;
+    top: 19%;
+    display: flex;
+    flex-direction: column;
 }
 
 .resultcard {
-  text-align: center;
+    text-align: center;
 }
 
 .team1,
@@ -273,10 +283,16 @@ path {
     border-width: 1px 0px 0px 0px;
 }
 
-.img {
-/*    width: 40px;*/
+.team1>.img {
+    width: 40px;
     height: 30px;
-    padding: 5px 10px 0px 10px;
+    padding: 7px 0px 0px 10px;
+}
+
+.team2>.img {
+    width: 40px;
+    height: 30px;
+    padding: 7px 0px 0px 10px;
 }
 
 .goals {
@@ -286,22 +302,19 @@ path {
     border-width: 0px 0px 0px 2px;
 }
 
-.team1>.goals {}
-
-.team2>.goals {}
-
-.group-container{
+.group-container {
     width: 25%;
 }
 
-.result{
-  display:flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  padding-top: 60%;
-  font-size: 30pt;
+.result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 60%;
+    font-size: 30pt;
 }
+
 
 .X{
     justify-content: center;
@@ -317,7 +330,7 @@ path {
     z-index: 0;
 }
 
-.one{
+.one {
     justify-content: center;
     align-items: center;
     font-size: 30pt;
@@ -331,7 +344,7 @@ path {
     z-index: 0;
 }
 
-.two{
+.two {
     align-items: center;
     justify-content: center;
     font-size: 30pt;
@@ -345,7 +358,7 @@ path {
     z-index: 0;
 }
 
-.link{
+.link {
     position: absolute;
     fill: none;
     stroke: #000;
@@ -354,39 +367,47 @@ path {
     z-index: 0;
 }
 
-.paths{
+.paths {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 0;
 }
 
-.calcResult{
-  display:flex;
-  justify-content: space-around;
-  padding-top: 39%;
-  font-size: 30pt;
-  z-index: 10;
+.calcResult {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 39%;
+    font-size: 30pt;
+    z-index: 10;
 }
 
-#goals{
-  display:flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-top: 76%;
-  align-items: center;
-  font-size: 30pt;
+#goals {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 76%;
+    align-items: center;
+    font-size: 30pt;
 }
 
-.calcGoals{
+.calcGoals {
     align-content: center;
     z-index: 10;
 }
 
-.round{
+.round {
     z-index: 5;
 }
 
-.title{
+.title {
     text-align: center;
+}
+
+#tournamentBracketsPreKo .col,
+#tournamentBracketsPreQuarter .col,
+#tournamentBracketsPreSemi .col,
+#tournamentBracketsPreFinal .col,
+#tournamentBracketsWinner .col{
+    padding: 0 !important;
 }
