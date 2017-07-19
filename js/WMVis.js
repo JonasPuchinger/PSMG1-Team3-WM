@@ -122,21 +122,38 @@ WMVis = (function () {
         var probabilities = [],
             one,
             two,
+            values,
             chance;
         for(let i=0; i<parseInt(data.length/4); i++){
             one = [];
             two = [];
-            chance = [];
+            chance = ['x','x','x','x'];
+            values = [];
             for(let j=0; j<4; j++){
                 one.push(data[i*4+j].win_group);
                 two.push(data[i*4+j].sixteen - one[j]);
-            }
-            chance = ['x','x','x','x'];
+            } 
             var maxOne = getMaxIndex(one);
             chance[maxOne] = '1';
             var maxTwo = getMaxIndex(two);
             chance[maxTwo] = '2';
-            probabilities.push(chance);
+            for(let k=0; k<chance.length;k++){
+                switch(chance[k]){
+                    case '1':
+                        values.push(data[i*4+k].win_group);
+                        break;
+                    case '2':
+                        values.push(data[i*4+k].sixteen - data[i*4+k].win_group);
+                        break;
+                    case 'x':
+                        values.push(1-data[i*4+k].sixteen);
+                        break;
+                    default:
+                        values.push(0);
+                        break;
+                }
+            }
+            probabilities.push([chance, values]);
         }
         return probabilities;
     }
