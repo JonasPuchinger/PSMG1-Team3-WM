@@ -114,13 +114,16 @@ WMVis.View = function () {
         switch (layout) {
             case 0:
                 preTournamentLayout.init(data);
+                document.querySelector('#hamburger').classList.remove('hidden');
                 break;
             case 1:
                 groupLayout = new View.GroupLayout();
                 groupLayout.init(data, games, probabilities);
+                document.querySelector('#hamburger').classList.remove('hidden');
                 break;
             case 2:
                 document.querySelector('#tournamentBracketsPreKo').classList.remove('hidden');
+                document.querySelector('#hamburger').classList.add('hidden');
                 break;
             case 3:
                 document.querySelector('#tournamentBracketsPreQuarter').classList.remove('hidden');
