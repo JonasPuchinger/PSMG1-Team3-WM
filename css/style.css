@@ -8,6 +8,13 @@ body {
     display: none !important;
 }
 
+#hamburger-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .stage-menu-fixed {
     background-color: #fff;
     z-index: 100;
@@ -50,9 +57,10 @@ body {
 }
 
 .modal-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-header h3 {
