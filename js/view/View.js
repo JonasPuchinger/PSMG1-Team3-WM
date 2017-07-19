@@ -32,13 +32,25 @@ WMVis.View = function () {
         var selector5 = '#tournamentBracketsWinner';
 
 
-        ro16Layout = new View.Ro16Layout({data: data.ro16, dictionary: data.dictionary});
+        ro16Layout = new View.Ro16Layout({
+            data: data.ro16,
+            dictionary: data.dictionary
+        });
         ro16Layout.init();
-        quarterLayout = new View.QuarterLayout({data: data.quarter, dictionary: data.dictionary});
+        quarterLayout = new View.QuarterLayout({
+            data: data.quarter,
+            dictionary: data.dictionary
+        });
         quarterLayout.init();
-        semiLayout = new View.SemiLayout({data: data.semi, dictionary: data.dictionary});
+        semiLayout = new View.SemiLayout({
+            data: data.semi,
+            dictionary: data.dictionary
+        });
         semiLayout.init();
-        finalLayout = new View.FinalLayout({data: data.final, dictionary: data.dictionary});
+        finalLayout = new View.FinalLayout({
+            data: data.final,
+            dictionary: data.dictionary
+        });
         finalLayout.init();
 
         ro16Layout.appendMatchesWithoutScore(selector1);
@@ -80,24 +92,22 @@ WMVis.View = function () {
     }
 
     function showCalcResult(currentState, country, game, calcResult) {
-        console.log(currentState);
-        if(currentState===0){
+        if (currentState === 0) {
             preTournamentLayout.connectRowsForNation(country, game, calcResult);
         } else {
             groupLayout.connectRowsForNation(country, game, calcResult);
         }
     }
 
-    function removeCalcResult(currentState, country){
-        console.log(currentState);
-        if(currentState===0){
+    function removeCalcResult(currentState, country) {
+        if (currentState === 0) {
             preTournamentLayout.deleteConnectRows(country);
         } else {
             groupLayout.deleteConnectRows(country);
         }
     }
 
-    function changeLayout(layout, data= null, games= null, probabilities= null) {
+    function changeLayout(layout, data = null, games = null, probabilities = null) {
         document.querySelector("#groups-list-el").innerHTML = "";
         document.querySelector("#resultEl").innerHTML = "";
         hideAllTournamentBracketLayouts();
@@ -108,7 +118,6 @@ WMVis.View = function () {
                 break;
             case 1:
                 groupLayout = new View.GroupLayout();
-                console.log(games);
                 groupLayout.init(data, games, probabilities);
                 document.querySelector('#hamburger').classList.remove('hidden');
                 break;
