@@ -196,7 +196,6 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        console.log(md1);
         var probabilities = getProbabilities(md1);
         view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
@@ -221,7 +220,6 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        console.log(md2);
         var probabilities = getProbabilities(md2);
         view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
@@ -246,7 +244,6 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        console.log(md3);
         var probabilities = getProbabilities(md3);
         view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist

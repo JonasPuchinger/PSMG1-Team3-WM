@@ -1,6 +1,6 @@
 <script type="text/x-underscore" id="ro16Template">
 
-    <div class="ro16">
+    <div class="ro16 col s2">
 
         <% _.each(matches, function(match,id) {%>
             <div class="match" id="r<%=id+1%>">
@@ -54,7 +54,7 @@
 
 <script type="text/x-underscore" id="quarterTemplate">
 
-    <div class="quarter">
+    <div class="quarter col s2 offset-s1">
 
         <% _.each(matches, function(match,id) {%>
             <div class="match" id="q<%=id+1%>">
@@ -107,7 +107,7 @@
 
 <script type="text/x-underscore" id="semiTemplate">
 
-    <div class="semi">
+    <div class="semi col s2 offset-s1">
 
         <% _.each(matches, function(match,id) {%>
             <div class="match" id="s<%=id+1%>">
@@ -160,7 +160,7 @@
 
 <script type="text/x-underscore" id="finalTemplate">
 
-    <div class="final">
+    <div class="final col s2 offset-s1">
 
         <% _.each(matches, function(match,id) {%>
             <div class="match" id="f<%=id+1%>">
@@ -210,8 +210,8 @@
             <%});%>
     </div>
 </script>
-<div id="tournamentBracketsPreKo" class="hidden"></div>
-<div id="tournamentBracketsPreQuarter" class="hidden"></div>
-<div id="tournamentBracketsPreSemi" class="hidden"></div>
-<div id="tournamentBracketsPreFinal" class="hidden"></div>
-<div id="tournamentBracketsWinner" class="hidden"></div>
+<div id="tournamentBracketsPreKo" class="hidden row"></div>
+<div id="tournamentBracketsPreQuarter" class="hidden row"></div>
+<div id="tournamentBracketsPreSemi" class="hidden row"></div>
+<div id="tournamentBracketsPreFinal" class="hidden row"></div>
+<div id="tournamentBracketsWinner" class="hidden row"></div>

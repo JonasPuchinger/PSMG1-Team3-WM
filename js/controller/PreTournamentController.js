@@ -1,5 +1,7 @@
-var WMVis = WMVis || {};
-var Controller = Controller || {};
+var WMVis = WMVis || {},
+    Controller = Controller || {},
+    EventPublisher = EventPublisher || {},
+    $ = $ || {};
 Controller.PreTournamentController = function () {
     "use strict";
 
@@ -23,7 +25,6 @@ Controller.PreTournamentController = function () {
     }
 
     function onNationCardHovered(event) {
-        console.log("enter");
         that.notifyAll("nationCardHovered", {
             target: event.target
         });
