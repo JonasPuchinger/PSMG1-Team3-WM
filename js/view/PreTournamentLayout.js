@@ -355,16 +355,19 @@ View.PreTournamentLayout = function() {
             }
         }
         togglePredictionRow(group);
-        var colLeft = document.querySelectorAll("#" + group + "-matchcol")[1].offsetLeft;
-        var root = d3.select("#paths-"+group);
+        var colLeft = document.querySelectorAll("#" + group + "-matchcol")[1].offsetLeft,
+            colours,
+            root = d3.select("#paths-"+group);
         for(let i=0; i<countries.length; i++){
             if(i%2===0){
                 var index = parseInt(i/2);
+                var calcGoals = calcResults[index].split(":");
+                colours = getColourArray(calcGoals);
                 var matchCol = document.querySelectorAll("#"+group+"-matchcol")[1];
                 result= matchCol.querySelector("#resultcard-"+index);
                 result.querySelector("#goals").innerHTML = calcResults[index];
             }
-            data.push("M " + (countries[i].offsetLeft + countries[i].offsetWidth) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft + colLeft - 80) + " " + (result.offsetTop+result.offsetHeight/2 + 177) + " " + (result.offsetLeft + colLeft + 35) + " " + (result.offsetTop+result.offsetHeight/2 + 177));
+            data.push(["M " + (countries[i].offsetLeft + countries[i].offsetWidth) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft + colLeft - 80) + " " + (result.offsetTop+result.offsetHeight/2 + 177) + " " + (result.offsetLeft + colLeft + 35) + " " + (result.offsetTop+result.offsetHeight/2 + 177), colours[i%2]]);
         }
         var paths = root.selectAll("g");
         var pathsUpdate = paths.data(data);
@@ -372,7 +375,9 @@ View.PreTournamentLayout = function() {
         var exitPaths = pathsUpdate.exit().remove();
         var link = enterPaths.append("path").attr("class","link");
         link.attr("d", function (d) {
-        return d;
+            return d[0];
+        }).style("stroke", function(d){
+            return d[1];
         });
     }
 
@@ -387,6 +392,16 @@ View.PreTournamentLayout = function() {
        togglePredictionRow(group);
     }
     
+    function getColourArray(goals){
+        if(parseInt(goals[0])>parseInt(goals[1])){
+            return ["green","red"];
+        } else if(parseInt(goals[0])<parseInt(goals[1])){
+            return ["red","green"];
+        } else {
+            return ["orange","orange"];
+        }
+    }
+
 
     that.init = init;
     that.setData = setData;
