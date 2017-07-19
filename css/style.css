@@ -178,7 +178,7 @@ path {
     width: 58%;
     min-width:83px;
     font-size: 13px;
-    font-size: calc(7px + .5vw);
+    font-size: calc(10px + .3vw);
 }
 
 .img {
