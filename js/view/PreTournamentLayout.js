@@ -341,10 +341,9 @@ View.PreTournamentLayout = function() {
       $("#world-cup-results-table").innerHTML = "";
     }
     
-        function connectRowsForNation(country, games, calcResults) {
+        function connectRowsForNation(group, games, calcResults) {
         var data = [],
-            group = country.id;
-        var countries = [],
+            countries = [],
             result,
             calcGoals,
             rect;
@@ -357,17 +356,19 @@ View.PreTournamentLayout = function() {
         togglePredictionRow(group);
         var colLeft = document.querySelectorAll("#" + group + "-matchcol")[1].offsetLeft,
             colours,
+            strokeWidths,
             root = d3.select("#paths-"+group);
         for(let i=0; i<countries.length; i++){
             if(i%2===0){
                 var index = parseInt(i/2);
                 var calcGoals = calcResults[index].split(":");
                 colours = getColourArray(calcGoals);
+                strokeWidths = getWidthsArray(calcGoals)
                 var matchCol = document.querySelectorAll("#"+group+"-matchcol")[1];
                 result= matchCol.querySelector("#resultcard-"+index);
                 result.querySelector("#goals").innerHTML = calcResults[index];
             }
-            data.push(["M " + (countries[i].offsetLeft + countries[i].offsetWidth) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft + colLeft - 80) + " " + (result.offsetTop+result.offsetHeight/2 + 177) + " " + (result.offsetLeft + colLeft + 35) + " " + (result.offsetTop+result.offsetHeight/2 + 177), colours[i%2]]);
+            data.push(["M " + (countries[i].offsetLeft + countries[i].offsetWidth) + " " + (countries[i].offsetTop + countries[i].offsetHeight/2) + " Q " + (result.offsetLeft + colLeft - 90) + " " + (result.offsetTop+result.offsetHeight/2 + 177) + " " + (result.offsetLeft + colLeft + 25) + " " + (result.offsetTop+result.offsetHeight/2 + 177), colours[i%2], strokeWidths[i%2]]);
         }
         var paths = root.selectAll("g");
         var pathsUpdate = paths.data(data);
@@ -379,12 +380,14 @@ View.PreTournamentLayout = function() {
         }).style("stroke", function(d){
             return d[1];
         });
+        link.style("stroke-width", function(d) {
+            return d[2];
+        });
     }
 
-    function deleteConnectRows(country) {
-       var group = country.id;
-       var root = document.querySelector("#paths-"+group);
-       var path = root.childNodes[0];
+    function deleteConnectRows(group) {
+       var root = document.querySelector("#paths-"+group),
+           path = root.childNodes[0];
        while(path!==undefined){
            root.removeChild(path);
            path = root.childNodes[0];
@@ -401,8 +404,12 @@ View.PreTournamentLayout = function() {
             return ["orange","orange"];
         }
     }
-
-
+    
+    function getWidthsArray(goals){
+        var widths = [3+2*parseInt(goals[0]), 3+2*parseInt(goals[1])];
+        return widths;
+    }
+    
     that.init = init;
     that.setData = setData;
     that.connectRowsForNation = connectRowsForNation;
