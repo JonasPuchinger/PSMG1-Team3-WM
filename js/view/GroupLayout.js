@@ -72,8 +72,8 @@ View.GroupLayout = function () {
                 cards = [];
                 cards.push(document.querySelector("#"+countries[j][0]));
                 cards.push(document.querySelector("#"+countries[j][1]));
-                data.push(["M " + (cards[0].offsetLeft+colLeft+10) + " " + (cards[0].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-100) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-100), colours[j][0], strokeWidths[j][0]]);
-                data.push(["M " + (cards[1].offsetLeft+colLeft+10) + " " + (cards[1].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-100) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-100), colours[j][1], strokeWidths[j][1]]);
+                data.push(["M " + (cards[0].offsetLeft+colLeft+10) + " " + (cards[0].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170), colours[j][0], strokeWidths[j][0]]);
+                data.push(["M " + (cards[1].offsetLeft+colLeft+10) + " " + (cards[1].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170), colours[j][1], strokeWidths[j][1]]);
             }
             var root = d3.select(".row-"+i);
             var paths = root.selectAll("g");
@@ -165,12 +165,11 @@ View.GroupLayout = function () {
         }
     }
 
-    function connectRowsForNation(country, games, calcResults) {
+    function connectRowsForNation(group, games, calcResults) {
         var data = [],
-            group = country.id;
-        var colLeft1 = document.querySelector(".push-s3").offsetLeft;
-        var colLeft2 = document.querySelector(".push-s4").offsetLeft;
-        var countries = [],
+            colLeft1 = document.querySelector(".push-s3").offsetLeft,
+            colLeft2 = document.querySelector(".push-s4").offsetLeft,
+            countries = [],
             result,
             rect;
         for(let i=0; i<games.length; i++){
@@ -210,15 +209,13 @@ View.GroupLayout = function () {
         });
     }
 
-    function deleteConnectRows(country) {
-       var group = country.id;
-       var root = document.querySelector(".row3-"+group);
-       var path = root.childNodes[0];
+    function deleteConnectRows(group) {
+       var root = document.querySelector(".row3-"+group),
+           path = root.childNodes[0];
        while(path!==undefined){
            root.removeChild(path);
            path = root.childNodes[0];
        }
-       console.log(country);
        toggle(group);
     }
     

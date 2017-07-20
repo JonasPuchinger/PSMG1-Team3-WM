@@ -310,36 +310,52 @@ WMVis = (function () {
 }
 
     function showCalcResult(event) {
-        var data;
+        var data,
+            flag = event.data.target,
+            games,
+            group;
         switch(currentState){
             case 0:
                 data = dataModel.getPreTournament();
+                games = gamesData.getGroupGames(currentState, flag.id);
+                group = flag.getAttribute("group");
                 break;
             case 1:
                 data = dataModel.getMatchday1();
+                games = gamesData.getGames(currentState, flag.id);
+                group = flag.id;
                 break;
             case 2:
                 data = dataModel.getMatchday2();
+                games = gamesData.getGames(currentState, flag.id);
+                group = flag.id;
                 break;
             default:
                 data = null;
                 break;
         }
         if(data!==null){
-            var flag = event.data.target,
-                games = gamesData.getGames(currentState, flag.id),
-                probabilityController = new WMVis.ProbabilityController(),
+            var probabilityController = new WMVis.ProbabilityController(),
                 probabilities = [];
             for(let i=0; i<games.length; i++){
                 probabilities.push(probabilityController.calculateProbabilities(games[i].game, data)[1]);
             }
-            view.showCalcResult(currentState, flag, games, probabilities);
+            view.showCalcResult(currentState, group, games, probabilities);
         }
     }
 
     function removeCalcResult(event){
-        if(currentState!==3){
-            view.removeCalcResult(currentState, event.data.target);
+        var flag = event.data.target;
+        switch(currentState){
+            case 0:
+                view.removeCalcResult(currentState, flag.getAttribute("group"));
+                break;
+            case 1:
+            case 2:
+                view.removeCalcResult(currentState, flag.id);
+                break;
+            default:
+                break;
         }
     }
 
