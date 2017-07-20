@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="col s10 offset-s2 matchcol hidden" id="<%= group %>-matchcol">
-      <% for(var i = 0; i < 2; i++) {
+      <% for(var i = 0; i < 3; i++) {
       %>
         <div class="col s2 offset-s5">
           <div class="resultcard" id="resultcard-<%= i %>">
@@ -78,7 +78,7 @@
             <div class="col s2 nationcard-col" id="<%= group %>">
               <div class="card nationcard" id="<%= ids[key1][key2] %>">
                 <div class="card-content">
-                  <img class="nationflag" id="<%= group %>" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="56" height="40" group="<%= group %>">
+                  <img class="nationflag" id="<%= ids[key1][key2] %>" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="56" height="40" group="<%= group %>">
                   <span id="<%= group %>"><%= nation %></span>
                 </div>
               </div>
