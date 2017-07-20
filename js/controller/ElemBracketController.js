@@ -1,5 +1,11 @@
-var WMVis = WMVis || {};
-var Controller = Controller || {};
+/*jslint nomen: true*/
+/*global $, _*/
+
+var d3 = d3 || {},
+    WMVis = WMVis || {},
+    View = View || {},
+    EventPublisher = EventPublisher || {},
+    Controller = Controller || {};
 Controller.ElemBracketController = function () {
     "use strict";
 
@@ -10,7 +16,6 @@ Controller.ElemBracketController = function () {
             setTimeout(function () {
                 var teamsHover = $('#tournamentBracketsPreKo .ro16 tr.team, #tournamentBracketsPreQuarter .quarter tr.team, #tournamentBracketsPreSemi .semi tr.team, #tournamentBracketsPreFinal .final tr.team'),
                     teamsClick = $('tr.team:not("[id=TBD]")');
-                console.log(teamsClick);
                 for (let i = 0; i < teamsHover.length; i++) {
                     teamsHover[i].addEventListener("mouseenter", onMatchHovered);
                     teamsHover[i].addEventListener("mouseleave", onMatchLeft);
@@ -30,10 +35,7 @@ Controller.ElemBracketController = function () {
     }
 
     function onMatchLeft(event) {
-        that.notifyAll("teamHoverLeft", {
-            target: event.target,
-            event: "leave"
-        });
+        that.notifyAll("teamHoverLeft");
     }
 
     function onMatchClicked(event) {

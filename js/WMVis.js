@@ -132,7 +132,7 @@ WMVis = (function () {
             for(let j=0; j<4; j++){
                 one.push(data[i*4+j].win_group);
                 two.push(data[i*4+j].sixteen - one[j]);
-            } 
+            }
             var maxOne = getMaxIndex(one);
             chance[maxOne] = '1';
             var maxTwo = getMaxIndex(two);
@@ -213,7 +213,6 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        console.log(md1);
         var probabilities = getProbabilities(md1);
         view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
@@ -238,7 +237,6 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        console.log(md2);
         var probabilities = getProbabilities(md2);
         view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
@@ -263,7 +261,6 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        console.log(md3);
         var probabilities = getProbabilities(md3);
         view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities);
         // timeout, um zu warten bis template komplett initialisiert ist
