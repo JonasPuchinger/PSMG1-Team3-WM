@@ -20,6 +20,7 @@ View.Ro16Layout = function (options) {
             match.result = ["-", "-"];
             return match;
         });
+
         var ro16Template = _.template($('#ro16Template').html()),
             varsMatches = {
                 matches: options.data,
@@ -31,6 +32,7 @@ View.Ro16Layout = function (options) {
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             };
+
         compiledMatches = ro16Template(varsMatches);
         compiledMatchesWithoutScore = ro16Template(varsMatchesWithoutScore);
     }

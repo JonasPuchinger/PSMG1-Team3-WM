@@ -23,6 +23,7 @@ View.FinalLayout = function (options) {
             match.result = ["-", "-"];
             return match;
         });
+
         var finalTemplate = _.template($('#finalTemplate').html()),
             varsTBD = {
                 matches: TBD,
@@ -42,6 +43,7 @@ View.FinalLayout = function (options) {
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             };
+
         compiledMatches = finalTemplate(varsMatches);
         compiledMatchesWithoutScore = finalTemplate(varsMatchesWithoutScore);
         compiledTBD = finalTemplate(varsTBD);

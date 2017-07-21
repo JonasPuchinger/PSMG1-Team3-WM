@@ -1,4 +1,6 @@
-var WMVis = WMVis || {};
+var WMVis = WMVis || {},
+    View = View || {},
+    EventPublisher = EventPublisher || {};
 WMVis.View = function () {
     "use strict";
 
@@ -14,23 +16,12 @@ WMVis.View = function () {
         groupLayout,
         stageLabel;
 
-    function init(data) {
-        stageLabel = document.querySelector("#stage-label");
-        $(".stage-menu-fixed").stick_in_parent();
-
-        initElemBrackets(data);
-
-        preTournamentLayout = new View.PreTournamentLayout();
-        groupLayout = new View.GroupLayout();
-        // preTournamentLayout.init();
-    }
-
     function initElemBrackets(data) {
-        var selector1 = '#tournamentBracketsPreKo > div';
-        var selector2 = '#tournamentBracketsPreQuarter > div';
-        var selector3 = '#tournamentBracketsPreSemi > div';
-        var selector4 = '#tournamentBracketsPreFinal > div';
-        var selector5 = '#tournamentBracketsWinner > div';
+        var selector1 = '#tournamentBracketsPreKo > div',
+            selector2 = '#tournamentBracketsPreQuarter > div',
+            selector3 = '#tournamentBracketsPreSemi > div',
+            selector4 = '#tournamentBracketsPreFinal > div',
+            selector5 = '#tournamentBracketsWinner > div';
 
 
         ro16Layout = new View.Ro16Layout({
@@ -147,6 +138,17 @@ WMVis.View = function () {
         document.querySelector('#tournamentBracketsPreSemi').classList.add('hidden');
         document.querySelector('#tournamentBracketsPreFinal').classList.add('hidden');
         document.querySelector('#tournamentBracketsWinner').classList.add('hidden');
+    }
+
+    function init(data) {
+        stageLabel = document.querySelector("#stage-label");
+        $(".stage-menu-fixed").stick_in_parent();
+
+        initElemBrackets(data);
+
+        preTournamentLayout = new View.PreTournamentLayout();
+        groupLayout = new View.GroupLayout();
+        // preTournamentLayout.init();
     }
 
     that.init = init;

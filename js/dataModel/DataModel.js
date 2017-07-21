@@ -1,4 +1,5 @@
 var WMVis = WMVis || {},
+    EventPublisher = EventPublisher || {},
     d3 = d3 || {};
 
 WMVis.DataModel = function () {
@@ -23,14 +24,6 @@ WMVis.DataModel = function () {
         final,
         teamsWithTournamentProgression,
         countryDictionary = {};
-
-    function init() {
-        loadCSVData();
-    }
-
-    function loadCSVData() {
-        loadPreTournament();
-    }
 
     function loadPreTournament() {
         d3.csv("../../data/pre_tournament.csv", function (data) {
@@ -86,7 +79,7 @@ WMVis.DataModel = function () {
                     cutData = [];
 
                 //Filtern nach Achtelfinal-Kandidaten
-                for (let entry of data) {
+                for (var entry of data) {
                     if (entry.sixteen == 1) {
                         cutData.push(entry);
                     }
@@ -305,6 +298,14 @@ WMVis.DataModel = function () {
 
     function getCountryDictionary() {
         return countryDictionary;
+    }
+
+    function init() {
+        loadCSVData();
+    }
+
+    function loadCSVData() {
+        loadPreTournament();
     }
 
     that.init = init;
