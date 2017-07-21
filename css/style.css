@@ -9,10 +9,10 @@ body {
 }
 
 #hamburger-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .stage-menu-fixed {
@@ -57,10 +57,10 @@ body {
 }
 
 .modal-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-header h3 {
@@ -137,9 +137,16 @@ path {
 #tournamentBracketsPreQuarter,
 #tournamentBracketsPreSemi,
 #tournamentBracketsPreFinal,
-#tournamentBracketsWinner {
+#tournamentBracketsWinner,
+#tournamentBracketsWinnerEl{
     min-width: 1072px;
     margin: 0px 0px 0px 10px;
+}
+
+#tournamentBracketsWinnerEl {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 .quarter,
@@ -165,11 +172,11 @@ path {
     padding: 0px;
 }
 
-.semi > div#s1.match {
+.semi>div#s1.match {
     margin: 0px 0px 421px 0px;
 }
 
-.semi > div#s2.match  {
+.semi>div#s2.match {
     margin: 0px;
 }
 
@@ -185,9 +192,10 @@ path {
 
 .country {
     width: 58%;
-    min-width:83px;
+    min-width: 83px;
     font-size: 13px;
-    font-size: calc(7px + .5vw);
+    height: 60px;
+    font-size: calc(10px + .3vw);
 }
 
 .img {
@@ -316,8 +324,7 @@ path {
     font-size: 30pt;
 }
 
-
-.X{
+.X {
     justify-content: center;
     align-items: center;
     font-size: 30pt;
@@ -409,6 +416,6 @@ path {
 #tournamentBracketsPreQuarter .col,
 #tournamentBracketsPreSemi .col,
 #tournamentBracketsPreFinal .col,
-#tournamentBracketsWinner .col{
+#tournamentBracketsWinner .col {
     padding: 0 !important;
 }
