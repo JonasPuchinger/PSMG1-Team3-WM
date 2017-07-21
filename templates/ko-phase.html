@@ -219,8 +219,36 @@
             <%});%>
     </div>
 </script>
+<script type="text/x-underscore" id="winnerTemplate">
+
+<div class="final col s2 offset-s10">
+            <div class="match" id="w1">
+            <div>WINNER</div>
+                <table>
+                    <tr class="team team1" id="<%=winner%>">
+                        <td class="img">
+                            <% if(winner != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=winner%>.svg" alt="<%=dictionary[winner]%>" width="40" height="30">
+                                <%};%>
+                        </td>
+                        <td class="country">
+                            <span>
+                            <% if(winner != "TBD") {%>
+                                <%=dictionary[winner]%>
+                            <%}
+                            else {%>
+                                <%=winner%>
+                            <%}%>
+                            </span>
+                        </td>
+                    </tr>
+        </table>
+        </div>
+    </div>
+</script>
 <div id="tournamentBracketsPreKo" class="hidden row"></div>
 <div id="tournamentBracketsPreQuarter" class="hidden row"></div>
 <div id="tournamentBracketsPreSemi" class="hidden row"></div>
 <div id="tournamentBracketsPreFinal" class="hidden row"></div>
 <div id="tournamentBracketsWinner" class="hidden row"></div>
+<div id="tournamentBracketsWinnerEl" class="hidden row"></div>

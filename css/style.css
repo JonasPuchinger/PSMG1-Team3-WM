@@ -137,9 +137,16 @@ path {
 #tournamentBracketsPreQuarter,
 #tournamentBracketsPreSemi,
 #tournamentBracketsPreFinal,
-#tournamentBracketsWinner {
+#tournamentBracketsWinner,
+#tournamentBracketsWinnerEl{
     min-width: 1072px;
     margin: 0px 0px 0px 10px;
+}
+
+#tournamentBracketsWinnerEl {
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 .quarter,
@@ -187,6 +194,7 @@ path {
     width: 58%;
     min-width: 83px;
     font-size: 13px;
+    height: 60px;
     font-size: calc(10px + .3vw);
 }
 

@@ -124,18 +124,23 @@ WMVis.View = function () {
             case 2:
                 document.querySelector('#tournamentBracketsPreKo').classList.remove('hidden');
                 document.querySelector('#hamburger').classList.add('hidden');
+                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 3:
                 document.querySelector('#tournamentBracketsPreQuarter').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 4:
                 document.querySelector('#tournamentBracketsPreSemi').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 5:
                 document.querySelector('#tournamentBracketsPreFinal').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 6:
                 document.querySelector('#tournamentBracketsWinner').classList.remove('hidden');
+                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
         }
     }
@@ -146,6 +151,8 @@ WMVis.View = function () {
         document.querySelector('#tournamentBracketsPreSemi').classList.add('hidden');
         document.querySelector('#tournamentBracketsPreFinal').classList.add('hidden');
         document.querySelector('#tournamentBracketsWinner').classList.add('hidden');
+        document.querySelector('#tournamentBracketsWinnerEl').classList.add('hidden');
+
     }
 
     that.init = init;
