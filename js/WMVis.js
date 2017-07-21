@@ -59,7 +59,6 @@ WMVis = (function () {
                 semi: dataModel.getSemi(),
                 final: dataModel.getFinal()
             };
-
         view = new WMVis.View();
         view.init(optionsView);
 

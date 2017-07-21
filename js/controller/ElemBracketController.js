@@ -14,7 +14,7 @@ Controller.ElemBracketController = function () {
     function init() {
         $(document).ready(function () {
             setTimeout(function () {
-                var teamsHover = $('#tournamentBracketsPreKo .ro16 tr.team, #tournamentBracketsPreQuarter .quarter tr.team, #tournamentBracketsPreSemi .semi tr.team, #tournamentBracketsPreFinal .final tr.team'),
+                var teamsHover = $('#tournamentBracketsPreKo .ro16 tr.team,#tournamentBracketsPreQuarter .quarter tr.team, #tournamentBracketsPreSemi .semi tr.team, #tournamentBracketsPreFinal .final tr.team'),
                     teamsClick = $('tr.team:not("[id=TBD]")');
                 for (let i = 0; i < teamsHover.length; i++) {
                     teamsHover[i].addEventListener("mouseenter", onMatchHovered);

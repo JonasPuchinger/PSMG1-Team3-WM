@@ -2,7 +2,7 @@ var WMVis = WMVis || {};
 WMVis.View = function () {
     "use strict";
 
-    const stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
+    const stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
 
     var that = new EventPublisher(),
         preTournamentLayout,
@@ -10,6 +10,7 @@ WMVis.View = function () {
         quarterLayout,
         semiLayout,
         finalLayout,
+        winnerLayout,
         groupLayout,
         stageLabel;
 
@@ -25,11 +26,11 @@ WMVis.View = function () {
     }
 
     function initElemBrackets(data) {
-        var selector1 = '#tournamentBracketsPreKo';
-        var selector2 = '#tournamentBracketsPreQuarter';
-        var selector3 = '#tournamentBracketsPreSemi';
-        var selector4 = '#tournamentBracketsPreFinal';
-        var selector5 = '#tournamentBracketsWinner';
+        var selector1 = '#tournamentBracketsPreKo > div';
+        var selector2 = '#tournamentBracketsPreQuarter > div';
+        var selector3 = '#tournamentBracketsPreSemi > div';
+        var selector4 = '#tournamentBracketsPreFinal > div';
+        var selector5 = '#tournamentBracketsWinner > div';
 
 
         ro16Layout = new View.Ro16Layout({
@@ -124,23 +125,18 @@ WMVis.View = function () {
             case 2:
                 document.querySelector('#tournamentBracketsPreKo').classList.remove('hidden');
                 document.querySelector('#hamburger').classList.add('hidden');
-                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 3:
                 document.querySelector('#tournamentBracketsPreQuarter').classList.remove('hidden');
-                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 4:
                 document.querySelector('#tournamentBracketsPreSemi').classList.remove('hidden');
-                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 5:
                 document.querySelector('#tournamentBracketsPreFinal').classList.remove('hidden');
-                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
             case 6:
                 document.querySelector('#tournamentBracketsWinner').classList.remove('hidden');
-                document.querySelector('#tournamentBracketsWinnerEl').classList.remove('hidden');
                 break;
         }
     }
@@ -151,8 +147,6 @@ WMVis.View = function () {
         document.querySelector('#tournamentBracketsPreSemi').classList.add('hidden');
         document.querySelector('#tournamentBracketsPreFinal').classList.add('hidden');
         document.querySelector('#tournamentBracketsWinner').classList.add('hidden');
-        document.querySelector('#tournamentBracketsWinnerEl').classList.add('hidden');
-
     }
 
     that.init = init;

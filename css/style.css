@@ -122,13 +122,6 @@ path {
     cursor: pointer;
 }
 
-.ro16,
-.quarter,
-.semi,
-.final {
-    /*    display: table-cell;*/
-}
-
 .ro16 {
     margin: 0px 0px 0px 10px;
 }
@@ -137,21 +130,16 @@ path {
 #tournamentBracketsPreQuarter,
 #tournamentBracketsPreSemi,
 #tournamentBracketsPreFinal,
-#tournamentBracketsWinner,
-#tournamentBracketsWinnerEl{
+#tournamentBracketsWinner {
+    position: relative;
     min-width: 1072px;
     margin: 0px 0px 0px 10px;
 }
 
-#tournamentBracketsWinnerEl {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-}
-
 .quarter,
 .semi,
-.final {
+.final,
+.winner{
     position: relative;
 }
 
@@ -167,6 +155,10 @@ path {
     top: 479px;
 }
 
+.winner {
+    top: 350px;
+}
+
 .quarter .match {
     margin: 0px 0px 147px 0px;
     padding: 0px;
@@ -180,12 +172,14 @@ path {
     margin: 0px;
 }
 
-.final .match {
-    margin: 0px;
-}
-
 .match {
     height: 127px;
+    border-style: solid;
+    margin: 10px 0px 10px 0px;
+}
+
+.team-winner {
+    height: 60px;
     border-style: solid;
     margin: 10px 0px 10px 0px;
 }
@@ -206,6 +200,14 @@ path {
 .goals {
     min-width: 40px;
     width: 20%;
+}
+
+.country-winner {
+    width: 70%;
+    min-width: 83px;
+    font-size: 13px;
+    height: 60px;
+    font-size: calc(10px + .3vw);
 }
 
 .group-row {
@@ -278,7 +280,8 @@ path {
 }
 
 .team1,
-.team2 {
+.team2,
+.team-winner {
     background-color: #f6f6f6;
 }
 
@@ -292,13 +295,7 @@ path {
     border-width: 1px 0px 0px 0px;
 }
 
-.team1>.img {
-    width: 40px;
-    height: 30px;
-    padding: 7px 0px 0px 10px;
-}
-
-.team2>.img {
+.img{
     width: 40px;
     height: 30px;
     padding: 7px 0px 0px 10px;
