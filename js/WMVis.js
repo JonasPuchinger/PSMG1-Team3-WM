@@ -11,64 +11,201 @@ WMVis = (function () {
         elemBracketPredView,
         currentState = 0;
 
-
-    function loadDataModel() {
-        dataModel = new WMVis.DataModel();
-        dataModel.addEventListener("finishedLoading", init);
-        dataModel.init();
+    /*  function getProbabilities(index){
+          probabilityController = new WMVis.ProbabilityController();
+          var probabilities = [];
+          for(var i=0; i<md1.length; i+=4){
+              probabilities[i] = [];
+              for(var j=0; j<4; j++){
+                  var probability = 0;
+                  var games = gamesData.getGroupGames(i, md1[i+j].country_id);
+                  for(var k=0; k<games.length; k++){
+                      probability += probabilityController.calculateProbabilities(games[k].game.split("-"),md1);
+                  }
+                  console.log(probability);
+                  probabilities[i].push(probability);
+              }
+          }
+      }*/
+    function getProbabilities(data) {
+        var probabilities = [],
+            one,
+            two,
+            values,
+            chance;
+        for (var i = 0; i < parseInt(data.length / 4); i++) {
+            one = [];
+            two = [];
+            chance = ['x', 'x', 'x', 'x'];
+            values = [];
+            for (var j = 0; j < 4; j++) {
+                one.push(data[i * 4 + j].win_group);
+                two.push(data[i * 4 + j].sixteen - one[j]);
+            }
+            var maxOne = getMaxIndex(one);
+            chance[maxOne] = '1';
+            var maxTwo = getMaxIndex(two);
+            chance[maxTwo] = '2';
+            for (var k = 0; k < chance.length; k++) {
+                switch (chance[k]) {
+                    case '1':
+                        values.push(data[i * 4 + k].win_group);
+                        break;
+                    case '2':
+                        values.push(data[i * 4 + k].sixteen - data[i * 4 + k].win_group);
+                        break;
+                    case 'x':
+                        values.push(1 - data[i * 4 + k].sixteen);
+                        break;
+                    default:
+                        values.push(0);
+                        break;
+                }
+            }
+            probabilities.push([chance, values]);
+        }
+        return probabilities;
     }
 
-    function init() {
-        gamesData = new WMVis.GamesData();
-        initController();
-        initCanvas();
+    function getMaxIndex(arr) {
+        var max = arr[0];
+        var maxIndex = 0;
+        for (var k = 1; k < arr.length; k++) {
+            if (arr[k] > max) {
+                maxIndex = k;
+                max = arr[k];
+            }
+        }
+        return maxIndex;
     }
 
-    function initCanvas() {
-        let sliderEl = document.querySelector('#stage-slider');
-        initView();
-        preTournament();
+    function preTournament() {
+        var pt = dataModel.getPreTournament(),
+            groups = [],
+            nations = [],
+            ids = [];
+
+        for (var i = 0; i < pt.length; i += 4) {
+            var nationsGroup = [];
+            var idsGroup = [];
+            for (var j = i; j < (i + 4); j++) {
+                nationsGroup.push(pt[j].country);
+                idsGroup.push(pt[j].country_id);
+            }
+            nations.push(nationsGroup);
+            ids.push(idsGroup);
+            groups.push(pt[i].group.toUpperCase());
+        }
+
+        var abbrs = dataModel.getNationsAbbrs(nations);
+        // view.setData(pt);
+        view.changeLayout(0, [pt, groups, nations, ids, abbrs], null);
+        // timeout, um zu warten bis template komplett initialisiert ist
+        setTimeout(function () {
+            controller.initPreTournamentController();
+        }, 60);
     }
 
-    function initController() {
-        controller = new WMVis.Controller();
-        controller.init();
-        controller.addEventListener("stageSliderChanged", onStageSliderChanged);
-        controller.addEventListener("nationCardHovered", showCalcResult);
-        controller.addEventListener("nationCardLeft", removeCalcResult);
-        controller.addEventListener("nationCardClicked", onNationCardClicked);
-        controller.addEventListener("showCalcResult", showCalcResult);
-        controller.addEventListener("hideCalcResult", removeCalcResult);
-        controller.addEventListener("showModal", onNationCardClicked);
-        controller.addEventListener("teamHovered", onTeamHovered);
-        controller.addEventListener("teamHoverLeft", onTeamHoverLeft);
-        controller.addEventListener("teamClicked", onTeamClicked);
+    function md1() {
+        var md1 = dataModel.getMatchday1(),
+            groups = [],
+            nations = [],
+            ids = [];
+        for (var i = 0; i < md1.length; i += 4) {
+            var nationsGroup = [];
+            var idsGroup = [];
+            for (var j = i; j < (i + 4); j++) {
+                nationsGroup.push(md1[j].country);
+                idsGroup.push(md1[j].country_id);
+            }
+            nations.push(nationsGroup);
+            ids.push(idsGroup);
+            groups.push(md1[i].group.toUpperCase());
+        }
+
+        var abbrs = dataModel.getNationsAbbrs(nations);
+        var probabilities = getProbabilities(md1);
+        view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities);
+        // timeout, um zu warten bis template komplett initialisiert ist
+        setTimeout(function () {
+            controller.initGroupController();
+        }, 40);
     }
 
-    function initView() {
-        var optionsView = {
-                ro16: gamesData.getGamesOfDay(3),
-                quarter: gamesData.getGamesOfDay(4),
-                semi: gamesData.getGamesOfDay(5),
-                final: gamesData.getGamesOfDay(6),
-                dictionary: dataModel.getCountryDictionary()
-            },
-            optionsPred = {
-                ro16: dataModel.getRo16(),
-                quarter: dataModel.getQuarter(),
-                semi: dataModel.getSemi(),
-                final: dataModel.getFinal()
-            };
+    function md2() {
+        var md2 = dataModel.getMatchday2(),
+            groups = [],
+            nations = [],
+            ids = [];
+        for (var i = 0; i < md2.length; i += 4) {
+            var nationsGroup = [];
+            var idsGroup = [];
+            for (var j = i; j < (i + 4); j++) {
+                nationsGroup.push(md2[j].country);
+                idsGroup.push(md2[j].country_id);
+            }
+            nations.push(nationsGroup);
+            ids.push(idsGroup);
+            groups.push(md2[i].group.toUpperCase());
+        }
 
-        view = new WMVis.View();
-        view.init(optionsView);
+        var abbrs = dataModel.getNationsAbbrs(nations);
+        var probabilities = getProbabilities(md2);
+        view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities);
+        // timeout, um zu warten bis template komplett initialisiert ist
+        setTimeout(function () {
+            controller.initGroupController();
+        }, 40);
+    }
 
-        elemBracketPredView = new WMVis.ElemBracketShowPred(optionsPred);
-        elemBracketPredView.init();
+    function md3() {
+        var md3 = dataModel.getMatchday3(),
+            groups = [],
+            nations = [],
+            ids = [];
+        for (var i = 0; i < md3.length; i += 4) {
+            var nationsGroup = [];
+            var idsGroup = [];
+            for (var j = i; j < (i + 4); j++) {
+                nationsGroup.push(md3[j].country);
+                idsGroup.push(md3[j].country_id);
+            }
+            nations.push(nationsGroup);
+            ids.push(idsGroup);
+            groups.push(md3[i].group.toUpperCase());
+        }
+
+        var abbrs = dataModel.getNationsAbbrs(nations);
+        var probabilities = getProbabilities(md3);
+        view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities);
+        // timeout, um zu warten bis template komplett initialisiert ist
+        setTimeout(function () {
+            controller.initGroupController();
+        }, 40);
+    }
+
+    function ko() {
+        view.changeLayout(2);
+    }
+
+    function ro16() {
+        view.changeLayout(3);
+    }
+
+    function quarter() {
+        view.changeLayout(4);
+    }
+
+    function semi() {
+        view.changeLayout(5);
+    }
+
+    function final() {
+        view.changeLayout(6);
     }
 
     function onStageSliderChanged(event) {
-        currentState = parseInt(event.data);
+        currentState = parseInt(event.data, 10);
         view.changeStageLabel(currentState);
 
         switch (currentState) {
@@ -102,191 +239,6 @@ WMVis = (function () {
         }
     }
 
-  /*  function getProbabilities(index){
-        probabilityController = new WMVis.ProbabilityController();
-        var probabilities = [];
-        for(var i=0; i<md1.length; i+=4){
-            probabilities[i] = [];
-            for(var j=0; j<4; j++){
-                var probability = 0;
-                var games = gamesData.getGroupGames(i, md1[i+j].country_id);
-                for(var k=0; k<games.length; k++){
-                    probability += probabilityController.calculateProbabilities(games[k].game.split("-"),md1);
-                }
-                console.log(probability);
-                probabilities[i].push(probability);
-            }
-        }
-    }*/
-    function getProbabilities(data){
-        var probabilities = [],
-            one,
-            two,
-            values,
-            chance;
-        for(let i=0; i<parseInt(data.length/4); i++){
-            one = [];
-            two = [];
-            chance = ['x','x','x','x'];
-            values = [];
-            for(let j=0; j<4; j++){
-                one.push(data[i*4+j].win_group);
-                two.push(data[i*4+j].sixteen - one[j]);
-            }
-            var maxOne = getMaxIndex(one);
-            chance[maxOne] = '1';
-            var maxTwo = getMaxIndex(two);
-            chance[maxTwo] = '2';
-            for(let k=0; k<chance.length;k++){
-                switch(chance[k]){
-                    case '1':
-                        values.push(data[i*4+k].win_group);
-                        break;
-                    case '2':
-                        values.push(data[i*4+k].sixteen - data[i*4+k].win_group);
-                        break;
-                    case 'x':
-                        values.push(1-data[i*4+k].sixteen);
-                        break;
-                    default:
-                        values.push(0);
-                        break;
-                }
-            }
-            probabilities.push([chance, values]);
-        }
-        return probabilities;
-    }
-
-    function getMaxIndex(arr) {
-        var max = arr[0];
-        var maxIndex = 0;
-        for (var k = 1; k < arr.length; k++) {
-            if (arr[k] > max) {
-                maxIndex = k;
-                max = arr[k];
-            }
-        }
-        return maxIndex;
-    }
-
-    function preTournament() {
-        var pt = dataModel.getPreTournament(),
-          groups = [],
-          nations = [],
-          ids = [];
-
-        for(let i = 0; i < pt.length; i += 4) {
-            var nationsGroup = [];
-            var idsGroup = [];
-            for(let j = i; j < (i + 4); j++) {
-                nationsGroup.push(pt[j].country);
-                idsGroup.push(pt[j].country_id);
-            }
-            nations.push(nationsGroup);
-            ids.push(idsGroup);
-            groups.push(pt[i].group.toUpperCase());
-        }
-
-        var abbrs = dataModel.getNationsAbbrs(nations);
-        // view.setData(pt);
-        view.changeLayout(0, [pt, groups, nations, ids, abbrs], null);
-        // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initPreTournamentController(); } , 60);
-    }
-
-    function md1() {
-        var md1 = dataModel.getMatchday1(),
-            groups = [],
-            nations = [],
-            ids = [];
-        for(let i = 0; i < md1.length; i += 4) {
-            var nationsGroup = [];
-            var idsGroup = [];
-            for(let j = i; j < (i + 4); j++) {
-                nationsGroup.push(md1[j].country);
-                idsGroup.push(md1[j].country_id);
-            }
-            nations.push(nationsGroup);
-            ids.push(idsGroup);
-            groups.push(md1[i].group.toUpperCase());
-        }
-
-        var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getProbabilities(md1);
-        view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities);
-        // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initGroupController(); } , 40);
-    }
-
-    function md2() {
-        var md2 = dataModel.getMatchday2(),
-            groups = [],
-            nations = [],
-            ids = [];
-        for(let i = 0; i < md2.length; i += 4) {
-            var nationsGroup = [];
-            var idsGroup = [];
-            for(let j = i; j < (i + 4); j++) {
-                nationsGroup.push(md2[j].country);
-                idsGroup.push(md2[j].country_id);
-            }
-            nations.push(nationsGroup);
-            ids.push(idsGroup);
-            groups.push(md2[i].group.toUpperCase());
-        }
-
-        var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getProbabilities(md2);
-        view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities);
-        // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initGroupController(); } , 40);
-    }
-
-    function md3() {
-        var md3 = dataModel.getMatchday3(),
-            groups = [],
-            nations = [],
-            ids = [];
-        for(let i = 0; i < md3.length; i += 4) {
-            var nationsGroup = [];
-            var idsGroup = [];
-            for(let j = i; j < (i + 4); j++) {
-                nationsGroup.push(md3[j].country);
-                idsGroup.push(md3[j].country_id);
-            }
-            nations.push(nationsGroup);
-            ids.push(idsGroup);
-            groups.push(md3[i].group.toUpperCase());
-        }
-
-        var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getProbabilities(md3);
-        view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities);
-        // timeout, um zu warten bis template komplett initialisiert ist
-        setTimeout(function() { controller.initGroupController(); } , 40);
-    }
-
-    function ko() {
-        view.changeLayout(2);
-    }
-
-    function ro16() {
-        view.changeLayout(3);
-    }
-
-    function quarter() {
-        view.changeLayout(4);
-    }
-
-    function semi() {
-        view.changeLayout(5);
-    }
-
-    function final() {
-        view.changeLayout(6);
-    }
-
     function onNationCardClicked(event) {
         view.showNationModal(event.data);
     }
@@ -295,7 +247,7 @@ WMVis = (function () {
         elemBracketPredView.showPredRow(currentState, event.data);
     }
 
-    function onTeamHoverLeft(event) {
+    function onTeamHoverLeft() {
         elemBracketPredView.resetPreds();
     }
 
@@ -304,14 +256,14 @@ WMVis = (function () {
         var parent = $(elem).parents('tr:first');
         var img = parent.find('td.img').get(0).children[0];
         view.showNationModal(img);
-}
+    }
 
     function showCalcResult(event) {
         var data,
             flag = event.data.target,
             games,
             group;
-        switch(currentState){
+        switch (currentState) {
             case 0:
                 data = dataModel.getPreTournament();
                 games = gamesData.getGroupGames(currentState, flag.id);
@@ -331,19 +283,19 @@ WMVis = (function () {
                 data = null;
                 break;
         }
-        if(data!==null){
+        if (data !== null) {
             var probabilityController = new WMVis.ProbabilityController(),
                 probabilities = [];
-            for(let i=0; i<games.length; i++){
+            for (var i = 0; i < games.length; i++) {
                 probabilities.push(probabilityController.calculateProbabilities(games[i].game, data)[1]);
             }
             view.showCalcResult(currentState, group, games, probabilities);
         }
     }
 
-    function removeCalcResult(event){
+    function removeCalcResult(event) {
         var flag = event.data.target;
-        switch(currentState){
+        switch (currentState) {
             case 0:
                 view.removeCalcResult(currentState, flag.getAttribute("group"));
                 break;
@@ -354,6 +306,59 @@ WMVis = (function () {
             default:
                 break;
         }
+    }
+
+    function initView() {
+        var optionsView = {
+                ro16: gamesData.getGamesOfDay(3),
+                quarter: gamesData.getGamesOfDay(4),
+                semi: gamesData.getGamesOfDay(5),
+                final: gamesData.getGamesOfDay(6),
+                dictionary: dataModel.getCountryDictionary()
+            },
+            optionsPred = {
+                ro16: dataModel.getRo16(),
+                quarter: dataModel.getQuarter(),
+                semi: dataModel.getSemi(),
+                final: dataModel.getFinal()
+            };
+        view = new WMVis.View();
+        view.init(optionsView);
+
+        elemBracketPredView = new WMVis.ElemBracketShowPred(optionsPred);
+        elemBracketPredView.init();
+    }
+
+    function initCanvas() {
+        initView();
+        preTournament();
+    }
+
+    function initController() {
+        controller = new WMVis.Controller();
+        controller.init();
+        controller.addEventListener("stageSliderChanged", onStageSliderChanged);
+        controller.addEventListener("nationCardHovered", showCalcResult);
+        controller.addEventListener("nationCardLeft", removeCalcResult);
+        controller.addEventListener("nationCardClicked", onNationCardClicked);
+        controller.addEventListener("showCalcResult", showCalcResult);
+        controller.addEventListener("hideCalcResult", removeCalcResult);
+        controller.addEventListener("showModal", onNationCardClicked);
+        controller.addEventListener("teamHovered", onTeamHovered);
+        controller.addEventListener("teamHoverLeft", onTeamHoverLeft);
+        controller.addEventListener("teamClicked", onTeamClicked);
+    }
+
+    function init() {
+        gamesData = new WMVis.GamesData();
+        initController();
+        initCanvas();
+    }
+
+    function loadDataModel() {
+        dataModel = new WMVis.DataModel();
+        dataModel.addEventListener("finishedLoading", init);
+        dataModel.init();
     }
 
     that.loadDataModel = loadDataModel;

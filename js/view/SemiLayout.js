@@ -27,6 +27,7 @@ View.SemiLayout = function (options) {
             match.result = ["-", "-"];
             return match;
         });
+
         var semiTemplate = _.template($('#semiTemplate').html()),
             varsTBD = {
                 matches: TBD,
@@ -43,6 +44,7 @@ View.SemiLayout = function (options) {
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             };
+
         compiledMatches = semiTemplate(varsMatches);
         compiledMatchesWithoutScore = semiTemplate(varsMatchesWithoutScore);
         compiledTBD = semiTemplate(varsTBD);
