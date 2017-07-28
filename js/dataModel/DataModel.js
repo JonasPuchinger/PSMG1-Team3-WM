@@ -31,6 +31,27 @@ WMVis.DataModel = function () {
     function loadCSVData() {
         loadPreTournament();
     }
+    
+    function getMatchday(currentState) {
+        switch(currentState) {
+            case 0:
+                return getPreTournament();
+            case 1:
+                return getMatchday1();
+            case 2:
+                return getMatchday2();
+            case 3:
+                return getMatchday3();
+            case 4: 
+                return getRo16();
+            case 5: 
+                return getQuarter();
+            case 6:
+                return getSemi();
+            case 7: 
+                return getFinal();
+        }
+    }
 
     function loadPreTournament() {
         d3.csv("../../data/pre_tournament.csv", function (data) {
@@ -308,6 +329,7 @@ WMVis.DataModel = function () {
     }
 
     that.init = init;
+    that.getMatchday = getMatchday;
     that.getMatchday1 = getMatchday1;
     that.getMatchday2 = getMatchday2;
     that.getMatchday3 = getMatchday3;

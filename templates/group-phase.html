@@ -27,13 +27,21 @@
       </div>
     </div>
   </ul>
-  <div class="container">
     <div class="row">
-      <div class="col s12 centered">
-        Hier steht Erklärtext
+      <div class="col s12" id="explainText">
+        <div class="col s4 centered" >
+            <p>These are the actual results of matchday <%= currentDay %>.</p>
+            <p>The stroke widths (and the colours) show the distance between the goals of the teams.</p>
+        </div>
+        <div class="col s4 centered" >
+            <p>The teams are ordered by group.</p>
+            <p>Click the flags to get additional information about a team.</p>
+        </div>
+        <div class="col s4 centered" >
+            <% if(currentDay!==3) { %><p>This is the predicted result of the group-phase in percent. Stroke widths show also the probabilities.</p><p>Hover the flags to see the predicted results for the next day.</p><% } else { %><p>This is the real result of the group games. The teams connected to 1 and 2 are in the round of 16.</p><% } %>
+        </div>
       </div>
     </div>
-  </div>
   <div class="divider"></div>
     <% _.each(groupNames, function(group, key1){
     %>
@@ -42,7 +50,7 @@
             <svg class="paths row2-<%= key1 %>" id="paths-<%= group %>" width="100%" height="100%"></svg>
             <svg class="paths row3-<%= group %>" width="100%" height="100%"></svg>
           <div class="col s2">
-            <% if(games!==null){ %><h3 class="title">Results</h3>
+            <h4 class="centered">Results</h4>
             <div class="row result-row">
                 <div class="col s12">
                     <% _.each(games[key1], function(groupGames, key2){
@@ -55,17 +63,16 @@
                     %>
                 </div>
             </div>
-            <% } %>
           </div>
           <div class="col s2 push-s3">
-                <h3>Group <%= group %></h3>
+                <h3 class="centered">Group <%= group %></h3>
                 <% _.each(nations[key1], function(nation, key2, list2) {
                 %>
                 <div class="row nation-row">
                     <div class="col s12" id="<%= group %>">
                         <div class="card nationcard" id="<%= ids[key1][key2] %>">
-                            <div class="card-content">
-                                <img class="nationflag" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48" id="<%= group %>">
+                            <div class="card-content" id="<%= ids[key1][key2] %>">
+                                <img class="nationflag" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48" id="<%= group %>" group="<%= group %>">
                                 <span id="<%= group %>"><%= nation %></span>
                             </div>
                         </div>
@@ -76,7 +83,7 @@
                 %>
             </div>
             <div class="col s3 push-s4" id="<%= group %>">
-                <h3>Calculated Result</h3>
+                <h4 class="centered"><% if(currentDay!==3) { %>Calculated Results<% } else { %>Round of 16<% } %></h4>
                 <% _.each(games[key1], function(groupGames, key2){
                  %>
                     <div class="calcResult hidden">

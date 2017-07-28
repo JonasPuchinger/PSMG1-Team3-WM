@@ -4,7 +4,6 @@ WMVis = (function () {
 
     var that = {},
         controller,
-        probabilityController,
         dataModel,
         view,
         gamesData,
@@ -118,21 +117,35 @@ WMVis = (function () {
             }
         }
     }*/
-    function getProbabilities(data){
+    
+    function getProbabilities(data, nation) {
+        var probabilities = Array(3);
+        for(let i=0; i<data.length; i++) {
+            if(data[i].country_id === nation) {
+                probabilities[0] = data[i].win_group;
+                probabilities[1] = data[i].sixteen - probabilities[0];
+                probabilities[2] = 1 - data[i].sixteen;
+            }
+        }
+        return probabilities;
+    }
+    
+    function getMostProbableResult(data){
         var probabilities = [],
+            sixteen,
             one,
             two,
             values,
             chance;
         for(let i=0; i<parseInt(data.length/4); i++){
+            values = [];
             one = [];
             two = [];
-            chance = ['x','x','x','x'];
-            values = [];
             for(let j=0; j<4; j++){
                 one.push(data[i*4+j].win_group);
                 two.push(data[i*4+j].sixteen - one[j]);
             }
+            chance = ['x','x','x','x'];
             var maxOne = getMaxIndex(one);
             chance[maxOne] = '1';
             var maxTwo = getMaxIndex(two);
@@ -213,8 +226,8 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getProbabilities(md1);
-        view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities);
+        var probabilities = getMostProbableResult(md1);
+        view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities, currentState);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function() { controller.initGroupController(); } , 40);
     }
@@ -237,8 +250,8 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getProbabilities(md2);
-        view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities);
+        var probabilities = getMostProbableResult(md2);
+        view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities, currentState);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function() { controller.initGroupController(); } , 40);
     }
@@ -261,8 +274,8 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getProbabilities(md3);
-        view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities);
+        var probabilities = getMostProbableResult(md3);
+        view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities, currentState);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function() { controller.initGroupController(); } , 40);
     }
@@ -288,7 +301,14 @@ WMVis = (function () {
     }
 
     function onNationCardClicked(event) {
-        view.showNationModal(event.data);
+        var nation = event.data.parentElement.id,
+            probabilities,
+            index = 0;
+        for(let i='A'; i<event.data.getAttribute("group"); i++) {
+            index++;
+        }
+        probabilities = getProbabilities(dataModel.getMatchday(currentState), nation);
+        view.showNationModal(event.data, currentState, probabilities);
     }
 
     function onTeamHovered(event) {
@@ -300,30 +320,50 @@ WMVis = (function () {
     }
 
     function onTeamClicked(event) {
+        /*games = gamesData.getGroupGames(currentState, nation),
+            probabilityController = new WMVis.ProbabilityController(),
+            probabilities = [];
+        for(let i=0; i<games.length; i++) {
+            probabilities.push(probabilityController.calculateProbabilities(nation, games[i].game, games.length, dataModel.getMatchday(currentState)));
+        }*/
         var elem = event.data;
         var parent = $(elem).parents('tr:first');
         var img = parent.find('td.img').get(0).children[0];
-        view.showNationModal(img);
+        var data = dataModel.getMatchday(currentState),
+            probabilityController = new WMVis.ProbabilityController(),
+            probabilities = [],
+            id;
+        for(let i= 0; i<data.length; i++) {
+            if(data[i].country === img.getAttribute("alt")) {
+                id = data[i].country_id;
+                probabilities.push(probabilityController.getProbability(data[i], currentState));
+            }
+        }
+        var game = gamesData.getGame(currentState, id);
+        var versus = "";
+        if(game !== undefined) {
+            versus = game[1]
+            for(let i=0; i<data.length; i++) {
+                if(data[i].country_id === versus) {
+                    probabilities.push(probabilityController.getProbability(data[i], currentState));
+                }
+            }
+        }
+        view.showNationModal(img, currentState, probabilities, versus);
 }
 
     function showCalcResult(event) {
-        var data,
+        var data = dataModel.getMatchday(currentState),
             flag = event.data.target,
             games,
             group;
         switch(currentState){
             case 0:
-                data = dataModel.getPreTournament();
                 games = gamesData.getGroupGames(currentState, flag.id);
                 group = flag.getAttribute("group");
                 break;
             case 1:
-                data = dataModel.getMatchday1();
-                games = gamesData.getGames(currentState, flag.id);
-                group = flag.id;
-                break;
             case 2:
-                data = dataModel.getMatchday2();
                 games = gamesData.getGames(currentState, flag.id);
                 group = flag.id;
                 break;
@@ -335,7 +375,7 @@ WMVis = (function () {
             var probabilityController = new WMVis.ProbabilityController(),
                 probabilities = [];
             for(let i=0; i<games.length; i++){
-                probabilities.push(probabilityController.calculateProbabilities(games[i].game, data)[1]);
+                probabilities.push(probabilityController.calculateResult(games[i].game, data));
             }
             view.showCalcResult(currentState, group, games, probabilities);
         }

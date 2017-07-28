@@ -12,10 +12,11 @@ View.GroupLayout = function () {
         ids,
         abbrs,
         md,
+        day,
         games,
         probabilities;
 
-    function init(data, gamesData, probabilityData ) {
+    function init(data, gamesData, probabilityData, currentDay) {
       games = gamesData,
       probabilities = probabilityData;
       groups = data[1],
@@ -23,7 +24,8 @@ View.GroupLayout = function () {
       ids = data[3],
       abbrs = data[4],
       md = data[0];
-      setTimeout(createTemplate, 30);
+      day = currentDay;
+      setTimeout(createTemplate, 50);
     }
     
     function createTemplate() {
@@ -31,20 +33,13 @@ View.GroupLayout = function () {
         vars,
         compiled;  
       template = _.template($("#resultList").html());
-      vars = {groupNames: groups, games: games, nations: nations, ids: ids, abbrs: abbrs, flagsUrlBase: flagsUrlBase};
+      vars = {groupNames: groups, games: games, nations: nations, ids: ids, abbrs: abbrs, flagsUrlBase: flagsUrlBase, currentDay: day};
       compiled = template(vars);
       $("#resultEl").append(compiled);
-      if(games!==null){
-        connect(games);
-      }
-     showProbabilities(probabilities);
-    }
-
-    function setData(predData) {
-      if(predictionData.length === 0) {
-        predictionData = _.toArray(predData);
-        createPredictionRowView();
-      }
+          if(games!==null && games !== undefined){
+            connect(games);
+          }
+          showProbabilities(probabilities);
     }
 
     function connect(){
@@ -57,8 +52,6 @@ View.GroupLayout = function () {
             }
         }
         results = d3.selectAll(".result")._groups["0"];
-        var rowHeight = document.querySelector(".group").offsetHeight+20;
-        var colLeft = document.querySelector(".push-s3").offsetLeft;
         var goals = [];
         for(let i=0; i<games.length; i++){
             goals.push(games[i][0].result.split(":"));
@@ -66,14 +59,17 @@ View.GroupLayout = function () {
         }
         var colours = getColourArray(goals);
         var strokeWidths = getWidthsArray(goals);
+        var rowHeight = document.querySelector(".group").offsetHeight+20;
+        var colLeft = document.querySelector(".push-s3").offsetLeft;
+        var navHeight = document.querySelector("#explainText").offsetHeight + document.querySelector(".nav-wrapper").offsetHeight + document.querySelector(".stage-menu-fixed").offsetHeight;
         for(let i=0; i<results.length/2; i++){
             var data = [];
             for(let j=2*i; j<2*(i+1); j++){
                 cards = [];
                 cards.push(document.querySelector("#"+countries[j][0]));
                 cards.push(document.querySelector("#"+countries[j][1]));
-                data.push(["M " + (cards[0].offsetLeft+colLeft+10) + " " + (cards[0].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170), colours[j][0], strokeWidths[j][0]]);
-                data.push(["M " + (cards[1].offsetLeft+colLeft+10) + " " + (cards[1].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop+results[j].offsetHeight/2-i*rowHeight-170), colours[j][1], strokeWidths[j][1]]);
+                data.push(["M " + (cards[0].offsetLeft+colLeft+10) + " " + (cards[0].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop-results[j].offsetHeight/5-i*rowHeight-navHeight) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop-results[j].offsetHeight/5-i*rowHeight-navHeight), colours[j][0], strokeWidths[j][0]]);
+                data.push(["M " + (cards[1].offsetLeft+colLeft+10) + " " + (cards[1].offsetTop+cards[0].offsetHeight/2) + " Q " + (results[j].offsetLeft+results[j].offsetWidth+60) + " " + (results[j].offsetTop-results[j].offsetHeight/5-i*rowHeight-navHeight) + " " + (results[j].offsetLeft+results[j].offsetWidth-60) + " " + (results[j].offsetTop-results[j].offsetHeight/5-i*rowHeight-navHeight), colours[j][1], strokeWidths[j][1]]);
             }
             var root = d3.select(".row-"+i);
             var paths = root.selectAll("g");
@@ -87,7 +83,6 @@ View.GroupLayout = function () {
                 return d[1];
             });
             link.style("stroke-width", function(d) {
-                console.log(d[2]);
                 return d[2];
             });
         }
@@ -110,7 +105,7 @@ View.GroupLayout = function () {
     function getWidthsArray(goals){
         var widths = [];
         for(let i=0; i<goals.length; i++){
-            widths.push([3+2*parseInt(goals[i][0]), 3+2*parseInt(goals[i][1])]);
+            widths.push([2+3*parseInt(goals[i][0]), 2+3*parseInt(goals[i][1])]);
         }
         return widths;
     }
@@ -125,7 +120,6 @@ View.GroupLayout = function () {
           colour,
           strokeWidth;
        for(let i=0; i<probabilities.length; i++){
-           console.log(probabilities[i]);
            data = [];
            for(let j=0; j<probabilities[i][0].length; j++){
                 country = d3.select("#"+ids[i][j])._groups["0"]["0"];
@@ -146,7 +140,7 @@ View.GroupLayout = function () {
                 strokeWidth = probabilities[i][1][j]*10;
                 var colLeft1 = document.querySelector(".push-s3").offsetLeft;
                 var colLeft2 = document.querySelector(".push-s4").offsetLeft;
-                data.push(["M " + (country.offsetLeft + country.offsetWidth + colLeft1 - 5) + " " + (country.offsetTop+country.offsetHeight/2) + " Q " + (chance.offsetLeft + colLeft2 - 60) + " " + (chance.offsetTop+chance.offsetHeight/2) + " " + (chance.offsetLeft + colLeft2 -10) + " " + (chance.offsetTop+chance.offsetHeight/2), colour, strokeWidth]);
+                data.push(["M " + (country.offsetLeft + country.offsetWidth + colLeft1 - 5) + " " + (country.offsetTop+country.offsetHeight/2) + " Q " + (chance.offsetLeft + colLeft2 - 60) + " " + (chance.offsetTop+chance.offsetHeight/2) + " " + (chance.offsetLeft + colLeft2 -10) + " " + (chance.offsetTop+chance.offsetHeight/2), colour, strokeWidth, country.offsetLeft + country.offsetWidth + colLeft1 + 20, country.offsetTop+country.offsetHeight/2]);
            }
             var root = d3.select(".row2-"+i);
             var paths = root.selectAll("g");
@@ -162,6 +156,19 @@ View.GroupLayout = function () {
            link.style("stroke-width", function(d) {
                return d[2];
            });
+           if(day!==3) {
+               var texts = enterPaths.append("text");
+               texts.attr("class", "probability");
+               texts.html(function(d) {
+                   return parseInt(d[2]*10) + "%";
+               });
+               texts.attr("x", function(d) {
+                   return d[3];
+               });
+               texts.attr("y",function(d) {
+                   return d[4];
+               });
+           }
         }
     }
 
@@ -199,7 +206,6 @@ View.GroupLayout = function () {
         var exitPaths = pathsUpdate.exit().remove();
         var link = enterPaths.append("path").attr("class","link");
         link.attr("d", function (d) {
-        console.log(d);
             return d[0];
         }).style("stroke", function(d){
             return d[1];
@@ -221,7 +227,6 @@ View.GroupLayout = function () {
     
     function toggle(group){
         var groupRow = document.querySelector("#"+group+".s3");
-        console.log(group);
         var x = groupRow.querySelector(".X"),
             one = groupRow.querySelector(".one"),
             two = groupRow.querySelector(".two");
