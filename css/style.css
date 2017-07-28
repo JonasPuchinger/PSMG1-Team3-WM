@@ -179,13 +179,11 @@ path {
 
 .match {
     height: 127px;
-    border-style: solid;
     margin: 10px 0px 10px 0px;
 }
 
 .team-winner {
     height: 60px;
-    border-style: solid;
     margin: 10px 0px 10px 0px;
 }
 
@@ -291,11 +289,11 @@ path {
 }
 
 .team1 {
-    border: solid;
-    border-width: 0px 0px 1px 0px;
+    height: 60px;
 }
 
 .team2 {
+    height: 60px;
     border: solid;
     border-width: 1px 0px 0px 0px;
 }
@@ -312,7 +310,9 @@ path {
     border-style: dashed;
     border-width: 0px 0px 0px 2px;
 }
-
+table {
+    border: 4px solid;
+}
 .group-container {
     width: 25%;
 }
