@@ -33,7 +33,7 @@ View.FinalLayout = function (options) {
             },
             varsMatches = {
                 matches: options.data,
-                winner: 'ARG',
+                winner: 'GER',
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             },
