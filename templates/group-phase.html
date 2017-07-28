@@ -30,15 +30,15 @@
     <div class="row">
       <div class="col s12" id="explainText">
         <div class="col s4 centered" >
-            <p>These are the actual results of matchday <%= currentDay %>.</p>
-            <p>The stroke widths (and the colours) show the distance between the goals of the teams.</p>
+            <p>These are the <b>actual results</b> of matchday <%= currentDay %>.</p>
+            <p>The stroke widths (and the colours) show the difference between the goals of the teams.</p>
         </div>
         <div class="col s4 centered" >
             <p>The teams are ordered by group.</p>
-            <p>Click the flags to get additional information about a team.</p>
+            <p><b>Click</b> the flags to get additional information about a team.</p>
         </div>
         <div class="col s4 centered" >
-            <% if(currentDay!==3) { %><p>This is the predicted result of the group-phase in percent. Stroke widths show also the probabilities.</p><p>Hover the flags to see the predicted results for the next day.</p><% } else { %><p>This is the real result of the group games. The teams connected to 1 and 2 are in the round of 16.</p><% } %>
+            <% if(currentDay!==3) { %><p>This is the <b>predicted result</b> of the group-phase in percent. Stroke widths show also the probabilities.</p><p><b>Hover</b> the flags to see the predicted results for the next day.</p><% } else { %><p>This is the real result of the group games. The teams connected to 1 and 2 are in the round of 16.</p><% } %>
         </div>
       </div>
     </div>
