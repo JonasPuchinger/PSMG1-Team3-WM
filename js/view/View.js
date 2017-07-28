@@ -142,13 +142,11 @@ WMVis.View = function () {
 
     function init(data) {
         stageLabel = document.querySelector("#stage-label");
-        $(".stage-menu-fixed").stick_in_parent();
 
         initElemBrackets(data);
 
         preTournamentLayout = new View.PreTournamentLayout();
         groupLayout = new View.GroupLayout();
-        // preTournamentLayout.init();
     }
 
     that.init = init;

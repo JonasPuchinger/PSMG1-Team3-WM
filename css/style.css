@@ -18,6 +18,8 @@ body {
 .stage-menu-fixed {
     background-color: #fff;
     z-index: 100;
+    position: sticky;
+    top: 0px;
 }
 
 #stage-menu {
@@ -435,5 +437,5 @@ table {
 }
 
 .bar:hover {
-    fill: steelblue; 
+    fill: steelblue;
 }
