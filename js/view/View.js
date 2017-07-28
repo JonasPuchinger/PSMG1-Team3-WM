@@ -79,8 +79,8 @@ WMVis.View = function () {
         preTournamentLayout.setData(predData);
     }
 
-    function showNationModal(nationData) {
-        preTournamentLayout.showNationModal(nationData);
+    function showNationModal(nationData, currentStage, probabilities=null, versus = null) {
+        preTournamentLayout.showNationModal(nationData, currentStage, probabilities, versus);
     }
 
     function showCalcResult(currentState, country, game, calcResult) {
@@ -99,7 +99,7 @@ WMVis.View = function () {
         }
     }
 
-    function changeLayout(layout, data = null, games = null, probabilities = null) {
+    function changeLayout(layout, data = null, games = null, probabilities = null, currentDay = null) {
         document.querySelector("#groups-list-el").innerHTML = "";
         document.querySelector("#resultEl").innerHTML = "";
         hideAllTournamentBracketLayouts();
@@ -110,7 +110,7 @@ WMVis.View = function () {
                 break;
             case 1:
                 groupLayout = new View.GroupLayout();
-                groupLayout.init(data, games, probabilities);
+                groupLayout.init(data, games, probabilities, currentDay);
                 document.querySelector('#hamburger').classList.remove('hidden');
                 break;
             case 2:

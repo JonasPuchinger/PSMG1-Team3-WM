@@ -127,10 +127,11 @@ View.PreTournamentLayout = function() {
         }
     }
 
-    function showNationModal(nationData) {
+    function showNationModal(nationData, currentStage, probabilities, versus) {
       $(document).ready(function() {
         $(".modal").modal({
           complete: function() {
+            $("#probability-chart").empty();
             $("#fifa-rankings-table").empty();
             $("#world-cup-results-table").empty();
             $("#spi-ratings-donut").empty();
@@ -140,10 +141,140 @@ View.PreTournamentLayout = function() {
         var abbrIndexes = get2DArrayIndex(nations, nationData.alt);
         $(".modal-nationflag").attr("src", flagsUrlBase + abbrs[abbrIndexes[0]][abbrIndexes[1]] +".svg");
         $("#modal-nation-header").html(nationData.alt);
-
+        
+        
+                  
         var margin = {top: 20, right: 20, bottom: 30, left: 50};
         var width = 750 - margin.left - margin.right;
         var height = 350 - margin.top - margin.bottom;
+        document.querySelector("#prob").innerHTML = ("");
+        if(currentStage!==3 && versus !== "") {
+            var formatPercent = d3.format(".0%");
+            if(currentStage<3) {
+                document.querySelector("#prob").innerHTML = ("Probabilites to reach the K.O.-phase");
+
+                var keys = ["Gruppenerster","Gruppenzweiter","Ausscheiden"];
+                var colours = ["green", "orange", "red"];
+                
+                      //.on('mouseover', tip.show)
+                  //.on('mouseout', tip.hide);
+            } else {
+                document.querySelector("#prob").innerHTML = ("Probabilites for the next game");
+                
+                var keys = ["WIN","LOSE"];
+                var colours = ["green", "red"];
+                
+            }
+            var keysRange = [];
+                for(let i = 0; i < keys.length; i++) {
+                  keysRange.push((i / keys.length) * (height+20) + 60);
+                }
+                var x = d3.scaleOrdinal()
+                    .range(keysRange);
+
+                var y = d3.scaleLinear()
+                    .range([height, 0]);
+
+                var xAxis = d3.axisBottom(x);
+
+                var yAxis = d3.axisLeft(y)
+                    .tickFormat(formatPercent);
+                
+                var data = [];
+                
+                for(let i=0; i<probabilities.length; i++) {
+                    data.push( [keys[i], parseFloat(probabilities[i]), colours[i]]);
+                }
+            x.domain(data.map(function(d) { return d[0]; }));
+                
+               /* var tip = d3.tip()
+                  .attr('class', 'd3-tip')
+                  .offset([-10, 0])
+                  .html(function(d) {
+                    return "<strong>Probability:</strong> <span style='color:red'>" + d + "</span>";
+                  })*/
+
+                var svg = d3.select("#probability-chart").append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                var detailBox = svg.append("svg:text")
+                      .attr("dx", "20px")
+                      .attr("dy", "-5px")
+                      .attr("text-anchor", "right")
+                      .style("fill", "#CFCFCF")
+                      .style("font-weight", "bold");
+                //svg.call(tip);
+
+                  svg.append("g")
+                      .attr("class", "x axis")
+                      .attr("transform", "translate(0," + height + ")")
+                      .call(xAxis);
+        
+            
+                    svg.append("g")
+                      .attr("class", "y axis")
+                      .call(yAxis)
+                    //.append("text")
+                      //.attr("transform", "rotate(-90)")
+                      //.attr("y", 6)
+                      //.attr("dy", ".71em")
+                      //.style("text-anchor", "end")
+                      //.text("Frequency");
+            
+                  svg.selectAll(".bar")
+                      .data(data)
+                      .enter().append("rect")
+                      .attr("class", "bar")
+                      .attr("x", function(d) { return x(d[0])-40; })
+                      .attr("width", 80)
+                      .attr("y", function(d) { return y(d[1]); })
+                      .attr("height", function(d) { return height - y(d[1]); })
+                      .style("fill", function (d) { return d[2]; })
+                      .on("mouseover", function(d, i, j) {
+                        detailBox.attr("x", x.range()[i] - x.range()[0]/2)
+                          .attr("y", y(d[1]))
+                          .text(formatPercent(d[1]))
+                          .style("visibility", "visible");
+
+                        d3.select(this)
+                          .style("opacity", 0.7);
+                      }).on("mouseout", function() {
+                        detailBox.style("visibility", "hidden");
+
+                        d3.select(this)
+                          .style("opacity", 1.0);
+                      });
+            
+                if(versus !== null) {
+                    svg.append("g")
+                        .attr("transform", "translate(" + (width/2) + "," + (height/2) + ")")
+                       .append("text")
+                       .attr("class", "versus")
+                       .html("vs. " + versus);
+                }
+        }
+        /*if(probabilities!==null){
+            var probabilityTable = document.querySelector("#probability-table");
+            probabilityTable.innerHTML = "<tr><th>Win</th><th>Tie</th><th>Lose</th><th></th><th></th></tr>";
+            for(let i=0; i<probabilities.length; i++) {
+                var row = document.createElement("tr");
+                row.setAttribute("id", "game-"+i);
+                probabilityTable.appendChild(row);
+                for(let j=0; j<3; j++) {
+                    var cell = document.createElement("td");
+                    cell.innerHTML = parseInt(probabilities[i][1][j]*10)/10+"%";
+                    row.appendChild(cell);
+                }
+                var nation = document.createElement("td");
+                nation.innerHTML = "vs. " + probabilities[i][0];
+                row.appendChild(nation);
+            }
+        }*/
+        
+
 
         var months = ["January", "February", "March", "April", "May", "June", "Juli", "August", "September", "October", "November", "December"];
 
@@ -406,7 +537,7 @@ View.PreTournamentLayout = function() {
     }
     
     function getWidthsArray(goals){
-        var widths = [3+2*parseInt(goals[0]), 3+2*parseInt(goals[1])];
+        var widths = [2+3*parseInt(goals[0]), 2+3*parseInt(goals[1])];
         return widths;
     }
     

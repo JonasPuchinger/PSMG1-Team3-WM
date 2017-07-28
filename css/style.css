@@ -100,6 +100,11 @@ path {
     stroke: #000;
 }
 
+.versus {
+    font: 10px sans-serif;
+    font-size: 20pt;
+}
+
 .arc text {
     font: 10px sans-serif;
     text-anchor: middle;
@@ -317,7 +322,7 @@ path {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding-top: 60%;
+    margin-top: 60%;
     font-size: 30pt;
 }
 
@@ -409,10 +414,26 @@ path {
     text-align: center;
 }
 
+.probability {
+    position: absolute;
+    font-size: 10pt;
+    align-self: center;
+    color: black;
+    z-index: 50;
+}
+
 #tournamentBracketsPreKo .col,
 #tournamentBracketsPreQuarter .col,
 #tournamentBracketsPreSemi .col,
 #tournamentBracketsPreFinal .col,
 #tournamentBracketsWinner .col {
     padding: 0 !important;
+}
+
+.bar {
+    z-index: 100;
+}
+
+.bar:hover {
+    fill: steelblue; 
 }

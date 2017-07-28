@@ -77,7 +77,7 @@
           <div class="row nationrow" id="<%= nations[key1][key2] %>">
             <div class="col s2 nationcard-col" id="<%= group %>">
               <div class="card nationcard" id="<%= ids[key1][key2] %>">
-                <div class="card-content">
+                <div class="card-content" id="<%= ids[key1][key2] %>">
                   <img class="nationflag" id="<%= ids[key1][key2] %>" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="56" height="40" group="<%= group %>">
                   <span id="<%= group %>"><%= nation %></span>
                 </div>
