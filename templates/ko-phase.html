@@ -1,5 +1,15 @@
 <script type="text/x-underscore" id="ro16Template">
-
+    <div class="container">
+        <div class="row">
+            <div class="col s12 centered">
+                <p>The last few stages represent the different phases of the knockout system: </p>
+                <p>Round of 16, quarter finals, semi finals, finals and after the tournament.</p>
+                <p><b>Hover</b> over a team to see his <b>predicted chances</b> of reaching a specific tournament stage.</p>
+                <p><b>Click</b> on a team to get <b>additional information</b> about it.</p>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
     <div class="ro16 col s2">
 
         <% _.each(matches, function(match,id) {%>
@@ -159,20 +169,45 @@
 </script>
 
 <script type="text/x-underscore" id="finalTemplate">
+    <div class="final-winner col s3 offset-s1">
 
-    <div class="final col s2 offset-s1">
-
-        <% _.each(matches, function(match,id) {%>
-            <div class="match" id="f<%=id+1%>">
+        <div class="winner row">
+            <div class="winner-frame col s7 offset-s2" id="w1">
+                <div>WINNER</div>
                 <table>
-                    <tr class="team team1" id="<%=match.game[0]%>">
+                    <tr class="team-winner team" id="<%=winner%>">
                         <td class="img">
-                            <% if(match.game[0] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" alt="<%=dictionary[match.game[0]]%>" width="40" height="30">
+                            <% if(winner != "TBD") {%>
+                                <img src="<%=flagsUrlBase%><%=winner%>.svg" alt="<%=dictionary[winner]%>" width="40" height="30">
                                 <%};%>
                         </td>
-                        <td class="country">
+                        <td class="country-winner">
                             <span>
+                            <% if(winner != "TBD") {%>
+                                <%=dictionary[winner]%>
+                            <%}
+                            else {%>
+                                TBD
+                            <%}%>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="final row">
+            <div class="final-frame col s8">
+                <% _.each(matches, function(match,id) {%>
+                    <div class="match" id="f<%=id+1%>">
+                        <table>
+                            <tr class="team team1" id="<%=match.game[0]%>">
+                                <td class="img">
+                                    <% if(match.game[0] != "TBD") {%>
+                                        <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" alt="<%=dictionary[match.game[0]]%>" width="40" height="30">
+                                        <%};%>
+                                </td>
+                                <td class="country">
+                                    <span>
                             <% if(match.game[0] != "TBD") {%>
                                 <%=dictionary[match.game[0]]%>
                             <%}
@@ -180,19 +215,19 @@
                                 <%=match.game[0]%>
                             <%}%>
                             </span>
-                        </td>
-                        <td class="goals">
-                            <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
-                        </td>
-                    </tr>
-                    <tr class="team team2" id="<%=match.game[1]%>">
-                        <td class="img">
-                            <% if(match.game[1] != "TBD") {%>
-                                <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" alt="<%=dictionary[match.game[1]]%>" width="40" height="30">
-                                <%};%>
-                        </td>
-                        <td class="country">
-                            <span>
+                                </td>
+                                <td class="goals">
+                                    <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
+                                </td>
+                            </tr>
+                            <tr class="team team2" id="<%=match.game[1]%>">
+                                <td class="img">
+                                    <% if(match.game[1] != "TBD") {%>
+                                        <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" alt="<%=dictionary[match.game[1]]%>" width="40" height="30">
+                                        <%};%>
+                                </td>
+                                <td class="country">
+                                    <span>
                             <% if(match.game[1] != "TBD") {%>
                                 <%=dictionary[match.game[1]]%>
                             <%}
@@ -200,18 +235,29 @@
                                 <%=match.game[1]%>
                             <%}%>
                             </span>
-                        </td>
-                        <td class="goals">
-                            <span><%= typeof(match.result[1])!== 'undefined' ?  match.result[1] : '-' %></span>
-                        </td>
-                    </tr>
-                </table>
+                                </td>
+                                <td class="goals">
+                                    <span><%= typeof(match.result[1])!== 'undefined' ?  match.result[1] : '-' %></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <%});%>
             </div>
-            <%});%>
-    </div>
+        </div>
 </script>
-<div id="tournamentBracketsPreKo" class="hidden row"></div>
-<div id="tournamentBracketsPreQuarter" class="hidden row"></div>
-<div id="tournamentBracketsPreSemi" class="hidden row"></div>
-<div id="tournamentBracketsPreFinal" class="hidden row"></div>
-<div id="tournamentBracketsWinner" class="hidden row"></div>
+<div id="tournamentBracketsPreKo" class="hidden ">
+    <div class="row"></div>
+</div>
+<div id="tournamentBracketsPreQuarter" class="hidden ">
+    <div class="row"></div>
+</div>
+<div id="tournamentBracketsPreSemi" class="hidden ">
+    <div class="row"></div>
+</div>
+<div id="tournamentBracketsPreFinal" class="hidden ">
+    <div class="row"></div>
+</div>
+<div id="tournamentBracketsWinner" class="hidden ">
+    <div class="row"></div>
+</div>

@@ -35,6 +35,7 @@ View.QuarterLayout = function (options) {
             match.result = ["-", "-"];
             return match;
         });
+
         var quarterTemplate = _.template($('#quarterTemplate').html()),
             varsTBD = {
                 matches: TBD,
@@ -51,6 +52,7 @@ View.QuarterLayout = function (options) {
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             };
+
         compiledMatches = quarterTemplate(varsMatches);
         compiledMatchesWithoutScore = quarterTemplate(varsMatchesWithoutScore);
         compiledTBD = quarterTemplate(varsTBD);

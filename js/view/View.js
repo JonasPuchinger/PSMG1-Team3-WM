@@ -1,8 +1,10 @@
-var WMVis = WMVis || {};
+var WMVis = WMVis || {},
+    View = View || {},
+    EventPublisher = EventPublisher || {};
 WMVis.View = function () {
     "use strict";
 
-    const stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final"];
+    const stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
 
     var that = new EventPublisher(),
         preTournamentLayout,
@@ -10,26 +12,16 @@ WMVis.View = function () {
         quarterLayout,
         semiLayout,
         finalLayout,
+        winnerLayout,
         groupLayout,
         stageLabel;
 
-    function init(data) {
-        stageLabel = document.querySelector("#stage-label");
-        $(".stage-menu-fixed").stick_in_parent();
-
-        initElemBrackets(data);
-
-        preTournamentLayout = new View.PreTournamentLayout();
-        groupLayout = new View.GroupLayout();
-        // preTournamentLayout.init();
-    }
-
     function initElemBrackets(data) {
-        var selector1 = '#tournamentBracketsPreKo';
-        var selector2 = '#tournamentBracketsPreQuarter';
-        var selector3 = '#tournamentBracketsPreSemi';
-        var selector4 = '#tournamentBracketsPreFinal';
-        var selector5 = '#tournamentBracketsWinner';
+        var selector1 = '#tournamentBracketsPreKo > div',
+            selector2 = '#tournamentBracketsPreQuarter > div',
+            selector3 = '#tournamentBracketsPreSemi > div',
+            selector4 = '#tournamentBracketsPreFinal > div',
+            selector5 = '#tournamentBracketsWinner > div';
 
 
         ro16Layout = new View.Ro16Layout({
@@ -146,6 +138,17 @@ WMVis.View = function () {
         document.querySelector('#tournamentBracketsPreSemi').classList.add('hidden');
         document.querySelector('#tournamentBracketsPreFinal').classList.add('hidden');
         document.querySelector('#tournamentBracketsWinner').classList.add('hidden');
+    }
+
+    function init(data) {
+        stageLabel = document.querySelector("#stage-label");
+        $(".stage-menu-fixed").stick_in_parent();
+
+        initElemBrackets(data);
+
+        preTournamentLayout = new View.PreTournamentLayout();
+        groupLayout = new View.GroupLayout();
+        // preTournamentLayout.init();
     }
 
     that.init = init;

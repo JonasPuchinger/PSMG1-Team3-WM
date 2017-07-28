@@ -9,10 +9,10 @@ body {
 }
 
 #hamburger-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .stage-menu-fixed {
@@ -57,10 +57,10 @@ body {
 }
 
 .modal-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-header h3 {
@@ -127,13 +127,6 @@ path {
     cursor: pointer;
 }
 
-.ro16,
-.quarter,
-.semi,
-.final {
-    /*    display: table-cell;*/
-}
-
 .ro16 {
     margin: 0px 0px 0px 10px;
 }
@@ -143,13 +136,15 @@ path {
 #tournamentBracketsPreSemi,
 #tournamentBracketsPreFinal,
 #tournamentBracketsWinner {
+    position: relative;
     min-width: 1072px;
     margin: 0px 0px 0px 10px;
 }
 
 .quarter,
 .semi,
-.final {
+.final,
+.winner{
     position: relative;
 }
 
@@ -162,7 +157,11 @@ path {
 }
 
 .final {
-    top: 479px;
+    top: 394px;
+}
+
+.winner {
+    top: 325px;
 }
 
 .quarter .match {
@@ -170,15 +169,11 @@ path {
     padding: 0px;
 }
 
-.semi > div#s1.match {
+.semi>div#s1.match {
     margin: 0px 0px 421px 0px;
 }
 
-.semi > div#s2.match  {
-    margin: 0px;
-}
-
-.final .match {
+.semi>div#s2.match {
     margin: 0px;
 }
 
@@ -188,11 +183,18 @@ path {
     margin: 10px 0px 10px 0px;
 }
 
+.team-winner {
+    height: 60px;
+    border-style: solid;
+    margin: 10px 0px 10px 0px;
+}
+
 .country {
     width: 58%;
-    min-width:83px;
+    min-width: 83px;
     font-size: 13px;
-    font-size: calc(7px + .5vw);
+    height: 60px;
+    font-size: calc(10px + .3vw);
 }
 
 .img {
@@ -203,6 +205,14 @@ path {
 .goals {
     min-width: 40px;
     width: 20%;
+}
+
+.country-winner {
+    width: 70%;
+    min-width: 83px;
+    font-size: 13px;
+    height: 60px;
+    font-size: calc(10px + .3vw);
 }
 
 .group-row {
@@ -275,7 +285,8 @@ path {
 }
 
 .team1,
-.team2 {
+.team2,
+.team-winner {
     background-color: #f6f6f6;
 }
 
@@ -289,13 +300,7 @@ path {
     border-width: 1px 0px 0px 0px;
 }
 
-.team1>.img {
-    width: 40px;
-    height: 30px;
-    padding: 7px 0px 0px 10px;
-}
-
-.team2>.img {
+.img{
     width: 40px;
     height: 30px;
     padding: 7px 0px 0px 10px;
@@ -321,8 +326,7 @@ path {
     font-size: 30pt;
 }
 
-
-.X{
+.X {
     justify-content: center;
     align-items: center;
     font-size: 30pt;
@@ -422,7 +426,7 @@ path {
 #tournamentBracketsPreQuarter .col,
 #tournamentBracketsPreSemi .col,
 #tournamentBracketsPreFinal .col,
-#tournamentBracketsWinner .col{
+#tournamentBracketsWinner .col {
     padding: 0 !important;
 }
 

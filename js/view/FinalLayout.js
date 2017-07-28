@@ -23,22 +23,27 @@ View.FinalLayout = function (options) {
             match.result = ["-", "-"];
             return match;
         });
+
         var finalTemplate = _.template($('#finalTemplate').html()),
             varsTBD = {
                 matches: TBD,
+                winner: 'TBD',
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             },
             varsMatches = {
                 matches: options.data,
+                winner: 'ARG',
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             },
             varsMatchesWithoutScore = {
                 matches: matchesWithoutScore,
+                winner: 'TBD',
                 flagsUrlBase: flagsUrlBase,
                 dictionary: options.dictionary
             };
+
         compiledMatches = finalTemplate(varsMatches);
         compiledMatchesWithoutScore = finalTemplate(varsMatchesWithoutScore);
         compiledTBD = finalTemplate(varsTBD);

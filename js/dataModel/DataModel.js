@@ -1,4 +1,5 @@
 var WMVis = WMVis || {},
+    EventPublisher = EventPublisher || {},
     d3 = d3 || {};
 
 WMVis.DataModel = function () {
@@ -107,7 +108,7 @@ WMVis.DataModel = function () {
                     cutData = [];
 
                 //Filtern nach Achtelfinal-Kandidaten
-                for (let entry of data) {
+                for (var entry of data) {
                     if (entry.sixteen == 1) {
                         cutData.push(entry);
                     }
