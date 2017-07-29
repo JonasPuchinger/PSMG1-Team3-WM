@@ -26,19 +26,13 @@
 
     <main>
         <div class="row stage-menu-fixed">
-          <div class="col s2">
-            <div class="section" id="hamburger-section">
-              <a href="#" id="hamburger" data-activates="slide-out" class="button-collapse black-text"><i class="material-icons">menu</i></a>
+            <div class="col s2">
+                <div class="section" id="hamburger-section">
+                    <a href="#" id="hamburger" data-activates="slide-out" class="button-collapse black-text"><i class="material-icons">menu</i></a>
+                </div>
             </div>
-          </div>
-          <div class="col s8">
-            <div class="section" id="stage-menu">
-                <label id="stage-label" for="stage-slider">Before Tournament</label>
-                <input id="stage-slider" type="range" min="0" max="8" value="0" step="1">
-            </div>
-            <div class="divider"></div>
-          </div>
-          <div class="col s2"></div>
+            <div id="stage-menu"></div>
+            <div class="col s1"></div>
         </div>
 
         <div w3-include-html="templates/pre-tournament.html" id="pre-tournament-layout"></div>
@@ -48,44 +42,44 @@
         <div w3-include-html="templates/ko-phase.html"></div>
 
         <div id="nation-modal" class="modal">
-          <div class="modal-content">
-            <div class="section">
-              <div class="modal-header">
-                <img class="modal-nationflag" width="56" height="40" group="">
-                <h3 id="modal-nation-header"></h3>
-              </div>
+            <div class="modal-content">
+                <div class="section">
+                    <div class="modal-header">
+                        <img class="modal-nationflag" width="56" height="40" group="">
+                        <h3 id="modal-nation-header"></h3>
+                    </div>
+                </div>
+                <div class="section centered">
+                    <h4 id=prob></h4>
+                    <div id="probability-chart"></div>
+                </div>
+                <div class="section centered">
+                    <h4>FIFA Rankings</h4>
+                    <div id="fifa-rankings-table"></div>
+                </div>
+                <div class="section centered">
+                    <h4>World Cup Results</h4>
+                    <div id="world-cup-results-table"></div>
+                    <div>
+                        <ul>
+                            <li>QF = Quarter Final</li>
+                            <li>G3 = Third in Group</li>
+                            <li>G4 = Fourth in Group</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section centered">
+                    <h4>SPI Ratings</h4>
+                    <div id="spi-ratings-donut"></div>
+                    <div>
+                        <ul>
+                            <li>SPI = <a target="_blank" href="https://fivethirtyeight.com/features/its-brazils-world-cup-to-lose/">Soccer Power Index</a></li>
+                            <li>SPI Offense = Average Goals scored by a team</li>
+                            <li>SPI Defense = Average Goals conceded by a team</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="section centered">
-              <h4 id=prob></h4>
-              <div id="probability-chart"></div>
-            </div>
-            <div class="section centered">
-              <h4>FIFA Rankings</h4>
-              <div id="fifa-rankings-table"></div>
-            </div>
-            <div class="section centered">
-              <h4>World Cup Results</h4>
-              <div id="world-cup-results-table"></div>
-              <div>
-                <ul>
-                  <li>QF = Quarter Final</li>
-                  <li>G3 = Third in Group</li>
-                  <li>G4 = Fourth in Group</li>
-                </ul>
-              </div>
-            </div>
-            <div class="section centered">
-              <h4>SPI Ratings</h4>
-              <div id="spi-ratings-donut"></div>
-              <div>
-                <ul>
-                  <li>SPI = <a target="_blank" href="https://fivethirtyeight.com/features/its-brazils-world-cup-to-lose/">Soccer Power Index</a></li>
-                  <li>SPI Offense = Average Goals scored by a team</li>
-                  <li>SPI Defense = Average Goals conceded by a team</li>
-                </ul>
-              </div>
-            </div>
-        </div>
 
     </main>
 
@@ -126,9 +120,11 @@
     <script src="js/dataModel/gamesData.js"></script>
     <script>
         w3.includeHTML();
+
     </script>
     <script>
         WMVis.loadDataModel();
+
     </script>
 
 </body>

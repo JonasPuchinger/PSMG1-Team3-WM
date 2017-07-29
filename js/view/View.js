@@ -16,6 +16,18 @@ WMVis.View = function () {
         groupLayout,
         stageLabel;
 
+    function initStageMenu() {
+        var stageMenu = document.querySelector('#stage-menu');
+
+        for(var i=0; i< stages.length; i++) {
+            var stage = document.createElement('div');
+            stage.classList.add('col','s1','stage');
+            stage.innerHTML = stages[i];
+            stage.setAttribute("id",'stage'+i);
+            stageMenu.appendChild(stage);
+        }
+    }
+
     function initElemBrackets(data) {
         var selector1 = '#tournamentBracketsPreKo > div',
             selector2 = '#tournamentBracketsPreQuarter > div',
@@ -69,10 +81,6 @@ WMVis.View = function () {
         quarterLayout.appendMatches(selector5);
         semiLayout.appendMatches(selector5);
         finalLayout.appendMatches(selector5);
-    }
-
-    function changeStageLabel(stage) {
-        stageLabel.innerHTML = stages[stage];
     }
 
     function setData(predData) {
@@ -141,8 +149,7 @@ WMVis.View = function () {
     }
 
     function init(data) {
-        stageLabel = document.querySelector("#stage-label");
-
+        initStageMenu();
         initElemBrackets(data);
 
         preTournamentLayout = new View.PreTournamentLayout();
@@ -151,7 +158,6 @@ WMVis.View = function () {
 
     that.init = init;
     that.stages = stages;
-    that.changeStageLabel = changeStageLabel;
     that.setData = setData;
     that.showNationModal = showNationModal;
     that.showCalcResult = showCalcResult;

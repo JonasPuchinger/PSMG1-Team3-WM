@@ -28,10 +28,7 @@ Controller.ElemBracketController = function () {
     }
 
     function onMatchHovered(event) {
-        that.notifyAll("teamHovered", {
-            target: event.target,
-            event: "enter"
-        });
+        that.notifyAll("teamHovered", event.target);
     }
 
     function onMatchLeft(event) {

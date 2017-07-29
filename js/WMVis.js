@@ -51,7 +51,7 @@ WMVis = (function () {
     function initController() {
         controller = new WMVis.Controller();
         controller.init();
-        controller.addEventListener("stageSliderChanged", onStageSliderChanged);
+        controller.addEventListener("stageChanged", onStageChanged);
         controller.addEventListener("nationCardHovered", showCalcResult);
         controller.addEventListener("nationCardLeft", removeCalcResult);
         controller.addEventListener("nationCardClicked", onNationCardClicked);
@@ -63,9 +63,9 @@ WMVis = (function () {
         controller.addEventListener("teamClicked", onTeamClicked);
     }
   
-    function onStageSliderChanged(event) {
-        currentState = parseInt(event.data);
-        view.changeStageLabel(currentState);
+    function onStageChanged(event) {
+        currentState = parseInt(event.data.replace(/\D+/g, ""),10);
+        console.log(currentState);
 
         switch (currentState) {
             case 0: //Before Tournament
@@ -286,41 +286,6 @@ WMVis = (function () {
 
     function final() {
         view.changeLayout(6);
-    }
-
-    function onStageSliderChanged(event) {
-        currentState = parseInt(event.data, 10);
-        view.changeStageLabel(currentState);
-
-        switch (currentState) {
-            case 0: //Before Tournament
-                preTournament();
-                break;
-            case 1: //After Md1
-                md1();
-                break;
-            case 2: //After Md2
-                md2();
-                break;
-            case 3: //After Md3
-                md3();
-                break;
-            case 4: //Before K.O.
-                ko();
-                break;
-            case 5: //After Ro16
-                ro16();
-                break;
-            case 6: //After Quarter
-                quarter();
-                break;
-            case 7: //After Semi
-                semi();
-                break;
-            case 8: //After Finals
-                final();
-                break;
-        }
     }
 
     function onNationCardClicked(event) {

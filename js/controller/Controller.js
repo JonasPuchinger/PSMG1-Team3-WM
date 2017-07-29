@@ -7,11 +7,11 @@ WMVis.Controller = function () {
         preTournamentController,
         groupController,
         elemBracketController,
-        stageSlider;
+        stageMenu;
 
     function init() {
-        stageSlider = document.querySelector("#stage-slider");
-        stageSlider.addEventListener("input", onSliderChange);
+        stageMenu = document.querySelector("#stage-menu");
+        stageMenu.addEventListener("click", onStageChange);
 
         initElemBracketController();
     }
@@ -40,9 +40,9 @@ WMVis.Controller = function () {
         elemBracketController.addEventListener("teamClicked", onTeamClicked);
     }
 
-    function onSliderChange() {
-        var newStage = stageSlider.value;
-        that.notifyAll("stageSliderChanged", newStage);
+    function onStageChange(event) {
+        var newStage = event.target.id;
+        that.notifyAll("stageChanged", newStage);
     }
 
     function onTeamHovered(event) {
@@ -83,7 +83,6 @@ WMVis.Controller = function () {
 
     that.initPreTournamentController = initPreTournamentController;
     that.initGroupController = initGroupController;
-    that.initElemBracketController = initElemBracketController;
     that.init = init;
     return that;
 };

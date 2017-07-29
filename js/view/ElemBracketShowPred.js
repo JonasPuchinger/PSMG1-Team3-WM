@@ -28,11 +28,11 @@ WMVis.ElemBracketShowPred = function (predData) {
 
     function showPredRow(state, data) {
         recentChanges = [];
-        country = data.target.children[1].innerText;
+        country = data.children[1].innerText;
 
         switch (state) {
             case 4: //Pre Ro16
-                var ro16MatchID = parseInt((data.target.parentNode.parentNode.parentNode.id).replace(/\D/g, ''), 10),
+                var ro16MatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''), 10),
                     qMatchID = Math.round((ro16MatchID) / 2),
                     sMatchID = Math.round((qMatchID) / 2),
                     fMatchID = 1,
@@ -68,7 +68,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                 break;
 
             case 5: //Pre Quarter
-                    qMatchID = parseInt((data.target.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
+                    qMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
                     sMatchID = Math.round((qMatchID) / 2);
                     fMatchID = 1;
                     countryPred = _.find(preQuarter, function (obj) {
@@ -99,7 +99,7 @@ WMVis.ElemBracketShowPred = function (predData) {
                 break;
 
             case 6: //Pre Semi
-                    sMatchID = parseInt((data.target.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
+                    sMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
                     fMatchID = 1;
                     countryPred = _.find(preSemi, function (obj) {
                         if (obj.country === country) {
