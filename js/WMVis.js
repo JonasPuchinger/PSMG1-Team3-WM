@@ -8,7 +8,7 @@ WMVis = (function () {
         view,
         gamesData,
         elemBracketPredView,
-        currentState = 0;
+        currentStage = 0;
 
      function initView() {
         var optionsView = {
@@ -64,10 +64,10 @@ WMVis = (function () {
     }
   
     function onStageChanged(event) {
-        currentState = parseInt(event.data.replace(/\D+/g, ""),10);
-        console.log(currentState);
+        currentStage = parseInt(event.data.replace(/\D+/g, ""),10);
 
-        switch (currentState) {
+        view.changeStage(currentStage);
+        switch (currentStage) {
             case 0: //Before Tournament
                 preTournament();
                 break;
@@ -209,7 +209,7 @@ WMVis = (function () {
 
         var abbrs = dataModel.getNationsAbbrs(nations);
         var probabilities = getMostProbableResult(md1);
-        view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities, currentState);
+        view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities, currentStage);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function () {
             controller.initGroupController();
@@ -235,7 +235,7 @@ WMVis = (function () {
 
         var abbrs = dataModel.getNationsAbbrs(nations);
         var probabilities = getMostProbableResult(md2);
-        view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities, currentState);
+        view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities, currentStage);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function () {
             controller.initGroupController();
@@ -261,7 +261,7 @@ WMVis = (function () {
 
         var abbrs = dataModel.getNationsAbbrs(nations);
         var probabilities = getMostProbableResult(md3);
-        view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities, currentState);
+        view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities, currentStage);
         // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function () {
             controller.initGroupController();
@@ -295,12 +295,12 @@ WMVis = (function () {
         for(let i='A'; i<event.data.getAttribute("group"); i++) {
             index++;
         }
-        probabilities = getProbabilities(dataModel.getMatchday(currentState), nation);
-        view.showNationModal(event.data, currentState, probabilities);
+        probabilities = getProbabilities(dataModel.getMatchday(currentStage), nation);
+        view.showNationModal(event.data, currentStage, probabilities);
     }
 
     function onTeamHovered(event) {
-        elemBracketPredView.showPredRow(currentState, event.data);
+        elemBracketPredView.showPredRow(currentStage, event.data);
     }
 
     function onTeamHoverLeft() {
@@ -311,42 +311,42 @@ WMVis = (function () {
         var elem = event.data;
         var parent = $(elem).parents('tr:first');
         var img = parent.find('td.img').get(0).children[0];
-        var data = dataModel.getMatchday(currentState),
+        var data = dataModel.getMatchday(currentStage),
             probabilityController = new WMVis.ProbabilityController(),
             probabilities = [],
             id;
         for(let i= 0; i<data.length; i++) {
             if(data[i].country === img.getAttribute("alt")) {
                 id = data[i].country_id;
-                probabilities.push(probabilityController.getProbability(data[i], currentState));
+                probabilities.push(probabilityController.getProbability(data[i], currentStage));
             }
         }
-        var game = gamesData.getGame(currentState, id);
+        var game = gamesData.getGame(currentStage, id);
         var versus = "";
         if(game !== undefined) {
             versus = game[1]
             for(let i=0; i<data.length; i++) {
                 if(data[i].country_id === versus) {
-                    probabilities.push(probabilityController.getProbability(data[i], currentState));
+                    probabilities.push(probabilityController.getProbability(data[i], currentStage));
                 }
             }
         }
-        view.showNationModal(img, currentState, probabilities, versus);
+        view.showNationModal(img, currentStage, probabilities, versus);
 }
 
     function showCalcResult(event) {
-        var data = dataModel.getMatchday(currentState),
+        var data = dataModel.getMatchday(currentStage),
             flag = event.data.target,
             games,
             group;
-        switch (currentState) {
+        switch (currentStage) {
             case 0:
-                games = gamesData.getGroupGames(currentState, flag.id);
+                games = gamesData.getGroupGames(currentStage, flag.id);
                 group = flag.getAttribute("group");
                 break;
             case 1:
             case 2:
-                games = gamesData.getGames(currentState, flag.id);
+                games = gamesData.getGames(currentStage, flag.id);
                 group = flag.id;
                 break;
             default:
@@ -360,19 +360,19 @@ WMVis = (function () {
             for(let i=0; i<games.length; i++){
                 probabilities.push(probabilityController.calculateResult(games[i].game, data));
             }
-            view.showCalcResult(currentState, group, games, probabilities);
+            view.showCalcResult(currentStage, group, games, probabilities);
         }
     }
 
     function removeCalcResult(event) {
         var flag = event.data.target;
-        switch (currentState) {
+        switch (currentStage) {
             case 0:
-                view.removeCalcResult(currentState, flag.getAttribute("group"));
+                view.removeCalcResult(currentStage, flag.getAttribute("group"));
                 break;
             case 1:
             case 2:
-                view.removeCalcResult(currentState, flag.id);
+                view.removeCalcResult(currentStage, flag.id);
                 break;
             default:
                 break;

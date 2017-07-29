@@ -14,7 +14,10 @@ WMVis.View = function () {
         finalLayout,
         winnerLayout,
         groupLayout,
-        stageLabel;
+        currentStage = 0,
+        backgroundColorHovered = '#A9A9A9',
+        backgroundColorNormal = '#FFFFFF',
+        fontColorNormal = '#000000';
 
     function initStageMenu() {
         var stageMenu = document.querySelector('#stage-menu');
@@ -26,6 +29,23 @@ WMVis.View = function () {
             stage.setAttribute("id",'stage'+i);
             stageMenu.appendChild(stage);
         }
+
+        changeStage(0);
+    }
+
+    function changeStage(newStage, oldStage = currentStage) {
+        $('#stage'+oldStage).css({
+            'background-color': backgroundColorNormal,
+            'font-weight': 'normal',
+            'color': fontColorNormal
+        });
+
+        $('#stage'+newStage).css({
+            'background-color': backgroundColorHovered,
+            'font-weight': 'bold',
+            'color': backgroundColorNormal
+        });
+        currentStage = newStage;
     }
 
     function initElemBrackets(data) {
@@ -156,6 +176,7 @@ WMVis.View = function () {
         groupLayout = new View.GroupLayout();
     }
 
+    that.changeStage = changeStage;
     that.init = init;
     that.stages = stages;
     that.setData = setData;

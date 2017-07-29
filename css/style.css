@@ -25,6 +25,10 @@ body {
     /* border -> "color: black" to get different color than divider */
 }
 
+#stage-menu:hover {
+    cursor: pointer;
+}
+
 #stage-menu {
     width: 100%;
     justify-content: center;
@@ -39,6 +43,8 @@ body {
     height: 60px;
     border-style: solid;
     border-width: 2px;
+    border-color: black;
+    font-size: calc(7px + .5vw);
 }
 
 #stage-label {
