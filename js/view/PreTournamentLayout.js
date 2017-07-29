@@ -1,3 +1,4 @@
+// Jonas Puchinger
 var d3 = d3 || {};
 var WMVis = WMVis || {};
 var View = View || {};
@@ -142,11 +143,11 @@ View.PreTournamentLayout = function() {
         $(".modal-nationflag").attr("src", flagsUrlBase + abbrs[abbrIndexes[0]][abbrIndexes[1]] +".svg");
         $("#modal-nation-header").html(nationData.alt);
 
-
-
         var margin = {top: 20, right: 20, bottom: 30, left: 50};
         var width = 750 - margin.left - margin.right;
         var height = 350 - margin.top - margin.bottom;
+
+        // <Vanessa Hahn>
         document.querySelector("#prob").innerHTML = ("");
         if(currentStage!==3 && versus !== "") {
             var formatPercent = d3.format(".0%");
@@ -238,6 +239,7 @@ View.PreTournamentLayout = function() {
                        .html("vs. " + versus);
                 }
         }
+        // </Vanessa Hahn>
 
         var months = ["January", "February", "March", "April", "May", "June", "Juli", "August", "September", "October", "November", "December"];
 
@@ -252,11 +254,10 @@ View.PreTournamentLayout = function() {
         var xRankings = d3.scaleTime().range([0, width]);
 	      var yRankings = d3.scaleLinear().range([height, 0]);
 
-        var allRankings2 = [];
         d3.csv("../../data/fifa_rankings_history.csv", function(d, i) {
           if(d["team"] == nationData.alt) {
             d.Date = parseTimeRankings(d.Date.substring(0, 4) + "-" + months[parseInt(d.Date.substring(5)) - 1]);
-            d.Value = +d.Value;
+            d.Value = + d.Value;
             return d;
           }
         }, function(error, data) {
@@ -274,7 +275,10 @@ View.PreTournamentLayout = function() {
 
           xRankings.domain(d3.extent(data, function(d) { return d.Date; }));
 
-          yRankings.domain([211, 1]);
+          var firstFIFARank = 1;
+          var lastFIFARank = 211;
+
+          yRankings.domain([lastFIFARank, firstFIFARank]);
 
           gRankings.append("g")
               .attr("class", "axis axis--x")
@@ -313,6 +317,8 @@ View.PreTournamentLayout = function() {
 
         var xResults = d3.scaleTime().range([0, width]);
 	      var yResults = d3.scaleOrdinal().range(resultsRange);
+        var colorOrange = "#FF8C00";
+        var colorBlue = "#4682B4";
 
         d3.csv("../../data/world_cup_data.csv", function(d) {
           if(d["Country Name"] == nationData.alt) {
@@ -358,7 +364,7 @@ View.PreTournamentLayout = function() {
               .attr("cx", function(d) { return xResults(d.Year); })
               .attr("cy", function(d) { return yResults(d.Position); })
               .attr("r", 4)
-              .style("fill", "steelblue");
+              .style("fill", colorBlue);
         });
 
         var radius = Math.min(width, height) / 2;
@@ -400,9 +406,9 @@ View.PreTournamentLayout = function() {
             .attr("d", arc)
             .style("fill", function(d, i) {
               if(i % 2 == 0) {
-                return "#ff8c00";
+                return colorOrange;
               } else {
-                return "steelblue";
+                return colorBlue;
               }
             });
 
@@ -435,7 +441,8 @@ View.PreTournamentLayout = function() {
       $("#world-cup-results-table").innerHTML = "";
     }
 
-        function connectRowsForNation(group, games, calcResults) {
+    // <Vanessa Hahn>
+    function connectRowsForNation(group, games, calcResults) {
         var data = [],
             countries = [],
             result,
@@ -490,7 +497,7 @@ View.PreTournamentLayout = function() {
     }
 
     function getColourArray(goals){
-        if(parseInt(goals[0])>parseInt(goals[1])) {
+        if(parseInt(goals[0]) > parseInt(goals[1])) {
             return ["green","red"];
         } else if(parseInt(goals[0]) < parseInt(goals[1])) {
             return ["red","green"];
@@ -505,6 +512,7 @@ View.PreTournamentLayout = function() {
         var widths = [STROKE_WIDTH_MIN + STROKE_WIDTH_ADDED_PER_GOAL * parseInt(goals[0]), STROKE_WIDTH_MIN + STROKE_WIDTH_ADDED_PER_GOAL * parseInt(goals[1])];
         return widths;
     }
+    // </Vanessa Hahn>
 
     that.init = init;
     that.setData = setData;

@@ -1,7 +1,6 @@
-var WMVis = WMVis || {},
-    EventPublisher = EventPublisher || {},
-    d3 = d3 || {};
-
+var WMVis = WMVis || {};
+var EventPublisher = EventPublisher || {};
+var d3 = d3 || {};
 WMVis.DataModel = function () {
     "use strict";
 
@@ -32,7 +31,7 @@ WMVis.DataModel = function () {
     function loadCSVData() {
         loadPreTournament();
     }
-    
+
     function getMatchday(currentState) {
         switch(currentState) {
             case 0:
@@ -43,13 +42,13 @@ WMVis.DataModel = function () {
                 return getMatchday2();
             case 3:
                 return getMatchday3();
-            case 4: 
+            case 4:
                 return getRo16();
-            case 5: 
+            case 5:
                 return getQuarter();
             case 6:
                 return getSemi();
-            case 7: 
+            case 7:
                 return getFinal();
         }
     }
