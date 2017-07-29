@@ -21,8 +21,7 @@ body {
     top: 0px;
     margin-top: 20px;
     padding: 20px 0px;
-    border-bottom: solid 1px;
-    /* border -> "color: black" to get different color than divider */
+    border-bottom: solid 1px #e0e0e0;
 }
 
 #stage-menu:hover {
@@ -42,9 +41,17 @@ body {
     justify-content: center;
     height: 60px;
     border-style: solid;
-    border-width: 2px;
-    border-color: black;
+    border-width: 1.5px;
+    border-color: #e0e0e0;
     font-size: calc(7px + .5vw);
+    text-align: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    border-radius: 10px;
+}
+
+.stage:hover {
+    background-color: rgba(224, 224, 224, 0.5);
 }
 
 #stage-label {
