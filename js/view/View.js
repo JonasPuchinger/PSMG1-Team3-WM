@@ -172,6 +172,14 @@ WMVis.View = function () {
         initStageMenu();
         initElemBrackets(data);
 
+        $(document).on('click', 'a', function(event){
+            event.preventDefault();
+
+            $('html, body').animate({
+                scrollTop: $( $.attr(this, 'href') ).offset().top
+            }, 500);
+        });
+
         preTournamentLayout = new View.PreTournamentLayout();
         groupLayout = new View.GroupLayout();
     }
