@@ -1,10 +1,8 @@
-var WMVis = WMVis || {},
-    View = View || {},
-    EventPublisher = EventPublisher || {};
+var WMVis = WMVis || {};
+var View = View || {};
+var EventPublisher = EventPublisher || {};
 WMVis.View = function () {
     "use strict";
-
-    const stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
 
     var that = new EventPublisher(),
         preTournamentLayout,
@@ -17,7 +15,8 @@ WMVis.View = function () {
         currentStage = 0,
         backgroundColorHovered = '#A9A9A9',
         backgroundColorNormal = '#FFFFFF',
-        fontColorNormal = '#000000';
+        fontColorNormal = '#000000',
+        stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
 
     function initStageMenu() {
         var stageMenu = document.querySelector('#stage-menu');
@@ -169,15 +168,18 @@ WMVis.View = function () {
     }
 
     function init(data) {
+        var stageMenuHeight = 100,
+          scrollAnimationDuration = 500;
+
         initStageMenu();
         initElemBrackets(data);
 
-        $(document).on('click', 'a', function(event){
+        $(document).on('click', '.nav-link', function(event) {
             event.preventDefault();
 
             $('html, body').animate({
-                scrollTop: $( $.attr(this, 'href') ).offset().top - 100
-            }, 500);
+                scrollTop: $( $.attr(this, 'href') ).offset().top - stageMenuHeight
+            }, scrollAnimationDuration);
         });
 
         preTournamentLayout = new View.PreTournamentLayout();

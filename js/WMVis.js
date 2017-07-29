@@ -47,7 +47,7 @@ WMVis = (function () {
         dataModel.addEventListener("finishedLoading", init);
         dataModel.init();
     }
- 
+
     function initController() {
         controller = new WMVis.Controller();
         controller.init();
@@ -62,42 +62,42 @@ WMVis = (function () {
         controller.addEventListener("teamHoverLeft", onTeamHoverLeft);
         controller.addEventListener("teamClicked", onTeamClicked);
     }
-  
+
     function onStageChanged(event) {
         currentStage = parseInt(event.data.replace(/\D+/g, ""),10);
 
         view.changeStage(currentStage);
         switch (currentStage) {
-            case 0: //Before Tournament
+            case 0:
                 preTournament();
                 break;
-            case 1: //After Md1
+            case 1:
                 md1();
                 break;
-            case 2: //After Md2
+            case 2:
                 md2();
                 break;
-            case 3: //After Md3
+            case 3:
                 md3();
                 break;
-            case 4: //Before K.O.
+            case 4:
                 ko();
                 break;
-            case 5: //After Ro16
+            case 5:
                 ro16();
                 break;
-            case 6: //After Quarter
+            case 6:
                 quarter();
                 break;
-            case 7: //After Semi
+            case 7:
                 semi();
                 break;
-            case 8: //After Finals
+            case 8:
                 final();
                 break;
         }
     }
-    
+
     function getProbabilities(data, nation) {
         var probabilities = Array(3);
         for(let i=0; i<data.length; i++) {
@@ -109,7 +109,7 @@ WMVis = (function () {
         }
         return probabilities;
     }
-    
+
     function getMostProbableResult(data){
         var probabilities = [],
             sixteen,
@@ -181,13 +181,12 @@ WMVis = (function () {
             groups.push(pt[i].group.toUpperCase());
         }
 
-        var abbrs = dataModel.getNationsAbbrs(nations);
-        // view.setData(pt);
+        var abbrs = dataModel.getNationsAbbrs(nations),
+          initDelay = 60;
         view.changeLayout(0, [pt, groups, nations, ids, abbrs], null);
-        // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function () {
             controller.initPreTournamentController();
-        }, 60);
+        }, initDelay);
     }
 
     function md1() {
@@ -210,7 +209,6 @@ WMVis = (function () {
         var abbrs = dataModel.getNationsAbbrs(nations);
         var probabilities = getMostProbableResult(md1);
         view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities, currentStage);
-        // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function () {
             controller.initGroupController();
         }, 40);
@@ -236,7 +234,6 @@ WMVis = (function () {
         var abbrs = dataModel.getNationsAbbrs(nations);
         var probabilities = getMostProbableResult(md2);
         view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities, currentStage);
-        // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function () {
             controller.initGroupController();
         }, 40);
@@ -262,7 +259,6 @@ WMVis = (function () {
         var abbrs = dataModel.getNationsAbbrs(nations);
         var probabilities = getMostProbableResult(md3);
         view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities, currentStage);
-        // timeout, um zu warten bis template komplett initialisiert ist
         setTimeout(function () {
             controller.initGroupController();
         }, 40);

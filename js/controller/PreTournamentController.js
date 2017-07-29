@@ -1,7 +1,8 @@
-var WMVis = WMVis || {},
-    Controller = Controller || {},
-    EventPublisher = EventPublisher || {},
-    $ = $ || {};
+// Jonas Puchinger
+var WMVis = WMVis || {};
+var Controller = Controller || {};
+var EventPublisher = EventPublisher || {};
+var $ = $ || {};
 Controller.PreTournamentController = function () {
     "use strict";
 
@@ -9,6 +10,7 @@ Controller.PreTournamentController = function () {
         nationCards;
 
     function init() {
+      var delay = 1;
         $(document).ready(function () {
             setTimeout(function () {
                 nationCards = document.querySelectorAll(".nationflag");
@@ -20,7 +22,7 @@ Controller.PreTournamentController = function () {
                 $('.button-collapse').sideNav({
                   closeOnClick: true
                 });
-            }, 1);
+            }, delay);
         });
     }
 
