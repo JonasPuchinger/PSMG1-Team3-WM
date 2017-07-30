@@ -453,11 +453,3 @@ table {
 #tournamentBracketsWinner .col {
     padding: 0 !important;
 }
-
-.bar {
-    z-index: 100;
-}
-
-.bar:hover {
-    fill: steelblue;
-}

@@ -15,7 +15,7 @@ Controller.GroupController = function () {
                     nationCards[i].addEventListener("click", onShowModal);
                 }
                 $('.button-collapse').sideNav({
-                  closeOnClick: true
+                    closeOnClick: true
                 });
             }, 10);
         });
