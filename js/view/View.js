@@ -19,11 +19,14 @@ WMVis.View = function () {
         stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
 
     // <Jakob Fehle>
+
+    // Add stagemenu entries to the parent div
     function initStageMenu() {
         var stageMenu = document.querySelector('#stage-menu');
 
         for (var i = 0; i < stages.length; i++) {
             var stage = document.createElement('div');
+
             stage.classList.add('col', 's1', 'stage');
             stage.innerHTML = stages[i];
             stage.setAttribute("id", 'stage' + i);
@@ -33,21 +36,25 @@ WMVis.View = function () {
         changeStage(0);
     }
 
+    // Changes the view-feedback of the stagemenu to the new stage
     function changeStage(newStage, oldStage = currentStage) {
-        $('#stage' + oldStage).css({
-            'background-color': backgroundColorNormal,
-            'font-weight': 'normal',
-            'color': fontColorNormal
-        });
+        $('#stage' + oldStage)
+            .css({
+                'background-color': backgroundColorNormal,
+                'font-weight': 'normal',
+                'color': fontColorNormal
+            });
 
-        $('#stage' + newStage).css({
-            'background-color': backgroundColorHovered,
-            'font-weight': 'bold',
-            'color': backgroundColorNormal
-        });
+        $('#stage' + newStage)
+            .css({
+                'background-color': backgroundColorHovered,
+                'font-weight': 'bold',
+                'color': backgroundColorNormal
+            });
         currentStage = newStage;
     }
 
+    // Pre-creates all five stages of the knockout phase
     function initElemBrackets(data) {
         var selector1 = '#tournamentBracketsPreKo > div',
             selector2 = '#tournamentBracketsPreQuarter > div',

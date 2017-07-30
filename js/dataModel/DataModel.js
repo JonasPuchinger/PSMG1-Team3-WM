@@ -7,11 +7,6 @@ WMVis.DataModel = function () {
     var that = new EventPublisher(),
         compareG = propComp('win_group'),
         compareAlphabetic = propComp('country'),
-        /*
-        compareRo16 = propComp('quarter'),
-        compareQ = propComp('semi'),
-        compareS = propComp('cup'),
-        */
         compareF = propComp('win'),
         preTournament,
         matchday1,

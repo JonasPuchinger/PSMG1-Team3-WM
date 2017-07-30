@@ -20,14 +20,14 @@ WMVis.ElemBracketShowPred = function (predData) {
         preSemiEl = document.querySelector('#tournamentBracketsPreSemi'),
         preFinalEl = document.querySelector('#tournamentBracketsPreFinal');
 
-    function init() {}
-
     function showPredRow(state, data) {
         recentChanges = [];
         country = data.children[1].innerText;
 
         switch (state) {
             case 4: //Pre Ro16
+
+                // Get country dependend ID values for every stage of the knockout phase
                 var ro16MatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''), 10),
                     qMatchID = Math.round((ro16MatchID) / 2),
                     sMatchID = Math.round((qMatchID) / 2),
@@ -42,12 +42,13 @@ WMVis.ElemBracketShowPred = function (predData) {
                     fTeamID = ((sMatchID + 1) % 2) + 1;
 
 
+                // Overwrite the content of each selected box with the predicted probabilities
                 preRo16El.querySelector('#q' + qMatchID + ' > table > tbody > tr.team' + qTeamID + ' > td.country > span').innerHTML = (countryPred.quarter * 100).toFixed(2) + ' %';
                 preRo16El.querySelector('#s' + sMatchID + ' > table > tbody > tr.team' + sTeamID + ' > td.country > span').innerHTML = (countryPred.semi * 100).toFixed(2) + ' %';
                 preRo16El.querySelector('#f' + fMatchID + ' > table > tbody > tr.team' + fTeamID + ' > td.country > span').innerHTML = (countryPred.cup * 100).toFixed(2) + ' %';
                 preRo16El.querySelector('#w1 > table > tbody > tr.team > td.country-winner > span').innerHTML = (countryPred.win * 100).toFixed(2) + ' %';
 
-
+                // Save the boxes for later restoration
                 recentChanges.push(preRo16El.querySelector('#q' + qMatchID + ' > table > tbody > tr.team' + qTeamID + ' > td.country > span'));
                 recentChanges.push(preRo16El.querySelector('#s' + sMatchID + ' > table > tbody > tr.team' + sTeamID + ' > td.country > span'));
                 recentChanges.push(preRo16El.querySelector('#f' + fMatchID + ' > table > tbody > tr.team' + fTeamID + ' > td.country > span'));
@@ -64,16 +65,16 @@ WMVis.ElemBracketShowPred = function (predData) {
                 break;
 
             case 5: //Pre Quarter
-                    qMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
-                    sMatchID = Math.round((qMatchID) / 2);
-                    fMatchID = 1;
-                    countryPred = _.find(preQuarter, function (obj) {
-                        if (obj.country === country) {
-                            return true;
-                        }
-                    });
-                    sTeamID = ((qMatchID + 1) % 2) + 1;
-                    fTeamID = ((sMatchID + 1) % 2) + 1;
+                qMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
+                sMatchID = Math.round((qMatchID) / 2);
+                fMatchID = 1;
+                countryPred = _.find(preQuarter, function (obj) {
+                    if (obj.country === country) {
+                        return true;
+                    }
+                });
+                sTeamID = ((qMatchID + 1) % 2) + 1;
+                fTeamID = ((sMatchID + 1) % 2) + 1;
 
                 preQuarterEl.querySelector('#s' + sMatchID + ' > table > tbody > tr.team' + sTeamID + ' > td.country > span').innerHTML = (countryPred.semi * 100).toFixed(2) + ' %';
                 preQuarterEl.querySelector('#f' + fMatchID + ' > table > tbody > tr.team' + fTeamID + ' > td.country > span').innerHTML = (countryPred.cup * 100).toFixed(2) + ' %';
@@ -95,14 +96,14 @@ WMVis.ElemBracketShowPred = function (predData) {
                 break;
 
             case 6: //Pre Semi
-                    sMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
-                    fMatchID = 1;
-                    countryPred = _.find(preSemi, function (obj) {
-                        if (obj.country === country) {
-                            return true;
-                        }
-                    });
-                    fTeamID = ((sMatchID + 1) % 2) + 1;
+                sMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
+                fMatchID = 1;
+                countryPred = _.find(preSemi, function (obj) {
+                    if (obj.country === country) {
+                        return true;
+                    }
+                });
+                fTeamID = ((sMatchID + 1) % 2) + 1;
 
                 preSemiEl.querySelector('#f' + fMatchID + ' > table > tbody > tr.team' + fTeamID + ' > td.country > span').innerHTML = (countryPred.cup * 100).toFixed(2) + ' %';
                 preSemiEl.querySelector('#w1 > table > tbody > tr.team > td.country-winner > span').innerHTML = (countryPred.win * 100).toFixed(2) + ' %';
@@ -146,6 +147,7 @@ WMVis.ElemBracketShowPred = function (predData) {
         }
     }
 
+    // Reset the highlighted boxes + predicted probabilities to default
     function resetPreds() {
         if (recentChanges !== undefined) {
             for (var i = 0; i < recentChanges.length; i++) {
@@ -181,6 +183,5 @@ WMVis.ElemBracketShowPred = function (predData) {
 
     that.showPredRow = showPredRow;
     that.resetPreds = resetPreds;
-    that.init = init;
     return that;
 }

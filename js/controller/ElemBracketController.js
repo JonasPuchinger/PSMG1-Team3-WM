@@ -10,6 +10,7 @@ Controller.ElemBracketController = function () {
 
     var that = new EventPublisher();
 
+    // Add customized eventListeners to specific boxes
     function init() {
         $(document).ready(function () {
             setTimeout(function () {

@@ -28,7 +28,6 @@ WMVis = (function () {
         view.init(optionsView);
 
         elemBracketPredView = new WMVis.ElemBracketShowPred(optionsPred);
-        elemBracketPredView.init();
     }
 
     function initCanvas() {
