@@ -64,16 +64,16 @@ WMVis.ElemBracketShowPred = function (predData) {
                 break;
 
             case 5: //Pre Quarter
-                    qMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
-                    sMatchID = Math.round((qMatchID) / 2);
-                    fMatchID = 1;
-                    countryPred = _.find(preQuarter, function (obj) {
-                        if (obj.country === country) {
-                            return true;
-                        }
-                    });
-                    sTeamID = ((qMatchID + 1) % 2) + 1;
-                    fTeamID = ((sMatchID + 1) % 2) + 1;
+                qMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
+                sMatchID = Math.round((qMatchID) / 2);
+                fMatchID = 1;
+                countryPred = _.find(preQuarter, function (obj) {
+                    if (obj.country === country) {
+                        return true;
+                    }
+                });
+                sTeamID = ((qMatchID + 1) % 2) + 1;
+                fTeamID = ((sMatchID + 1) % 2) + 1;
 
                 preQuarterEl.querySelector('#s' + sMatchID + ' > table > tbody > tr.team' + sTeamID + ' > td.country > span').innerHTML = (countryPred.semi * 100).toFixed(2) + ' %';
                 preQuarterEl.querySelector('#f' + fMatchID + ' > table > tbody > tr.team' + fTeamID + ' > td.country > span').innerHTML = (countryPred.cup * 100).toFixed(2) + ' %';
@@ -95,14 +95,14 @@ WMVis.ElemBracketShowPred = function (predData) {
                 break;
 
             case 6: //Pre Semi
-                    sMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
-                    fMatchID = 1;
-                    countryPred = _.find(preSemi, function (obj) {
-                        if (obj.country === country) {
-                            return true;
-                        }
-                    });
-                    fTeamID = ((sMatchID + 1) % 2) + 1;
+                sMatchID = parseInt((data.parentNode.parentNode.parentNode.id).replace(/\D/g, ''));
+                fMatchID = 1;
+                countryPred = _.find(preSemi, function (obj) {
+                    if (obj.country === country) {
+                        return true;
+                    }
+                });
+                fTeamID = ((sMatchID + 1) % 2) + 1;
 
                 preSemiEl.querySelector('#f' + fMatchID + ' > table > tbody > tr.team' + fTeamID + ' > td.country > span').innerHTML = (countryPred.cup * 100).toFixed(2) + ' %';
                 preSemiEl.querySelector('#w1 > table > tbody > tr.team > td.country-winner > span').innerHTML = (countryPred.win * 100).toFixed(2) + ' %';

@@ -1,110 +1,124 @@
 <script type="text/x-underscore" id="resultList">
-  <ul id="slide-out" class="side-nav">
-    <li class="centered">
-      <h3>Navigation</h3>
-    </li>
-    <div class="divider"></div>
-    <% _.each(groupNames, function(group, key0, list0) {
+    <ul id="slide-out" class="side-nav">
+        <li class="centered">
+            <h3>Navigation</h3>
+        </li>
+        <div class="divider"></div>
+        <% _.each(groupNames, function(group, key0, list0) {
 
     %>
-      <li class="centered">
-        <a class="nav-link" href="#group-<%= group %>">Group <%= group %></a>
-        <% _.each(nations[key0], function(nation, key4, list4) {
+            <li class="centered">
+                <a class="nav-link" href="#group-<%= group %>">Group <%= group %></a>
+                <% _.each(nations[key0], function(nation, key4, list4) {
 
         %>
-          <img class="nav-flag" id="<%= group %>" src="<%= flagsUrlBase %><%= abbrs[key0][key4] %>.svg" alt="<%= nation %>" width="28" height="20" group="<%= group %>">
-        <%
+                    <img class="nav-flag" id="<%= group %>" src="<%= flagsUrlBase %><%= abbrs[key0][key4] %>.svg" alt="<%= nation %>" width="28" height="20" group="<%= group %>">
+                    <%
           });
         %>
-      </li>
-      <div class="divider"></div>
-    <%
+            </li>
+            <div class="divider"></div>
+            <%
       });
     %>
-    <div id="back-to-top-btn">
-      <div class="section centered">
-        <a href="#logo-container" class="btn-floating btn-large nav-link"><i class="material-icons">keyboard_arrow_up</i></a>
-      </div>
-    </div>
-  </ul>
+                <div id="back-to-top-btn">
+                    <div class="section centered">
+                        <a href="#logo-container" class="btn-floating btn-large nav-link"><i class="material-icons">keyboard_arrow_up</i></a>
+                    </div>
+                </div>
+    </ul>
     <div class="row">
-      <div class="col s12" id="explainText">
-        <div class="col s4 centered" >
-            <p>These are the <b>actual results</b> of matchday <%= currentDay %>.</p>
-            <p>The stroke widths (and the colours) show the difference between the goals of the teams.</p>
+        <div class="col s12" id="explainText">
+            <div class="col s4 centered">
+                <p>These are the <b>actual results</b> of matchday
+                    <%= currentDay %>.</p>
+                <p>The stroke widths (and the colours) show the difference between the goals of the teams.</p>
+            </div>
+            <div class="col s4 centered">
+                <p>The teams are ordered by group.</p>
+                <p><b>Click</b> the flags to get additional information about a team.</p>
+            </div>
+            <div class="col s4 centered">
+                <% if(currentDay!==3) { %>
+                    <p>This is the <b>predicted result</b> of the group-phase in percent. Stroke widths show also the probabilities.</p>
+                    <p><b>Hover</b> the flags to see the predicted results for the next day.</p>
+                    <% } else { %>
+                        <p>This is the real result of the group games. The teams connected to 1 and 2 are in the round of 16.</p>
+                        <% } %>
+            </div>
         </div>
-        <div class="col s4 centered" >
-            <p>The teams are ordered by group.</p>
-            <p><b>Click</b> the flags to get additional information about a team.</p>
-        </div>
-        <div class="col s4 centered" >
-            <% if(currentDay!==3) { %><p>This is the <b>predicted result</b> of the group-phase in percent. Stroke widths show also the probabilities.</p><p><b>Hover</b> the flags to see the predicted results for the next day.</p><% } else { %><p>This is the real result of the group games. The teams connected to 1 and 2 are in the round of 16.</p><% } %>
-        </div>
-      </div>
     </div>
-  <div class="divider"></div>
+    <div class="divider"></div>
     <% _.each(groupNames, function(group, key1){
     %>
         <div class="row group" id="group-<%= group %>">
             <svg class="paths row-<%= key1 %>" width="100%" height="100%"></svg>
             <svg class="paths row2-<%= key1 %>" id="paths-<%= group %>" width="100%" height="100%"></svg>
             <svg class="paths row3-<%= group %>" width="100%" height="100%"></svg>
-          <div class="col s2">
-            <h4 class="centered">Results</h4>
-            <div class="row result-row">
-                <div class="col s12">
-                    <% _.each(games[key1], function(groupGames, key2){
+            <div class="col s2">
+                <h4 class="centered">Results</h4>
+                <div class="row result-row">
+                    <div class="col s12">
+                        <% _.each(games[key1], function(groupGames, key2){
                     %>
-                    <div class="result">
-                        <div><%= groupGames.result %></div>
-                    </div>
-                    <%
+                            <div class="result">
+                                <div>
+                                    <%= groupGames.result %>
+                                </div>
+                            </div>
+                            <%
                     });
                     %>
+                    </div>
                 </div>
             </div>
-          </div>
-          <div class="col s2 push-s3">
-                <h3 class="centered">Group <%= group %></h3>
+            <div class="col s2 push-s3">
+                <h3 class="centered">Group
+                    <%= group %>
+                </h3>
                 <% _.each(nations[key1], function(nation, key2, list2) {
                 %>
-                <div class="row nation-row">
-                    <div class="col s12" id="<%= group %>">
-                        <div class="card nationcard" id="<%= ids[key1][key2] %>">
-                            <div class="card-content" id="<%= ids[key1][key2] %>">
-                                <img class="nationflag" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48" id="<%= group %>" group="<%= group %>">
-                                <span id="<%= group %>"><%= nation %></span>
+                    <div class="row nation-row">
+                        <div class="col s12" id="<%= group %>">
+                            <div class="card nationcard" id="<%= ids[key1][key2] %>">
+                                <div class="card-content" id="<%= ids[key1][key2] %>">
+                                    <img class="nationflag" src="<%= flagsUrlBase %><%= abbrs[key1][key2] %>.svg" alt="<%= nation %>" width="64" height="48" id="<%= group %>" group="<%= group %>">
+                                    <span id="<%= group %>"><%= nation %></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <%
+                    <%
                   });
                 %>
             </div>
             <div class="col s3 push-s4" id="<%= group %>">
-                <h4 class="centered"><% if(currentDay!==3) { %>Calculated Results<% } else { %>Round of 16<% } %></h4>
+                <h4 class="centered">
+                    <% if(currentDay!==3) { %>Calculated Results
+                        <% } else { %>Round of 16
+                            <% } %>
+                </h4>
                 <% _.each(games[key1], function(groupGames, key2){
                  %>
                     <div class="calcResult hidden">
                         <div class="calculated" id="cR<%= key2 %>-<%= group %>"></div>
                     </div>
-                <%
+                    <%
                 });
                 %>
-                <div class="circle one">1</div>
-                <div class="circle two">2</div>
-                <div class="circle X">X</div>
+                        <div class="circle one">1</div>
+                        <div class="circle two">2</div>
+                        <div class="circle X">X</div>
             </div>
         </div>
-    <%
+        <%
       });
     %>
-    <div id="back-to-top-btn">
-      <div class="section centered">
-        <a href="#logo-container" class="btn-floating btn-large"><i class="material-icons">keyboard_arrow_up</i></a>
-      </div>
-    </div>
+            <div id="back-to-top-btn">
+                <div class="section centered">
+                    <a href="#logo-container" class="btn-floating btn-large"><i class="material-icons">keyboard_arrow_up</i></a>
+                </div>
+            </div>
 </script>
 
 <div id="resultEl"></div>

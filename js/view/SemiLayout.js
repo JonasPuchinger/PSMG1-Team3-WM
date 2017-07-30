@@ -1,6 +1,6 @@
 // Jakob Fehle
 
-var  WMVis = WMVis || {},
+var WMVis = WMVis || {},
     View = View || {},
     EventPublisher = EventPublisher || {};
 
@@ -8,8 +8,8 @@ View.SemiLayout = function (options) {
     "use strict";
     var that = new EventPublisher(),
         TBD = [{
-            game: ["TBD", "TBD"],
-            result: []
+                game: ["TBD", "TBD"],
+                result: []
         },
             {
                 game: ["TBD", "TBD"],

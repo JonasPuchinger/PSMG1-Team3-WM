@@ -7,8 +7,8 @@ View.QuarterLayout = function (options) {
     "use strict";
     var that = new EventPublisher(),
         TBD = [{
-            game: ["TBD", "TBD"],
-            result: []
+                game: ["TBD", "TBD"],
+                result: []
         },
             {
                 game: ["TBD", "TBD"],

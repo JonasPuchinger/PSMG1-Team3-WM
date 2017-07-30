@@ -12,7 +12,6 @@ WMVis.Controller = function () {
     function init() {
         stageMenu = document.querySelector("#stage-menu");
         stageMenu.addEventListener("click", onStageChange);
-
         initElemBracketController();
     }
 
