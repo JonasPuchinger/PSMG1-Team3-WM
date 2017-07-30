@@ -1,10 +1,9 @@
-/*jslint nomen: true*/
-/*global $, _*/
+// Jakob Fehle
 
-var d3 = d3 || {},
-    WMVis = WMVis || {},
+var  WMVis = WMVis || {},
     View = View || {},
     EventPublisher = EventPublisher || {};
+
 View.SemiLayout = function (options) {
     "use strict";
     var that = new EventPublisher(),

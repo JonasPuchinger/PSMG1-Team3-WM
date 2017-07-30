@@ -15,7 +15,7 @@
         <% _.each(matches, function(match,id) {%>
             <div class="match" id="r<%=id+1%>">
                 <table>
-                    <tr class="team team1" id="<%=match.game[0]%>">
+                    <tr class="team team1" id="r_<%=match.game[0]%>">
                         <td class="img">
                             <% if(match.game[0] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" alt="<%=dictionary[match.game[0]]%>" width="40" height="30">
@@ -35,7 +35,7 @@
                             <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                         </td>
                     </tr>
-                    <tr class="team team2" id="<%=match.game[1]%>">
+                    <tr class="team team2" id="r_<%=match.game[1]%>">
                         <td class="img">
                             <% if(match.game[1] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" alt="<%=dictionary[match.game[1]]%>" width="40" height="30">
@@ -69,7 +69,7 @@
         <% _.each(matches, function(match,id) {%>
             <div class="match" id="q<%=id+1%>">
                 <table>
-                    <tr class="team team1" id="<%=match.game[0]%>">
+                    <tr class="team team1" id="q_<%=match.game[0]%>">
                         <td class="img">
                             <% if(match.game[0] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" alt="<%=dictionary[match.game[0]]%>" width="40" height="30">
@@ -89,7 +89,7 @@
                             <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                         </td>
                     </tr>
-                    <tr class="team team2" id="<%=match.game[1]%>">
+                    <tr class="team team2" id="q_<%=match.game[1]%>">
                         <td class="img">
                             <% if(match.game[1] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" alt="<%=dictionary[match.game[1]]%>" width="40" height="30">
@@ -122,7 +122,7 @@
         <% _.each(matches, function(match,id) {%>
             <div class="match" id="s<%=id+1%>">
                 <table>
-                    <tr class="team team1" id="<%=match.game[0]%>">
+                    <tr class="team team1" id="s_<%=match.game[0]%>">
                         <td class="img">
                             <% if(match.game[0] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" alt="<%=dictionary[match.game[0]]%>" width="40" height="30">
@@ -142,7 +142,7 @@
                             <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                         </td>
                     </tr>
-                    <tr class="team team2" id="<%=match.game[1]%>">
+                    <tr class="team team2" id="s_<%=match.game[1]%>">
                         <td class="img">
                             <% if(match.game[1] != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" alt="<%=dictionary[match.game[1]]%>" width="40" height="30">
@@ -175,7 +175,7 @@
             <div class="winner-frame col s7 offset-s2" id="w1">
                 <div>WINNER</div>
                 <table>
-                    <tr class="team-winner team" id="<%=winner%>">
+                    <tr class="team-winner team" id="w_<%=winner%>">
                         <td class="img">
                             <% if(winner != "TBD") {%>
                                 <img src="<%=flagsUrlBase%><%=winner%>.svg" alt="<%=dictionary[winner]%>" width="40" height="30">
@@ -200,7 +200,7 @@
                 <% _.each(matches, function(match,id) {%>
                     <div class="match" id="f<%=id+1%>">
                         <table>
-                            <tr class="team team1" id="<%=match.game[0]%>">
+                            <tr class="team team1" id="f_<%=match.game[0]%>">
                                 <td class="img">
                                     <% if(match.game[0] != "TBD") {%>
                                         <img src="<%=flagsUrlBase%><%=match.game[0]%>.svg" alt="<%=dictionary[match.game[0]]%>" width="40" height="30">
@@ -220,7 +220,7 @@
                                     <span><%= typeof(match.result[0])!== 'undefined' ?  match.result[0] : '-' %></span>
                                 </td>
                             </tr>
-                            <tr class="team team2" id="<%=match.game[1]%>">
+                            <tr class="team team2" id="f_<%=match.game[1]%>">
                                 <td class="img">
                                     <% if(match.game[1] != "TBD") {%>
                                         <img src="<%=flagsUrlBase%><%=match.game[1]%>.svg" alt="<%=dictionary[match.game[1]]%>" width="40" height="30">

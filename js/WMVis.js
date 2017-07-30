@@ -19,10 +19,10 @@ WMVis = (function () {
                 dictionary: dataModel.getCountryDictionary()
             },
             optionsPred = {
-                ro16: dataModel.getRo16(),
-                quarter: dataModel.getQuarter(),
-                semi: dataModel.getSemi(),
-                final: dataModel.getFinal()
+                ro16: dataModel.getMatchday(4),
+                quarter: dataModel.getMatchday(5),
+                semi: dataModel.getMatchday(6),
+                final: dataModel.getMatchday(7)
             };
         view = new WMVis.View();
         view.init(optionsView);
@@ -164,7 +164,7 @@ WMVis = (function () {
     }
 
     function preTournament() {
-        var pt = dataModel.getPreTournament(),
+        var pt = dataModel.getMatchday(0),
             groups = [],
             nations = [],
             ids = [];
@@ -190,7 +190,7 @@ WMVis = (function () {
     }
 
     function md1() {
-        var md1 = dataModel.getMatchday1(),
+        var md1 = dataModel.getMatchday(1),
             groups = [],
             nations = [],
             ids = [];
@@ -215,7 +215,7 @@ WMVis = (function () {
     }
 
     function md2() {
-        var md2 = dataModel.getMatchday2(),
+        var md2 = dataModel.getMatchday(2),
             groups = [],
             nations = [],
             ids = [];
@@ -240,7 +240,7 @@ WMVis = (function () {
     }
 
     function md3() {
-        var md3 = dataModel.getMatchday3(),
+        var md3 = dataModel.getMatchday(3),
             groups = [],
             nations = [],
             ids = [];

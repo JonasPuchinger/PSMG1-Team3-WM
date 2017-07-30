@@ -1,5 +1,4 @@
-/*jslint nomen: true*/
-/*global $, _*/
+// Jakob Fehle
 
 var d3 = d3 || {},
     WMVis = WMVis || {},
@@ -15,7 +14,8 @@ Controller.ElemBracketController = function () {
         $(document).ready(function () {
             setTimeout(function () {
                 var teamsHover = $('#tournamentBracketsPreKo .ro16 tr.team,#tournamentBracketsPreQuarter .quarter tr.team, #tournamentBracketsPreSemi .semi tr.team, #tournamentBracketsPreFinal .final tr.team'),
-                    teamsClick = $('tr.team:not("[id=TBD]")');
+                    teamsClick = $('tr.team:not("[id=r_TBD]"):not("[id=q_TBD]"):not("[id=s_TBD]"):not("[id=f_TBD]"):not("[id=w_TBD]")');
+
                 for (var i = 0; i < teamsHover.length; i++) {
                     teamsHover[i].addEventListener("mouseenter", onMatchHovered);
                     teamsHover[i].addEventListener("mouseleave", onMatchLeft);
@@ -23,7 +23,7 @@ Controller.ElemBracketController = function () {
                 for (var i = 0; i < teamsClick.length; i++) {
                     teamsClick[i].addEventListener("click", onMatchClicked);
                 }
-            }, 1);
+            }, 50);
         });
     }
 

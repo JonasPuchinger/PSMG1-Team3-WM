@@ -24,33 +24,15 @@ WMVis.DataModel = function () {
         teamsWithTournamentProgression,
         countryDictionary = {};
 
+
+    //<Jakob Fehle>
+
     function init() {
         loadCSVData();
     }
 
     function loadCSVData() {
         loadPreTournament();
-    }
-
-    function getMatchday(currentState) {
-        switch(currentState) {
-            case 0:
-                return getPreTournament();
-            case 1:
-                return getMatchday1();
-            case 2:
-                return getMatchday2();
-            case 3:
-                return getMatchday3();
-            case 4:
-                return getRo16();
-            case 5:
-                return getQuarter();
-            case 6:
-                return getSemi();
-            case 7:
-                return getFinal();
-        }
     }
 
     function loadPreTournament() {
@@ -276,6 +258,17 @@ WMVis.DataModel = function () {
         }
     }
 
+    function createCountryDictionary() {
+        for (var i = 0; i < preTournament.length; i++) {
+            countryDictionary[(preTournament[i].country_id)] = preTournament[i].country;
+        }
+    }
+
+    function getCountryDictionary() {
+        return countryDictionary;
+    }
+    //</Jakob Fehle>
+
     function getNationsAbbrs(nations) {
         var parser,
             doc,
@@ -318,26 +311,28 @@ WMVis.DataModel = function () {
         }
     }
 
-    function createCountryDictionary() {
-        for (var i = 0; i < preTournament.length; i++) {
-            countryDictionary[(preTournament[i].country_id)] = preTournament[i].country;
+    function getMatchday(currentState) {
+        switch (currentState) {
+            case 0:
+                return getPreTournament();
+            case 1:
+                return getMatchday1();
+            case 2:
+                return getMatchday2();
+            case 3:
+                return getMatchday3();
+            case 4:
+                return getRo16();
+            case 5:
+                return getQuarter();
+            case 6:
+                return getSemi();
+            case 7:
+                return getFinal();
         }
     }
-
-    function getCountryDictionary() {
-        return countryDictionary;
-    }
-
     that.init = init;
     that.getMatchday = getMatchday;
-    that.getMatchday1 = getMatchday1;
-    that.getMatchday2 = getMatchday2;
-    that.getMatchday3 = getMatchday3;
-    that.getRo16 = getRo16;
-    that.getQuarter = getQuarter;
-    that.getSemi = getSemi;
-    that.getFinal = getFinal;
-    that.getPreTournament = getPreTournament;
     that.getTournamentProgress = getTournamentProgress;
     that.getNationsAbbrs = getNationsAbbrs;
     that.getCountryDictionary = getCountryDictionary;

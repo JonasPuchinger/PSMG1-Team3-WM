@@ -1,8 +1,6 @@
-/*jslint nomen: true*/
-/*global $, _*/
+// Jakob Fehle
 
-var d3 = d3 || {},
-    WMVis = WMVis || {},
+var WMVis = WMVis || {},
     View = View || {},
     EventPublisher = EventPublisher || {};
 View.FinalLayout = function (options) {

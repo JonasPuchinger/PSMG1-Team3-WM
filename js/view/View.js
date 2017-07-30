@@ -18,14 +18,15 @@ WMVis.View = function () {
         fontColorNormal = '#000000',
         stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
 
+    // <Jakob Fehle>
     function initStageMenu() {
         var stageMenu = document.querySelector('#stage-menu');
 
-        for(var i=0; i< stages.length; i++) {
+        for (var i = 0; i < stages.length; i++) {
             var stage = document.createElement('div');
-            stage.classList.add('col','s1','stage');
+            stage.classList.add('col', 's1', 'stage');
             stage.innerHTML = stages[i];
-            stage.setAttribute("id",'stage'+i);
+            stage.setAttribute("id", 'stage' + i);
             stageMenu.appendChild(stage);
         }
 
@@ -33,13 +34,13 @@ WMVis.View = function () {
     }
 
     function changeStage(newStage, oldStage = currentStage) {
-        $('#stage'+oldStage).css({
+        $('#stage' + oldStage).css({
             'background-color': backgroundColorNormal,
             'font-weight': 'normal',
             'color': fontColorNormal
         });
 
-        $('#stage'+newStage).css({
+        $('#stage' + newStage).css({
             'background-color': backgroundColorHovered,
             'font-weight': 'bold',
             'color': backgroundColorNormal
@@ -102,11 +103,21 @@ WMVis.View = function () {
         finalLayout.appendMatches(selector5);
     }
 
+    function hideAllTournamentBracketLayouts() {
+        document.querySelector('#tournamentBracketsPreKo').classList.add('hidden');
+        document.querySelector('#tournamentBracketsPreQuarter').classList.add('hidden');
+        document.querySelector('#tournamentBracketsPreSemi').classList.add('hidden');
+        document.querySelector('#tournamentBracketsPreFinal').classList.add('hidden');
+        document.querySelector('#tournamentBracketsWinner').classList.add('hidden');
+    }
+
+    // </Jakob Fehle>
+
     function setData(predData) {
         preTournamentLayout.setData(predData);
     }
 
-    function showNationModal(nationData, currentStage, probabilities=null, versus = null) {
+    function showNationModal(nationData, currentStage, probabilities = null, versus = null) {
         preTournamentLayout.showNationModal(nationData, currentStage, probabilities, versus);
     }
 
@@ -159,26 +170,18 @@ WMVis.View = function () {
         }
     }
 
-    function hideAllTournamentBracketLayouts() {
-        document.querySelector('#tournamentBracketsPreKo').classList.add('hidden');
-        document.querySelector('#tournamentBracketsPreQuarter').classList.add('hidden');
-        document.querySelector('#tournamentBracketsPreSemi').classList.add('hidden');
-        document.querySelector('#tournamentBracketsPreFinal').classList.add('hidden');
-        document.querySelector('#tournamentBracketsWinner').classList.add('hidden');
-    }
-
     function init(data) {
         var stageMenuHeight = 100,
-          scrollAnimationDuration = 500;
+            scrollAnimationDuration = 500;
 
         initStageMenu();
         initElemBrackets(data);
 
-        $(document).on('click', '.nav-link', function(event) {
+        $(document).on('click', '.nav-link', function (event) {
             event.preventDefault();
 
             $('html, body').animate({
-                scrollTop: $( $.attr(this, 'href') ).offset().top - stageMenuHeight
+                scrollTop: $($.attr(this, 'href')).offset().top - stageMenuHeight
             }, scrollAnimationDuration);
         });
 

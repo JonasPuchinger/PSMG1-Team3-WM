@@ -1,11 +1,7 @@
-/*jslint nomen: true*/
-/*global $, _*/
+// Jakob Fehle
 
-var d3 = d3 || {},
-    WMVis = WMVis || {},
-    View = View || {},
-    EventPublisher = EventPublisher || {},
-    Controller = Controller || {};
+var WMVis = WMVis || {},
+    EventPublisher = EventPublisher || {};
 WMVis.ElemBracketShowPred = function (predData) {
 
     "use strict";
