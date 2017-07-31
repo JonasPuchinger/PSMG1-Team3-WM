@@ -13,9 +13,6 @@ WMVis.View = function () {
         winnerLayout,
         groupLayout,
         currentStage = 0,
-        backgroundColorSelected = '#A9A9A9',
-        backgroundColorNormal = '#FFFFFF',
-        fontColorNormal = '#000000',
         stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
 
     // <Jakob Fehle>
