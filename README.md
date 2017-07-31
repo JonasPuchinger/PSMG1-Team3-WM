@@ -1,40 +1,13 @@
 # PSMG1-Team3-WM
 
-Wer hat was gemacht?
+This projects aims to vizualize some data regarding the men´s football world cup 2014 in South Africa. 
 
-Nach files?:
+:soccer:
 
-/css/style:                     Zu gleichen Teilen
-/data:                          Zu gleichen Teilen
+Data sources:
++ https://github.com/fivethirtyeight/data/tree/master/world-cup-predictions
++ http://knoema.de/lqxczvc/fifa-world-football-men-s-ranking-monthly-update?regionId=UA
++ https://github.com/jokecamp/FootballData/blob/master/World%20Cups/world_cup_data.csv
++ http://flag-icon-css.lip.is/
 
-/js/controller:
-    Controller:                 Zu gleichen Teilen
-    ElemBracketController:      Jakob Fehle
-    GroupController:            Vanessa Hahn
-    PreTournamentController:    Jonas Puchinger
-    ProbabilityController:      Vanessa Hahn
-    
-/js/dataModel:
-    DataModel:                  Grundgerüst Jakob Fehle, eigene Anforderungen zu gleichen Teilen
-    GamesData:                  Vanessa Hahn
-    
-/js/view:
-    View:                       Zu gleichen Teilen
-    GroupLayout:                Vanessa Hahn
-    PreTournamentLayout:        Jonas Puchinger
-    ElemBracketShowPred:        Jakob Fehle
-    FinalLayout:                Jakob Fehle
-    QuarterLayout:              Jakob Fehle
-    Ro16Layout:                 Jakob Fehle
-    SemiLayout:                 Jakob Fehle
-    WinnerLayout                Jakob Fehle
-    
-/WMVis.js                       Zu gleichen Teilen
-
-/pages/about:                   Jonas Puchinger
-
-/templates/group-phase          Vanessa Hahn
-/templates/ko-phase             Jakob Fehle
-/templates/pre-tournament       Jonas Puchinger
-
-/index.html:                    (Grundgerüst)? Jonas Puchinger    
+Made with :heart: by Vanessa Hahn, Jakob Fehle and Jonas Puchinger
