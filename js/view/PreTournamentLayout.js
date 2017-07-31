@@ -160,21 +160,26 @@ View.PreTournamentLayout = function () {
 
             // <Vanessa Hahn>
             const BAR_WIDTH = 80;
-            var title = document.querySelector("#prob");
-            title.innerHTML = ("");
+            var title = document.querySelectorAll("#probabilities"),
+                keys,
+                colours;
+            for (let i = 0; i < title.length; i++) {
+                title[i].classList.add("hidden");
+            }
             if (currentStage !== 3 && versus !== "") {
                 var formatPercent = d3.format(".0%");
                 if (currentStage < 3) {
-                    title.innerHTML = ("Probabilities to reach the K.O.-phase");
-
-                    var keys = ["Gruppenerster", "Gruppenzweiter", "Ausscheiden"];
-                    var colours = ["green", "orange", "red"];
+                    title[0].innerHTML = ("Probabilities to reach the K.O.-phase");
+                    keys = ["Gruppenerster", "Gruppenzweiter", "Ausscheiden"];
+                    colours = ["green", "orange", "red"];
                 } else {
-                    title.innerHTML = ("Probabilities for the next game");
+                    title[0].innerHTML = ("Probabilities for the next game");
+                    keys = ["WIN", "LOSE"];
+                    colours = ["green", "red"];
 
-                    var keys = ["WIN", "LOSE"];
-                    var colours = ["green", "red"];
-
+                }
+                for (let i = 0; i < title.length; i++) {
+                    title[i].classList.remove("hidden");
                 }
                 var keysRange = [];
                 for (let i = 0; i < keys.length; i++) {
@@ -205,23 +210,19 @@ View.PreTournamentLayout = function () {
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
                 var detailBox = svg.append("svg:text")
                     .attr("dx", "20px")
                     .attr("dy", "-5px")
                     .attr("text-anchor", "right")
                     .style("fill", "#A0A0A0")
                     .style("font-weight", "bold");
-
                 svg.append("g")
                     .attr("class", "x axis")
                     .attr("transform", "translate(0," + height + ")")
                     .call(xAxis);
-
                 svg.append("g")
                     .attr("class", "y axis")
                     .call(yAxis)
-
                 svg.selectAll(".bar")
                     .data(data)
                     .enter().append("rect")
@@ -253,7 +254,6 @@ View.PreTournamentLayout = function () {
                         d3.select(this)
                             .style("opacity", 1.0);
                     });
-
                 if (versus !== null) {
                     svg.append("g")
                         .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")")
@@ -479,38 +479,20 @@ View.PreTournamentLayout = function () {
     }
 
     // <Vanessa Hahn>
-    function connectRowsForNation(group, games, calcResults) {
-        const CURVE_DIVIDER1 = 90,
-            CURVE_DIVIDER2 = 20;
-        var data = [],
-            countries = [],
-            result,
-            calcGoals;
+    function getCountries(games) {
+        var countries = [];
         for (let i = 0; i < games.length; i++) {
             var ids = games[i].game.split("-");
             for (let j = 0; j < ids.length; j++) {
                 countries.push(document.querySelector("#" + ids[j]));
             }
         }
-        togglePredictionRow(group);
-        var colLeft = document.querySelectorAll("#" + group + "-matchcol")[1].offsetLeft,
-            navHeight = document.querySelector(".nav-wrapper").offsetHeight + document.querySelector(".stage-menu-fixed").offsetHeight + 10,
-            colours,
-            strokeWidths,
-            root = d3.select("#paths-" + group);
-        for (let i = 0; i < countries.length; i++) {
-            if (i % 2 === 0) {
-                var index = parseInt(i / 2);
-                var calcGoals = calcResults[index].split(":");
-                colours = getColourArray(calcGoals);
-                strokeWidths = getWidthsArray(calcGoals)
-                var matchCol = document.querySelectorAll("#" + group + "-matchcol")[1];
-                result = matchCol.querySelector("#resultcard-" + index);
-                result.querySelector("#goals").innerHTML = calcResults[index];
-            }
-            data.push(["M " + (countries[i].offsetLeft + countries[i].offsetWidth) + " " + (countries[i].offsetTop + countries[i].offsetHeight / 2) + " Q " + (result.offsetLeft + colLeft - CURVE_DIVIDER1) + " " + (result.offsetTop + result.offsetHeight / 2 + navHeight) + " " + (result.offsetLeft + colLeft + CURVE_DIVIDER2) + " " + (result.offsetTop + result.offsetHeight / 2 + navHeight), colours[i % 2], strokeWidths[i % 2]]);
-        }
-        var paths = root.selectAll("g"),
+        return countries;
+    }
+
+    function showPaths(data, group) {
+        var root = d3.select("#paths-" + group),
+            paths = root.selectAll("g"),
             pathsUpdate = paths.data(data),
             enterPaths = pathsUpdate.enter().append("g"),
             exitPaths = pathsUpdate.exit().remove(),
@@ -523,6 +505,33 @@ View.PreTournamentLayout = function () {
         link.style("stroke-width", function (d) {
             return d[2];
         });
+    }
+
+    function connectRowsForNation(group, games, calcResults) {
+        const CURVE_DIVIDER1 = 90,
+            CURVE_DIVIDER2 = 20,
+            DIVIDER = 10;
+        var data = [],
+            countries = getCountries(games),
+            result;
+        togglePredictionRow(group);
+        var colLeft = document.querySelectorAll("#" + group + "-matchcol")[1].offsetLeft,
+            navHeight = document.querySelector(".nav-wrapper").offsetHeight + document.querySelector(".stage-menu-fixed").offsetHeight + DIVIDER,
+            colours,
+            strokeWidths;
+        for (let i = 0; i < countries.length; i++) {
+            if (i % 2 === 0) {
+                var index = parseInt(i / 2);
+                var calcGoals = calcResults[index].split(":");
+                colours = getColourArray(calcGoals);
+                strokeWidths = getWidthsArray(calcGoals)
+                var matchCol = document.querySelectorAll("#" + group + "-matchcol")[1];
+                result = matchCol.querySelector("#resultcard-" + index);
+                result.querySelector("#goals").innerHTML = calcResults[index];
+            }
+            data.push(["M " + (countries[i].offsetLeft + countries[i].offsetWidth) + " " + (countries[i].offsetTop + countries[i].offsetHeight / 2) + " Q " + (result.offsetLeft + colLeft - CURVE_DIVIDER1) + " " + (result.offsetTop + result.offsetHeight / 2 + navHeight) + " " + (result.offsetLeft + colLeft + CURVE_DIVIDER2) + " " + (result.offsetTop + result.offsetHeight / 2 + navHeight), colours[i % 2], strokeWidths[i % 2]]);
+        }
+        showPaths(data, group);
     }
 
     function deleteConnectRows(group) {
