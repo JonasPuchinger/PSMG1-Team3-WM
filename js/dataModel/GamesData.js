@@ -2,7 +2,7 @@ var WMVis = WMVis || {};
 WMVis.GamesData = (function () {
     "use strict";
 
-    const games = [[[{
+    const GAMES = [[[{
                     group: "A",
                     game: "BRA-CRO",
                     result: "3:1"
@@ -311,28 +311,28 @@ WMVis.GamesData = (function () {
     var that = {};
 
     function getGamesOfDay(key) {
-        return games[key];
+        return GAMES[key];
     }
-    
-    function getGames(key, group){
+
+    function getGames(key, group) {
         var games,
             gamesOfDay = getGamesOfDay(key);
-        for(let i=0; i<gamesOfDay.length; i++){
-            if(gamesOfDay[i][0].group === group){
+        for (let i = 0; i < gamesOfDay.length; i++) {
+            if (gamesOfDay[i][0].group === group) {
                 games = gamesOfDay[i];
                 break;
             }
         }
         return games;
     }
-    
+
     function getGame(key, nation) {
         var game,
-            gamesOfDay = getGamesOfDay(key-1);
-        for(let i=0; i<gamesOfDay.length; i++) {
-            if(gamesOfDay[i].game[0] === nation) {
+            gamesOfDay = getGamesOfDay(key - 1);
+        for (let i = 0; i < gamesOfDay.length; i++) {
+            if (gamesOfDay[i].game[0] === nation) {
                 game = gamesOfDay[i].game;
-            } else if(gamesOfDay[i].game[1] === nation) {
+            } else if (gamesOfDay[i].game[1] === nation) {
                 game = [gamesOfDay[i].game[1], gamesOfDay[i].game[0]];
             }
         }

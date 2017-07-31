@@ -264,6 +264,8 @@ WMVis.DataModel = function () {
     }
     //</Jakob Fehle>
 
+
+    //<Jonas Puchinger>
     function getNationsAbbrs(nations) {
         var parser,
             doc,
@@ -305,7 +307,9 @@ WMVis.DataModel = function () {
             }
         }
     }
+    //</Jonas Puchinger>
 
+    //<Vanessa Hahn>    
     function getMatchday(currentState) {
         switch (currentState) {
             case 0:
@@ -326,6 +330,8 @@ WMVis.DataModel = function () {
                 return getFinal();
         }
     }
+    //</Vanessa Hahn>    
+
     that.init = init;
     that.getMatchday = getMatchday;
     that.getTournamentProgress = getTournamentProgress;

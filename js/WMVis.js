@@ -10,7 +10,7 @@ WMVis = (function () {
         elemBracketPredView,
         currentStage = 0;
 
-     function initView() {
+    function initView() {
         var optionsView = {
                 ro16: gamesData.getGamesOfDay(3),
                 quarter: gamesData.getGamesOfDay(4),
@@ -63,7 +63,7 @@ WMVis = (function () {
     }
 
     function onStageChanged(event) {
-        currentStage = parseInt(event.data.replace(/\D+/g, ""),10);
+        currentStage = parseInt(event.data.replace(/\D+/g, ""), 10);
 
         view.changeStage(currentStage);
         switch (currentStage) {
@@ -71,13 +71,9 @@ WMVis = (function () {
                 preTournament();
                 break;
             case 1:
-                md1();
-                break;
             case 2:
-                md2();
-                break;
             case 3:
-                md3();
+                groupDay();
                 break;
             case 4:
                 ko();
@@ -99,8 +95,8 @@ WMVis = (function () {
 
     function getProbabilities(data, nation) {
         var probabilities = Array(3);
-        for(let i=0; i<data.length; i++) {
-            if(data[i].country_id === nation) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].country_id === nation) {
                 probabilities[0] = data[i].win_group;
                 probabilities[1] = data[i].sixteen - probabilities[0];
                 probabilities[2] = 1 - data[i].sixteen;
@@ -109,22 +105,22 @@ WMVis = (function () {
         return probabilities;
     }
 
-    function getMostProbableResult(data){
+    function getMostProbableResult(data) {
         var probabilities = [],
             sixteen,
             one,
             two,
             values,
             chance;
-        for(let i=0; i<parseInt(data.length/4); i++){
+        for (let i = 0; i < parseInt(data.length / 4); i++) {
             values = [];
             one = [];
             two = [];
-            for(let j=0; j<4; j++){
-                one.push(data[i*4+j].win_group);
-                two.push(data[i*4+j].sixteen - one[j]);
+            for (let j = 0; j < 4; j++) {
+                one.push(data[i * 4 + j].win_group);
+                two.push(data[i * 4 + j].sixteen - one[j]);
             }
-            chance = ['x','x','x','x'];
+            chance = ['x', 'x', 'x', 'x'];
             var maxOne = getMaxIndex(one);
             chance[maxOne] = '1';
             var maxTwo = getMaxIndex(two);
@@ -181,83 +177,33 @@ WMVis = (function () {
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations),
-          initDelay = 60;
+            initDelay = 60;
         view.changeLayout(0, [pt, groups, nations, ids, abbrs], null);
         setTimeout(function () {
             controller.initPreTournamentController();
         }, initDelay);
     }
 
-    function md1() {
-        var md1 = dataModel.getMatchday(1),
+    function groupDay() {
+        var matchday = dataModel.getMatchday(currentStage),
             groups = [],
             nations = [],
             ids = [];
-        for (var i = 0; i < md1.length; i += 4) {
+        for (var i = 0; i < matchday.length; i += 4) {
             var nationsGroup = [];
             var idsGroup = [];
             for (var j = i; j < (i + 4); j++) {
-                nationsGroup.push(md1[j].country);
-                idsGroup.push(md1[j].country_id);
+                nationsGroup.push(matchday[j].country);
+                idsGroup.push(matchday[j].country_id);
             }
             nations.push(nationsGroup);
             ids.push(idsGroup);
-            groups.push(md1[i].group.toUpperCase());
+            groups.push(matchday[i].group.toUpperCase());
         }
 
         var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getMostProbableResult(md1);
-        view.changeLayout(1, [md1, groups, nations, ids, abbrs], gamesData.getGamesOfDay(0), probabilities, currentStage);
-        setTimeout(function () {
-            controller.initGroupController();
-        }, 40);
-    }
-
-    function md2() {
-        var md2 = dataModel.getMatchday(2),
-            groups = [],
-            nations = [],
-            ids = [];
-        for (var i = 0; i < md2.length; i += 4) {
-            var nationsGroup = [];
-            var idsGroup = [];
-            for (var j = i; j < (i + 4); j++) {
-                nationsGroup.push(md2[j].country);
-                idsGroup.push(md2[j].country_id);
-            }
-            nations.push(nationsGroup);
-            ids.push(idsGroup);
-            groups.push(md2[i].group.toUpperCase());
-        }
-
-        var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getMostProbableResult(md2);
-        view.changeLayout(1, [md2, groups, nations, ids, abbrs], gamesData.getGamesOfDay(1), probabilities, currentStage);
-        setTimeout(function () {
-            controller.initGroupController();
-        }, 40);
-    }
-
-    function md3() {
-        var md3 = dataModel.getMatchday(3),
-            groups = [],
-            nations = [],
-            ids = [];
-        for (var i = 0; i < md3.length; i += 4) {
-            var nationsGroup = [];
-            var idsGroup = [];
-            for (var j = i; j < (i + 4); j++) {
-                nationsGroup.push(md3[j].country);
-                idsGroup.push(md3[j].country_id);
-            }
-            nations.push(nationsGroup);
-            ids.push(idsGroup);
-            groups.push(md3[i].group.toUpperCase());
-        }
-
-        var abbrs = dataModel.getNationsAbbrs(nations);
-        var probabilities = getMostProbableResult(md3);
-        view.changeLayout(1, [md3, groups, nations, ids, abbrs], gamesData.getGamesOfDay(2), probabilities, currentStage);
+        var probabilities = getMostProbableResult(matchday);
+        view.changeLayout(1, [matchday, groups, nations, ids, abbrs], gamesData.getGamesOfDay(currentStage - 1), probabilities, currentStage);
         setTimeout(function () {
             controller.initGroupController();
         }, 40);
@@ -287,7 +233,7 @@ WMVis = (function () {
         var nation = event.data.parentElement.id,
             probabilities,
             index = 0;
-        for(let i='A'; i<event.data.getAttribute("group"); i++) {
+        for (let i = 'A'; i < event.data.getAttribute("group"); i++) {
             index++;
         }
         probabilities = getProbabilities(dataModel.getMatchday(currentStage), nation);
@@ -309,25 +255,30 @@ WMVis = (function () {
         var data = dataModel.getMatchday(currentStage),
             probabilityController = new WMVis.ProbabilityController(),
             probabilities = [],
-            id;
-        for(let i= 0; i<data.length; i++) {
-            if(data[i].country === img.getAttribute("alt")) {
-                id = data[i].country_id;
-                probabilities.push(probabilityController.getProbability(data[i], currentStage));
-            }
-        }
-        var game = gamesData.getGame(currentStage, id);
-        var versus = "";
-        if(game !== undefined) {
-            versus = game[1]
-            for(let i=0; i<data.length; i++) {
-                if(data[i].country_id === versus) {
+            id,
+            game = undefined,
+            versus;
+        if (data !== undefined) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].country === img.getAttribute("alt")) {
+                    id = data[i].country_id;
                     probabilities.push(probabilityController.getProbability(data[i], currentStage));
+                }
+            }
+            game = gamesData.getGame(currentStage, id);
+        }
+        versus = "";
+        if (game !== undefined) {
+            versus = game[1]
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].country_id === versus) {
+                    probabilities.push(probabilityController.getProbability(data[i], currentStage));
+                    versus = data[i].country;
                 }
             }
         }
         view.showNationModal(img, currentStage, probabilities, versus);
-}
+    }
 
     function showCalcResult(event) {
         var data = dataModel.getMatchday(currentStage),
@@ -352,7 +303,7 @@ WMVis = (function () {
             var probabilityController = new WMVis.ProbabilityController(),
                 probabilities = [];
 
-            for(let i=0; i<games.length; i++){
+            for (let i = 0; i < games.length; i++) {
                 probabilities.push(probabilityController.calculateResult(games[i].game, data));
             }
             view.showCalcResult(currentStage, group, games, probabilities);

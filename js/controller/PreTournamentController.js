@@ -10,7 +10,7 @@ Controller.PreTournamentController = function () {
         nationCards;
 
     function init() {
-      var delay = 1;
+        var delay = 1;
         $(document).ready(function () {
             setTimeout(function () {
                 nationCards = document.querySelectorAll(".nationflag");
@@ -20,7 +20,7 @@ Controller.PreTournamentController = function () {
                     nationCards[i].addEventListener("click", onNationCardClicked);
                 }
                 $('.button-collapse').sideNav({
-                  closeOnClick: true
+                    closeOnClick: true
                 });
             }, delay);
         });
