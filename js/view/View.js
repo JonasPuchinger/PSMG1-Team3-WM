@@ -13,7 +13,7 @@ WMVis.View = function () {
         winnerLayout,
         groupLayout,
         currentStage = 0,
-        backgroundColorHovered = '#A9A9A9',
+        backgroundColorSelected = '#A9A9A9',
         backgroundColorNormal = '#FFFFFF',
         fontColorNormal = '#000000',
         stages = ["Before Tournament", "Matchday 1", "Matchday 2", "Matchday 3", "Round of 16", "Quarterfinal", "Semifinal", "Final", "Winner"];
@@ -38,19 +38,8 @@ WMVis.View = function () {
 
     // Changes the view-feedback of the stagemenu to the new stage
     function changeStage(newStage, oldStage = currentStage) {
-        $('#stage' + oldStage)
-            .css({
-                'background-color': backgroundColorNormal,
-                'font-weight': 'normal',
-                'color': fontColorNormal
-            });
-
-        $('#stage' + newStage)
-            .css({
-                'background-color': backgroundColorHovered,
-                'font-weight': 'bold',
-                'color': backgroundColorNormal
-            });
+        document.querySelector('#stage'+oldStage).classList.remove('stage-selected');
+        document.querySelector('#stage'+newStage).classList.add('stage-selected');
         currentStage = newStage;
     }
 

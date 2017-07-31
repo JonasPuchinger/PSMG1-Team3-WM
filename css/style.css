@@ -35,6 +35,12 @@ body {
     align-content: center;
 }
 
+.stage-selected {
+    background-color: #A9A9A9;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
 .stage {
     display: flex;
     align-items: center;
